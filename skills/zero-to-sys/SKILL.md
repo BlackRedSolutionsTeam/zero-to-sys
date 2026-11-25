@@ -1,47 +1,13 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, store-targets, mobile-release, desktop-release, admin-panel, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: 'Orquestra a criação de um sistema do zero até produção: descobre o contexto, define as fases e as skills de cada uma, dispara os agentes do plugin em ondas paralelas e conduz o backlog item a item até staging. Use para "criar um sistema do zero", "por onde começo", "monta tudo" ou "implementa a próxima funcionalidade".'
 ---
 
 # zero-to-sys
 
 Skill principal. Não decide stack, pasta, código, visual nem infra: ela descobre o contexto, define quais skills entram, em que ordem, e o que cada uma entrega para a próxima. Cada decisão técnica é da skill da área.
 
-| Skill | Pasta | Responde |
-|---|---|---|
-| `product` | [product/](../product/SKILL.md) | O que construir: MVP, fluxos, regras, histórias e backlog |
-| `stacks` | [stacks/](../stacks/SKILL.md) | Qual stack completa usar |
-| `architecture` | [architecture/](../architecture/SKILL.md) | Como organizar pastas e arquivos |
-| `data` | [data/](../data/SKILL.md) | Como modelar tabelas, migrations e isolamento por cliente |
-| `api` | [api/](../api/SKILL.md) | Como desenhar o contrato da API entre front e back |
-| `security` | [security/](../security/SKILL.md) | Como proteger login, permissões, upload e dados pessoais |
-| `integrations` | [integrations/](../integrations/SKILL.md) | Como integrar serviços externos e rodar tarefas em segundo plano |
-| `audit` | [audit/](../audit/SKILL.md) | O que está bom e o que falta num projeto existente |
-| `quality` | [quality/](../quality/SKILL.md) | Como testar, o que barra o PR e quando um item está pronto |
-| `ia` | [ia/](../ia/SKILL.md) | Como configurar e usar o agente no projeto |
-| `code-indexes` | [code-indexes/](../code-indexes/SKILL.md) | Se e qual índice de código usar |
-| `coding` | [coding/](../coding/SKILL.md) | Como escrever o código |
-| `user-experience` | [user-experience/](../user-experience/SKILL.md) | Como a experiência muda entre celular, tablet e desktop |
-| `design-systems` | [design-systems/](../design-systems/SKILL.md) | Qual layout cada tela deve ter, com exemplo pronto |
-| `design` | [design/](../design/SKILL.md) | Quais UI kits e ícones usar |
-| `domains` | [domains/](../domains/SKILL.md) | Como registrar e configurar o domínio e o e-mail dele |
-| `cloudflare` | [cloudflare/](../cloudflare/SKILL.md) | Como pôr a Cloudflare na frente do sistema |
-| `vps` | [vps/](../vps/SKILL.md) | Qual VPS no Brasil e como preparar o servidor |
-| `nginx` | [nginx/](../nginx/SKILL.md) | Como configurar o nginx no servidor |
-| `ai-features` | [ai-features/](../ai-features/SKILL.md) | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo |
-| `invoicing` | [invoicing/](../invoicing/SKILL.md) | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP |
-| `search` | [search/](../search/SKILL.md) | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch |
-| `messaging` | [messaging/](../messaging/SKILL.md) | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas |
-| `performance` | [performance/](../performance/SKILL.md) | Medir e ganhar desempenho no back, cache, carga com k6 e escala |
-| `operations` | [operations/](../operations/SKILL.md) | SLO, plantão, runbooks, incidentes, página de status e suporte |
-| `maintenance` | [maintenance/](../maintenance/SKILL.md) | Fim de suporte, atualização de dependências e framework, dívida técnica |
-| `local-dev` | [local-dev/](../local-dev/SKILL.md) | Ambiente local, Compose, devcontainer, .env.example e onboarding |
-| `legal` | [legal/](../legal/SKILL.md) | Termos, política de privacidade, cookies, aceite versionado e contratos |
-| `store-targets` | [store-targets/](../store-targets/SKILL.md) | Onde o projeto vai ser publicado e o que cada loja exige desde o início |
-| `mobile-release` | [mobile-release/](../mobile-release/SKILL.md) | Contas, assinatura, EAS, lojas, regras de revisão e push |
-| `desktop-release` | [desktop-release/](../desktop-release/SKILL.md) | Microsoft Store, Mac App Store, assinatura, notarização e Linux |
-| `admin-panel` | [admin-panel/](../admin-panel/SKILL.md) | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte |
-| `infra` | [infra/](../infra/SKILL.md) | Onde e como pôr em produção |
+Cada skill tem um agente especialista dono dela; a lista de skills de cada um está na tabela do arquivo dele em [`agents/`](../../agents/) (resumo no [documento 03](docs/03-especialistas-e-modos.md)). Abra o `SKILL.md` da skill pela ferramenta `Skill` (`zero-to-sys:<skill>`) ou em `skills/<skill>/SKILL.md`.
 
 ## Skills sob demanda
 
@@ -65,21 +31,13 @@ Estas skills não têm fase fixa: chame cada uma quando a condição valer.
 
 ## Paralelismo e especialistas
 
-Quando a ferramenta de agentes estiver disponível (Claude Code como sessão principal, ou Codex), não rode as fases em série se as partes não dependem entre si:
+Quando a ferramenta de agentes estiver disponível (Claude Code como sessão principal, ou Codex), não rode as fases em série: divida em partes e dispare em ondas os agentes do plugin.
 
-1. **Meça a máquina:** `sysctl -n hw.ncpu` (macOS) ou `nproc` (Linux). Até metade dos núcleos de agentes ao mesmo tempo, entre 2 e 10; no máximo 3 com menos de 8 GB livres. Quem roda build, testes ou containers conta como dois.
-2. **Monte as ondas:** liste as partes e as dependências; tudo o que já pode rodar sai junto, numa única mensagem com várias chamadas de agente.
-3. **Um especialista por área:** cada parte vai para o agente do grupo de skills dela (`agents/zero-to-sys-<area>.md`: arquiteto, seguranca, backend, frontend, qualidade, infra, publicacao), no modo planejar, julgar ou executar. No Codex, onde esses agentes não são instalados, crie um subagente e cole no pedido as instruções do arquivo do especialista.
-4. **Sem conflito:** dois agentes só executam juntos em arquivos diferentes; se não der, use worktree ou ponha em série.
-5. **Modelo e esforço por parte:**
-
-| Parte | Claude Code | Codex | Esforço |
-|---|---|---|---|
-| Decisão difícil (stack, banco, auth, LGPD, julgamento) | `opus` | `gpt-6.2-astra` | `high` |
-| Implementar | `sonnet` | `gpt-6.2-sol` | `medium` |
-| Mecânica | `haiku` | `gpt-6-luna` | `low` |
-
-Nomes do Codex mudam: confira com `codex debug models`. `max` (e `ultra` no Codex) só quando o usuário pedir. Detalhes no agente `agents/zero-to-sys.md`.
+| Tema | Documento |
+|---|---|
+| Limite pela máquina, ondas, fluxo de uma parte, conflitos | [docs/01-paralelismo-e-ondas.md](docs/01-paralelismo-e-ondas.md) |
+| Modelo e esforço de cada chamada (Claude Code e Codex) | [docs/02-modelos-e-esforco.md](docs/02-modelos-e-esforco.md) |
+| Agentes, modos, pedido e formato de resposta | [docs/03-especialistas-e-modos.md](docs/03-especialistas-e-modos.md) |
 
 ## Passo 0 — Descobrir o contexto
 
