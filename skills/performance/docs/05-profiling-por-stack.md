@@ -63,7 +63,7 @@ Fluxo igual em todas as stacks: suba carga com o k6, colete 30 a 60 segundos de 
 
 ### Node
 
-Perfil de CPU embutido, conferido na CLI do Node em 2026-11-25. Ao encerrar o processo, grava um arquivo `.cpuprofile`:
+Perfil de CPU embutido, executado no Node v26.13.1 em 2026-11-25 (gerou `CPU.<data>.<hora>.<pid>.0.001.cpuprofile` dentro da pasta de `--cpu-prof-dir`). Ao encerrar o processo, grava um arquivo `.cpuprofile`:
 
 ```bash
 node --cpu-prof --cpu-prof-dir=./perfis dist/server.js
@@ -95,7 +95,7 @@ Sem `--profile`, a ferramenta usa `dotnet-common` mais `dotnet-sampled-thread-ti
 dotnet-counters monitor --process-id 1234
 ```
 
-Rode como o mesmo usuário do processo (ou root) e, em contêiner, com o mesmo `TMPDIR`. Abra o `.speedscope.json` em speedscope.app.
+Testado em 2026-11-25 numa imagem `mcr.microsoft.com/dotnet/sdk:10.0` (linux/arm64) com `dotnet-trace` e `dotnet-counters` 10.0.750501: `ps`, `collect --duration 00:00:00:05 --format Speedscope` (gerou `.nettrace` e `.speedscope.json`) e `monitor` (sem `--counters`, monitora `System.Runtime` por padrão) funcionaram. Rode como o mesmo usuário do processo (ou root) e, em contêiner, com o mesmo `TMPDIR`. Abra o `.speedscope.json` em speedscope.app.
 
 ### Python
 
@@ -112,6 +112,8 @@ py-spy dump --pid 1234
 ```bash
 python -m cProfile -o perfil.prof app.py
 ```
+
+`cProfile` executado com Python 3.9.6 em 2026-11-25: o `-o perfil.prof` grava o arquivo ao fim do script (leia com `python -m pstats perfil.prof`). O `py-spy` não foi executado nesta conferência; os comandos vêm do README do projeto.
 
 Em Django e FastAPI, o banco costuma ser a causa; ligue o log de consultas antes do profiler.
 
@@ -143,7 +145,7 @@ go tool pprof "http://127.0.0.1:6060/debug/pprof/profile?seconds=30"
 go tool pprof http://127.0.0.1:6060/debug/pprof/heap
 ```
 
-Dentro do `pprof`, `top10` lista as funções mais caras e `web` desenha o grafo (precisa do Graphviz). Para o flame graph no navegador: `go tool pprof -http=:8081 arquivo.pb.gz`. Em servidor, acesse a porta 6060 por túnel SSH.
+Os endpoints `/debug/pprof/profile?seconds=N` e `/debug/pprof/heap` foram executados em 2026-11-25 com Go 1.25.14 (imagem `golang:1.25`, linux/arm64) e o `pprof` baixou os dois perfis. O `profile` só traz amostras se houver carga durante os `seconds`; sem requisições, o resultado vem com 0 amostras. Dentro do `pprof`, `top10` lista as funções mais caras e `web` desenha o grafo (precisa do Graphviz). Para o flame graph no navegador: `go tool pprof -http=:8081 arquivo.pb.gz`. Em servidor, acesse a porta 6060 por túnel SSH.
 
 ## Combina com / alternativas
 

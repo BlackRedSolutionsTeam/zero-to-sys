@@ -86,6 +86,8 @@ Subir com limite de memória e remoção automática, preso ao `127.0.0.1` (o Do
 docker run -d --name redis --restart unless-stopped -p 127.0.0.1:6379:6379 redis:8 redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
 ```
 
+Executado em 2026-11-25 com a imagem `redis:8`, que baixou a versão 8.12.0: `CONFIG GET maxmemory-policy` devolveu `allkeys-lru`, `SET chave valor NX EX 10` respondeu `OK` e `INFO stats` listou `keyspace_hits`, `keyspace_misses` e `evicted_keys`. A etiqueta `redis:8` acompanha a série 8; para travar a versão em produção use a completa, como `redis:8.12.0`.
+
 `allkeys-lru` é o padrão recomendado pela doc quando há "subconjunto quente" de chaves. `noeviction` devolve erro quando a memória enche (serve para filas, não para cache). Se o mesmo Redis guarda cache e dado que não pode sumir, a doc recomenda usar duas instâncias.
 
 Cache-aside em TypeScript, com TTL e chave que inclui a empresa:

@@ -83,6 +83,8 @@ Ou pela imagem Docker `grafana/k6`:
 docker run --rm -i grafana/k6 run - < carga.js
 ```
 
+Executado em 2026-11-25 com a imagem `grafana/k6` (k6 v2.4.0, go1.27.3, linux/arm64): o `-` faz o k6 ler o roteiro da entrada padrão e o `-i` é obrigatório para isso. Dentro do contêiner, `localhost` é o próprio contêiner; para atingir um servidor na sua máquina use `host.docker.internal` (Docker Desktop) ou `--network host` (Linux). Se o roteiro importar outros arquivos, monte a pasta com `-v "$PWD:/scripts"` e rode `run /scripts/carga.js` (forma não executada nesta conferência).
+
 Roteiro: login uma vez no `setup`, depois 50 requisições por segundo por 5 minutos na listagem, com a meta do [doc 01](01-medir-primeiro.md) em thresholds. Critério: p95 abaixo de 300 ms e menos de 1% de erro.
 
 ```js
