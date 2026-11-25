@@ -85,30 +85,42 @@ Sem nada disso, a primeira tarefa é escrever o mínimo: um teste ponta a ponta 
 
 ### Comandos de apoio por stack
 
+Next.js (guia de codemods, página atualizada em 2026-10-02): o argumento aceita `patch`, `minor`, `major`, uma dist-tag (`latest`, `canary`, `rc`) ou uma versão exata; o padrão é `minor`. O comando abaixo atualiza o Next.js, o React e o React DOM e roda os codemods; a forma antiga `@next/codemod@canary upgrade latest` não é a que a página documenta hoje.
+
 ```bash
-npx @next/codemod@canary upgrade latest
+npx @next/codemod upgrade major
 ```
+
+Laravel (guia de upgrade do 13.x): o guia pede `laravel/framework` em `^13.0`, `laravel/boost` em `^2.0`, `laravel/tinker` em `^3.0`, `phpunit/phpunit` em `^12.0` e `pestphp/pest` em `^4.0`, e cita o Laravel Boost (`/upgrade-laravel-v13`) e o Shift como automação. O `-W` é o `--with-all-dependencies` do Composer 2.11.3 (flag conferida no `--help`):
 
 ```bash
 composer require laravel/framework:^13.0 -W
 composer outdated --direct
 ```
 
+Django (guia oficial de upgrade): os avisos de depreciação ficam silenciados por padrão e o guia manda ligar com `-Wa`. O `-W error::DeprecationWarning` é opção do próprio Python (executada com Python 3.x em 2026-11-25) e faz o aviso virar erro.
+
 ```bash
+python -Wa manage.py test
 python -W error::DeprecationWarning -m pytest
-python manage.py check --deploy
+python -m pip install -U Django
 ```
+
+.NET (Microsoft Learn): a partir do SDK 10 a forma é `dotnet package list`; no SDK 9 ou anterior, use `dotnet list package`. As opções `--outdated`, `--deprecated` e `--vulnerable` existem nas duas (a `--vulnerable` pede SDK 9.0.300 ou mais e não combina com as outras duas).
 
 ```bash
-dotnet list package --outdated
-dotnet list package --deprecated
+dotnet package list --outdated
+dotnet package list --deprecated
+dotnet package list --vulnerable
 ```
+
+Angular (referência do `ng update`): o comando básico leva os dois pacotes; para uma maior específica, fixe com `@angular/core@^21`. `--create-commits` (`-C`) cria um commit por migração.
 
 ```bash
-ng update @angular/core @angular/cli
+ng update @angular/cli @angular/core --create-commits
 ```
 
-Confira o comando exato no guia da versão de destino: nomes de pacote e flags mudam entre versões, e este doc não os substitui.
+Lido nas páginas oficiais em 2026-11-25; o `ng update`, o `dotnet` e o `composer require` do Laravel não foram executados num projeto real (só a flag `-W` e a página). Confira o comando exato no guia da versão de destino: nomes de pacote e flags mudam entre versões.
 
 ### Subir o runtime e a imagem
 

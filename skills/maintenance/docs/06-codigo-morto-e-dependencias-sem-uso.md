@@ -115,7 +115,14 @@ composer why nome/pacote
 composer remove nome/pacote
 ```
 
-Quem usa pode instalar o `composer-unused` para listar pacotes que o código não referencia; confira a documentação do projeto.
+O `composer-unused` lista pacotes que o código não referencia. Executado em 2026-11-25 (composer-unused 0.9.9, Composer 2.11.3, PHP 8.5.13) num projeto de teste com `monolog/monolog` usado e `ramsey/uuid` sem uso:
+
+```bash
+composer require --dev icanhazstring/composer-unused
+vendor/bin/composer-unused
+```
+
+A saída marcou `monolog/monolog` como usado e `ramsey/uuid` como "Unused packages" (`Found 2 used, 1 unused, 0 ignored and 0 zombie packages`). Pacote carregado só por configuração ou por nome em texto pode aparecer como sem uso (não testado): confirme antes de remover.
 
 ### Go
 

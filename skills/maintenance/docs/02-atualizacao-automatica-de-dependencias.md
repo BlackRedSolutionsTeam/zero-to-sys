@@ -179,8 +179,9 @@ Outros ecossistemas: troque o `package-ecosystem` por `pip`, `nuget`, `composer`
 }
 ```
 
-Conferido na documentação (2026-11-25):
+Conferido na documentação e executado (2026-11-25): o `renovate.json` acima passou no `renovate-config-validator --strict` do Renovate 44.261.3 (`npx --package renovate renovate-config-validator --strict`), e um horário inválido no mesmo campo foi recusado com "Invalid schedule". Rode o mesmo comando antes de commitar qualquer mudança de configuração.
 
+- `schedule` aceita texto como `before 7am on monday` e usa o `timezone` da configuração;
 - `automerge` vale `false` por padrão; `matchUpdateTypes` limita o alcance; `automergeType` padrão é `pr`.
 - `config:recommended` liga o Dependency Dashboard, agrupa monorepos conhecidos e aplica regras da comunidade; `config:best-practices` soma pin de digest de Docker e Actions, PR de migração de configuração e espera de 3 dias em pacotes npm.
 - `minimumReleaseAge` exige que a fonte do pacote informe a data de lançamento; enquanto o prazo não passa, o PR fica com o status "pending" (`renovate/stability-days`).

@@ -93,27 +93,39 @@ Coloque o app em modo de manutenção durante o dump para não perder escritas.
 
 ### pg_upgrade (mesmo servidor)
 
-Passos da documentação oficial, conferidos em 2026-11-25:
+Executado em 2026-11-25 num Debian 13 (trixie) com os pacotes do repositório PGDG, de 18 para 19.0 (`postgresql-19` 19.0-2.pgdg13+1), com `--check --link` e depois `--link --jobs=4`; os dois terminaram com sucesso. O Debian guarda o `postgresql.conf` em `/etc/postgresql/<versão>/main`, fora do diretório de dados, por isso o `pg_upgrade` precisa de `-o` e `-O` para achar a configuração (sem eles o servidor antigo não sobe e o comando falha).
 
 ```bash
 sudo apt install postgresql-19
 sudo systemctl stop postgresql
+pg_lsclusters
 sudo pg_dropcluster 19 main
 sudo pg_createcluster 19 main --start-conf=manual
 sudo -u postgres /usr/lib/postgresql/19/bin/pg_upgrade \
   -b /usr/lib/postgresql/18/bin -B /usr/lib/postgresql/19/bin \
   -d /var/lib/postgresql/18/main -D /var/lib/postgresql/19/main \
+  -o "-c config_file=/etc/postgresql/18/main/postgresql.conf" \
+  -O "-c config_file=/etc/postgresql/19/main/postgresql.conf" \
   --check --link
 sudo -u postgres /usr/lib/postgresql/19/bin/pg_upgrade \
   -b /usr/lib/postgresql/18/bin -B /usr/lib/postgresql/19/bin \
   -d /var/lib/postgresql/18/main -D /var/lib/postgresql/19/main \
+  -o "-c config_file=/etc/postgresql/18/main/postgresql.conf" \
+  -O "-c config_file=/etc/postgresql/19/main/postgresql.conf" \
   --link --jobs=4
 sudo systemctl start postgresql
 vacuumdb --all --analyze-in-stages --missing-stats-only --jobs=4
 vacuumdb --all --analyze-only --jobs=4
 ```
 
-Os caminhos acima seguem o layout de pacotes do Debian e do Ubuntu; ajuste para a sua instalação. Pontos da documentação:
+Os caminhos acima seguem o layout de pacotes do Debian e do Ubuntu (confirmados no teste); ajuste para a sua instalação. Notas do teste:
+
+- Se o `pg_lsclusters` não listar o cluster `19 main`, pule o `pg_dropcluster`: no teste, instalar o pacote com um cluster 18 já existente não criou o 19, e o comando falhou com "specified cluster does not exist". Se listar, o `pg_dropcluster` é necessário para o `pg_upgrade` receber um cluster vazio.
+- O `pg_createcluster 19 main` escolheu a porta 5433, porque a 5432 estava ocupada. Depois do upgrade, ajuste `port = 5432` em `/etc/postgresql/19/main/postgresql.conf` antes de religar o app, ou o app não conecta.
+- O Debian também tem o `pg_upgradecluster`, que faz o mesmo de forma assistida; este doc usa o `pg_upgrade` por ser o comando da documentação do Postgres.
+- O `--check` terminou com "Clusters are compatible". No teste, a verificação posterior com `psql` e os dois `vacuumdb` não rodaram (a porta ficou em 5433), então esse trecho segue a documentação do Postgres e não foi executado por mim.
+
+Pontos da documentação:
 
 - `--check` não altera nada; rode antes e com o mesmo modo (`--link`).
 - Com `--link`, os arquivos são ligados, não copiados: rápido, mas depois de iniciar o cluster novo o antigo não pode mais ser usado. Se algo falhar antes de iniciar o novo, remova o sufixo `.old` de `global/pg_control` do cluster antigo e ele volta. Depois de iniciado, a única volta é o backup.
