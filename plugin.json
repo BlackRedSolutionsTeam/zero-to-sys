@@ -1,0 +1,55 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "zero-to-sys",
+  "version": "1.11.0",
+  "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: produto, stack, dados, arquitetura, API, segurança, integrações, qualidade, auditoria, domínio, Cloudflare, VPS, nginx, IA, índice de código, código, UX, layouts, UI kit e infra, IA no produto, nota fiscal, busca, mensageria, desempenho, operação, manutenção, ambiente local, jurídico e destinos de publicação, publicação mobile e desktop e painel administrativo.",
+  "author": {
+    "name": "BlackRed Solutions",
+    "url": "https://github.com/BlackRedSolutionsTeam"
+  },
+  "homepage": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",
+  "repository": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "architecture",
+    "stack",
+    "design-system",
+    "infra",
+    "product",
+    "data",
+    "api",
+    "security",
+    "integrations",
+    "quality",
+    "audit",
+    "domains",
+    "cloudflare",
+    "vps",
+    "nginx",
+    "pt-br",
+    "ai-features",
+    "invoicing",
+    "search",
+    "messaging",
+    "performance",
+    "operations",
+    "maintenance",
+    "local-dev",
+    "legal",
+    "store-targets",
+    "mobile-release",
+    "desktop-release",
+    "admin-panel"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "zero-to-sys",
+        "category": "Coding",
+        "defaultPrompt": "Cria um sistema do zero com o zero-to-sys"
+      }
+    }
+  }
+}

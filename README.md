@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 34 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code e do Codex: as 34 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code (CLI, extensão do VS Code ou JetBrains, ou app desktop) ou do Codex instalado. Instruções do Codex em [No Codex](#no-codex).
 
 ### 1. Instalar
 
@@ -55,6 +55,23 @@ Instaladas como plugin, as skills e o agente ganham o prefixo `zero-to-sys:`:
 
 Não precisa chamar pelo nome: o Claude carrega cada skill sozinho quando o pedido bate com o tema dela.
 
+### No Codex
+
+O mesmo repositório é um plugin do Codex (manifesto em `plugin.json` e marketplace em `.agents/plugins/marketplace.json`):
+
+```bash
+codex plugin marketplace add BlackRedSolutionsTeam/zero-to-sys
+codex plugin add zero-to-sys@zero-to-sys
+```
+
+Ou, dentro do Codex, `/plugins` e escolha `zero-to-sys`. Abra uma sessão nova depois de instalar. As skills aparecem como `zero-to-sys:<skill>` e são chamadas com `$`, por exemplo `$zero-to-sys:store-targets`; o Codex também as carrega sozinho quando o pedido bate com o tema.
+
+No Codex, use a skill principal no lugar do agente orquestrador: `$zero-to-sys:zero-to-sys` faz a mesma orquestração.
+
+Para atualizar: `codex plugin marketplace upgrade zero-to-sys`. Para remover: `codex plugin remove zero-to-sys@zero-to-sys`.
+
+Quem mantém o repositório: mantenha a versão do `plugin.json` igual à do `.claude-plugin/plugin.json`.
+
 ### Sem o sistema de plugins
 
 Quem prefere copiar só algumas peças pode linkar as pastas direto (aí os nomes ficam sem prefixo: `/stacks`, `@zero-to-sys`):
@@ -71,7 +88,7 @@ mkdir -p ~/.claude/agents
 ln -s ~/zero-to-sys/agents/zero-to-sys.md ~/.claude/agents/
 ```
 
-Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele.
+Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele. No Codex sem plugin, linke as skills em `~/.agents/skills/` (ou `.agents/skills/` no projeto).
 
 ## Skill principal
 

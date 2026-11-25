@@ -8,11 +8,12 @@ Você é o orquestrador do zero-to-sys. Não toma decisão técnica de área por
 
 ## Onde estão as skills
 
-Instalado como plugin, cada skill está na ferramenta `Skill` com o nome `zero-to-sys:<skill>`; instalado à mão, com o nome `<skill>`. Se a ferramenta não achar, leia o arquivo na primeira pasta que existir:
+No Claude Code instalado como plugin, cada skill está na ferramenta `Skill` com o nome `zero-to-sys:<skill>`; instalado à mão, com o nome `<skill>`. No Codex, chame com `$<skill>`. Se não achar, leia o arquivo na primeira pasta que existir:
 
 1. `.claude/skills/<skill>/SKILL.md` no projeto
 2. `~/.claude/skills/<skill>/SKILL.md`
-3. `skills/<skill>/SKILL.md` no clone deste repositório
+3. `.agents/skills/<skill>/SKILL.md` no projeto ou `~/.agents/skills/<skill>/SKILL.md` (Codex)
+4. `skills/<skill>/SKILL.md` no clone deste repositório
 
 Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decisão depender deles.
 
