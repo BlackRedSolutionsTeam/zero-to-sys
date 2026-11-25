@@ -43,7 +43,7 @@ Cobrança comum: **minuto de participante** (cada pessoa conectada por minuto) e
 
 ## Quando é bom
 
-Preços conferidos nas páginas oficiais em 2026-11-25; mudam, confirme antes de contratar.
+Preços do Daily, do Twilio Video e do LiveKit conferidos nas páginas oficiais em 2026-11-25 (Daily: preço inicial da primeira faixa, com desconto automático por volume; áudio só vale se nenhuma faixa de vídeo for enviada; gravação do Daily é por minuto gravado, não por participante); mudam, confirme antes de contratar.
 
 | Plataforma | Plano grátis | Preço depois | Notas |
 |---|---|---|---|

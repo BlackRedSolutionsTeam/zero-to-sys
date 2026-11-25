@@ -69,6 +69,8 @@ Subir local:
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
 ```
 
+A tag `4-management` existe no Docker Hub (conferido em 2026-11-25; atualizada em 2026-11-24) e acompanha a série 4.x mais recente; para fixar a versão use `4.4-management` e, em produção, um patch exato quando houver.
+
 Painel em `http://localhost:15672`. Usuário e senha padrão do contêiner (`guest`/`guest`) só aceitam conexão local: troque em produção.
 
 Fila com retentativa e fila de mortos (Node, amqplib):

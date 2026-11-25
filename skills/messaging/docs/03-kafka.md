@@ -62,10 +62,10 @@ Versões conferidas em 2026-11-25 em kafka.apache.org: 4.4.0 (22 de outubro de 2
 Subir local (imagem oficial, modo KRaft, um nó):
 
 ```bash
-docker run -d --name kafka -p 9092:9092 apache/kafka:latest
+docker run -d --name kafka -p 9092:9092 apache/kafka:4.4.0
 ```
 
-Em produção, fixe a versão da imagem em vez de `latest`.
+Tags conferidas em 2026-11-25 no Docker Hub: `4.4.0` (publicada em 2026-10-22) é a versão estável mais nova; `latest` existe, mas estava com data de 2026-06-24, anterior à 4.4.0, então não use `latest` para pegar a versão atual. Fixe a versão também em produção.
 
 Criar um topic e publicar com chave (Node, kafkajs):
 

@@ -46,7 +46,7 @@ Preços conferidos nas páginas oficiais em 2026-11-25.
 | Plataforma | Como cobra | Valores |
 |---|---|---|
 | Mux Video | Pague pelo uso, sem mensalidade nem cartão para começar, com US$ 20 de crédito de uso por mês | Vídeo sob demanda (1080p, básico): codificação grátis; armazenamento US$ 0,003 por minuto por mês; entrega US$ 0,001 por minuto, com 100 mil minutos de entrega grátis por mês. Ao vivo: US$ 0,03125 por minuto na entrada |
-| Cloudflare Stream | Armazenamento pré-pago e entrega por uso | US$ 5 por mês a cada 1.000 minutos de capacidade; US$ 1 por 1.000 minutos entregues; entrada ao vivo e codificação sem custo; arquivos de até 30 GB |
+| Cloudflare Stream | Armazenamento pré-pago e entrega por uso | US$ 5 por mês a cada 1.000 minutos de capacidade (conferido em 2026-11-25 na página oficial; cobrança de entrega por WebRTC começou em 15 de outubro de 2026, e transmissões WebRTC não são gravadas); US$ 1 por 1.000 minutos entregues; entrada ao vivo e codificação sem custo; arquivos de até 30 GB |
 
 Exemplo: 200 minutos de curso gravado e 500 mil minutos assistidos por mês. No Cloudflare Stream: armazenamento 200 min = US$ 5 e entrega 500 mil min = US$ 500. No Mux: armazenamento 200 × 0,003 = US$ 0,60; entrega (500 mil − 100 mil grátis) × 0,001 = US$ 400.
 
