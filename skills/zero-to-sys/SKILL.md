@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -13,6 +13,7 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `stacks` | [stacks/](../stacks/SKILL.md) | Qual stack completa usar |
 | `architecture` | [architecture/](../architecture/SKILL.md) | Como organizar pastas e arquivos |
 | `data` | [data/](../data/SKILL.md) | Como modelar tabelas, migrations e isolamento por cliente |
+| `quality` | [quality/](../quality/SKILL.md) | Como testar, o que barra o PR e quando um item está pronto |
 | `ia` | [ia/](../ia/SKILL.md) | Como configurar e usar o agente no projeto |
 | `code-indexes` | [code-indexes/](../code-indexes/SKILL.md) | Se e qual índice de código usar |
 | `coding` | [coding/](../coding/SKILL.md) | Como escrever o código |
@@ -91,11 +92,11 @@ Para cada item do `BACKLOG.md`, na ordem do backlog, rode os passos abaixo. Um i
 | 2. Dados | `data` | Tabelas, colunas e constraints que o item pede; migration e seed; checklist de tabela nova | O item não muda o banco |
 | 3. Back | `coding` (e `api`, se instalada) | Rota ou ação, validação na borda, regras de negócio, erros no padrão do projeto | O item é só de tela |
 | 4. Tela | `user-experience` → `design-systems` → `design` | Tela no layout escolhido, com os estados vazio, carregando, erro e sem permissão | O item não tem interface |
-| 5. Testes | `coding` (e `quality`, se instalada) | Um teste por critério de aceite; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
-| 6. Pronto | `coding` | Definição de pronto abaixo; PR pequeno com o item | Nunca |
+| 5. Testes | `quality` (estilo do teste em `coding`) | Um teste por critério de aceite, na camada mais barata; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
+| 6. Pronto | `quality` | Definição de pronto abaixo (detalhada em `quality`, doc 08); PR pequeno com o item | Nunca |
 | 7. Staging | `infra` | Deploy em staging e verificação do critério no ambiente | Projeto sem staging ainda: verifique local e anote |
 
-**Definição de pronto de um item:**
+**Definição de pronto de um item** (detalhes em [quality/docs/08](../quality/docs/08-definition-of-done.md)):
 
 - [ ] Todos os critérios de aceite do item cumpridos e verificados (rodando, não só lendo o código).
 - [ ] Um teste automatizado por critério; testes, lint, typecheck e build verdes.

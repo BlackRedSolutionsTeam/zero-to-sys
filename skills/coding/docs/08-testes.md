@@ -86,6 +86,8 @@ Em Python com pytest: `def test_soma_itens(): assert calculate_total(...) == 25`
 
 ## Combina com / alternativas
 
+Este doc cobre como escrever um bom teste. Estratégia por camada, ponta a ponta, o que barra o PR e a definição de pronto estão na skill [quality](../../quality/SKILL.md).
+
 Combina com:
 - [Funções pequenas](02-funcoes-pequenas.md): fácil de testar.
 - [Refatoração segura](10-refatoracao-segura.md): o teste é a rede de segurança.
