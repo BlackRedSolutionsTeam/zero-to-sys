@@ -75,7 +75,7 @@ Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agent
 
 ## Skill principal
 
-A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre o contexto do projeto (tipo, interface, o que o time sabe, porte, restrições, novo ou existente) e dispara as outras skills na ordem certa, pulando as que não se aplicam. Chame com `/zero-to-sys:zero-to-sys` ou peça "cria um sistema do zero".
+A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre o contexto do projeto (tipo, interface, o que o time sabe, porte, restrições, novo ou existente) e dispara as outras skills na ordem certa, pulando as que não se aplicam. Com a base montada, conduz a construção do backlog item a item (dados, back, tela, testes, staging), cada um fechado por uma definição de pronto. Chame com `/zero-to-sys:zero-to-sys` ou peça "cria um sistema do zero".
 
 ## Skills
 
@@ -100,11 +100,12 @@ A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa or
 0. **[product/](skills/product/SKILL.md):** defina o que construir: MVP, regras de negócio e backlog.
 1. **[stacks/](skills/stacks/SKILL.md):** escolha a stack pelo tipo de projeto.
 2. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
-   **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
-3. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
-4. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
-5. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
-6. **[infra/](skills/infra/SKILL.md):** leve para produção.
+3. **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
+4. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
+5. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
+6. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
+7. **[infra/](skills/infra/SKILL.md):** leve para produção.
+8. **Construção:** a skill principal pega o primeiro item do `BACKLOG.md` e leva até staging, depois o próximo.
 
 ## Agente orquestrador
 

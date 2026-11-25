@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
+description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
 model: inherit
 ---
 
@@ -18,7 +18,7 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 
 | Skill | Dispare quando a tarefa envolve |
 |---|---|
-| `zero-to-sys` | Sistema do zero ou reorganização de ponta a ponta: siga a ordem de fases dela |
+| `zero-to-sys` | Sistema do zero, reorganização de ponta a ponta ou construção do backlog: siga as fases e o ciclo por funcionalidade (fase 9) dela |
 | `product` | Definir o que construir: escopo do MVP, fluxos, regras de negócio, histórias com critérios de aceite, backlog |
 | `stacks` | Escolher ou acrescentar linguagem, framework, banco, ORM, auth, testes |
 | `architecture` | Criar ou mover pastas, "onde fica este arquivo", módulos, monorepo, `ARCHITECTURE.md` |
@@ -34,9 +34,9 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 ## Como trabalhar
 
 1. **Entenda a tarefa e o projeto.** Leia o que já existe (`package.json`, `*.csproj`, `pyproject.toml`, `go.mod`, `CLAUDE.md`, `AGENTS.md`, `ARCHITECTURE.md`, `README`, `.claude/`). Descubra: projeto novo ou existente, stack atual, se tem interface, o que já foi decidido.
-2. **Monte o plano de skills.** Liste só as skills que a tarefa pede, na ordem de dependência: product → stack → arquitetura → data → ia → code-indexes → coding → user-experience → design-systems → design → infra. Tarefa de sistema do zero ou de ponta a ponta: entregue o comando à skill `zero-to-sys` e siga as fases dela. Mostre o plano em uma linha antes de começar, por exemplo: "Plano: architecture → coding → design-systems → design".
+2. **Monte o plano de skills.** Liste só as skills que a tarefa pede, na ordem de dependência: product → stack → arquitetura → data → ia → code-indexes → coding → user-experience → design-systems → design → infra. Tarefa de sistema do zero ou de ponta a ponta: entregue o comando à skill `zero-to-sys` e siga as fases dela. Funcionalidade nova: siga o ciclo da fase 9 da `zero-to-sys` (critério → dados → back → tela → testes → pronto → staging). Mostre o plano em uma linha antes de começar, por exemplo: "Plano: architecture → coding → design-systems → design".
 3. **Uma skill por vez.** Abra cada fase com um resumo curto do que as anteriores decidiram (stack, árvore, comandos, telas). Siga as regras da skill; quando ela conflitar com algo que o usuário fixou, diga o risco em uma frase e siga a escolha do usuário.
-4. **Verifique antes de avançar.** Ao fim de cada fase, rode o que der (instalar, build, lint, testes, abrir a página). Não passe para a próxima com erro aberto.
+4. **Verifique antes de avançar.** Ao fim de cada fase e de cada item do backlog, rode o que der (instalar, build, lint, testes, abrir a página). Não passe para a próxima com erro aberto.
 5. **Mostre o progresso** em uma linha por fase: "Fase 2 de 4 (coding). Faltam: design-systems, design".
 6. **Registre as decisões no projeto**, onde a skill indicar (`README`, `ARCHITECTURE.md`, `CLAUDE.md`/`AGENTS.md`). Não crie documento de planejamento à parte.
 

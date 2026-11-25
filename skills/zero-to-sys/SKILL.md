@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -59,70 +59,102 @@ Como perguntar:
 - **Tudo de uma vez, em no máximo duas rodadas.** Junte as perguntas numa mensagem (ou na ferramenta de perguntas, se houver), agrupadas por tema, cada uma com 2 a 4 opções e a recomendada primeiro. Uma segunda rodada só se a primeira abrir uma dúvida nova.
 - **Linguagem do cliente, não do dev.** Pergunte "cada empresa cliente vê só os próprios dados?", não "precisa de multi-tenancy?". Explique o termo técnico quando ele for inevitável.
 - **Pergunte o porquê quando a resposta for vaga.** "Precisa de app" pode ser "o usuário usa no celular", e um site responsivo resolve.
-- **Feche com um resumo.** Antes da fase 1, mostre em poucas linhas o que entendeu (público, funcionalidades do MVP, integrações, restrições e o que foi assumido) e peça o ok. Esse resumo é o que passa para todas as fases.
+- **Feche com um resumo.** Antes da fase 0, mostre em poucas linhas o que entendeu (público, funcionalidades do MVP, integrações, restrições e o que foi assumido) e peça o ok. Esse resumo é o que passa para todas as fases.
 - **Dúvida que surgir depois, pergunte na hora.** Se uma fase esbarrar numa decisão que depende do cliente e não há padrão seguro, pare e pergunte em vez de inventar.
 
 ## Ordem de disparo — projeto novo
 
-Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos. Pule a fase quando a condição de "Pule se" valer, e diga ao usuário que pulou e por quê.
+Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos. Pule a fase quando a condição de "Pule se" valer, e diga ao usuário que pulou e por quê. As fases 0 a 8 montam a base; a fase 9 constrói as funcionalidades, uma por vez.
 
 | # | Skill | Entra com | Entrega | Pule se |
 |---|---|---|---|---|
 | 0 | `product` | Resumo aprovado do passo 0 | Escopo do MVP (dentro, fora, depois), fluxo principal, regras de negócio, histórias com critérios de aceite e `BACKLOG.md` em ordem de construção | Site de conteúdo simples: basta a lista de páginas |
 | 1 | `stacks` | Contexto, resumo aprovado e escopo da fase 0 | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
 | 2 | `architecture` | Stack escolhida, porte | Árvore de pastas, padrão (feature-first, monólito modular, monorepo…), `ARCHITECTURE.md` | Nunca em projeto novo |
-| 2b | `data` | Regras de negócio e histórias da fase 0, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
-| 3 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
-| 4 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
-| 5 | `coding` | Stack, árvore, `CLAUDE.md` | Lint e format configurados, padrão de erros, validação na borda, testes, Conventional Commits | Nunca |
-| 6 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, funcionalidades do resumo, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca (`design-systems`); UI kit e set de ícones para montá-las (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
-| 7 | `infra` | Stack, porte, restrições | Hospedagem, banco gerenciado, CI/CD, segredos, observabilidade, backup, segurança base | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 7 parcial) |
+| 3 | `data` | Regras de negócio e histórias da fase 0, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
+| 4 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto apontando para `BACKLOG.md` e regras, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
+| 5 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
+| 6 | `coding` | Stack, árvore, `CLAUDE.md` | Lint e format configurados, padrão de erros, validação na borda, testes, Conventional Commits | Nunca |
+| 7 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, fluxos da fase 0, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca (`design-systems`); UI kit e set de ícones para montá-las (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
+| 8 | `infra` | Stack, porte, restrições | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 8 parcial) |
+| 9 | Construção (ciclo abaixo) | `BACKLOG.md` e tudo o que as fases 0 a 8 montaram | Cada item do backlog pronto, testado e em staging | Nunca: é aqui que o sistema existe |
 
-Depois da fase 7, volte à `ia` uma vez: com o projeto rodando, veja os sinais de "Quando criar cada recurso" (skills, subagentes, hooks, MCP) e proponha o que fizer sentido.
+Depois da fase 8, volte à `ia` uma vez: com o projeto rodando, veja os sinais de "Quando criar cada recurso" (skills, subagentes, hooks, MCP) e proponha o que fizer sentido.
+
+### Fase 9 — ciclo por funcionalidade
+
+Para cada item do `BACKLOG.md`, na ordem do backlog, rode os passos abaixo. Um item por vez: o próximo só começa quando o anterior fecha.
+
+| Passo | Skill | O que fazer | Pule se |
+|---|---|---|---|
+| 1. Critério | `product` | Releia a história e os critérios de aceite do item; se estiverem vagos, reescreva antes de codar | Nunca |
+| 2. Dados | `data` | Tabelas, colunas e constraints que o item pede; migration e seed; checklist de tabela nova | O item não muda o banco |
+| 3. Back | `coding` (e `api`, se instalada) | Rota ou ação, validação na borda, regras de negócio, erros no padrão do projeto | O item é só de tela |
+| 4. Tela | `user-experience` → `design-systems` → `design` | Tela no layout escolhido, com os estados vazio, carregando, erro e sem permissão | O item não tem interface |
+| 5. Testes | `coding` (e `quality`, se instalada) | Um teste por critério de aceite; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
+| 6. Pronto | `coding` | Definição de pronto abaixo; PR pequeno com o item | Nunca |
+| 7. Staging | `infra` | Deploy em staging e verificação do critério no ambiente | Projeto sem staging ainda: verifique local e anote |
+
+**Definição de pronto de um item:**
+
+- [ ] Todos os critérios de aceite do item cumpridos e verificados (rodando, não só lendo o código).
+- [ ] Um teste automatizado por critério; testes, lint, typecheck e build verdes.
+- [ ] Migration revisada e o banco recriado do zero sem erro, se o item mexe no banco.
+- [ ] Tela conferida no dispositivo principal e no secundário, se o item tem interface.
+- [ ] Status do item atualizado no `BACKLOG.md` no mesmo PR; regra nova registrada em `docs/regras-de-negocio.md`.
+- [ ] Deploy em staging verificado, quando já houver staging.
+
+Mostre o progresso a cada passo: "Item 3 de 9 (cadastro de pacientes). Passo: dados". Se um item revelar uma regra nova ou um erro no backlog, volte à `product`, ajuste e siga.
 
 ### Por que essa ordem
 
-- **Stack antes de tudo:** pasta, lint, UI kit e hospedagem dependem dela.
+- **Produto antes da stack:** o tamanho do escopo, as integrações e as regras decidem a stack, não o contrário.
+- **Stack antes da estrutura:** pasta, lint, UI kit e hospedagem dependem dela.
+- **Dados logo depois da arquitetura:** o modelo sai das regras de negócio e é a parte mais cara de mudar depois; multiempresa, por exemplo, se decide no primeiro dia.
 - **Arquitetura antes da IA:** o `CLAUDE.md` cita comandos e convenções que só existem depois da árvore.
 - **IA e índice antes do código:** o agente escreve o resto do projeto; configurado cedo, erra menos e gasta menos.
-- **Dispositivo antes de layout, layout antes de componente:** dentro da fase 6, `user-experience` define para quais dispositivos projetar e qual é o principal; `design-systems` define a estrutura de cada tela e os tokens; só depois `design` escolhe com o que montar.
 - **Coding antes do design:** lint, testes e padrão de erros valem também para os componentes de tela.
-- **Infra por último, mas não esquecida:** a escolha de hospedagem pode pedir ajuste no código (variáveis de ambiente, Docker, healthcheck); faça antes do primeiro deploy, não depois.
+- **Dispositivo antes de layout, layout antes de componente:** dentro da fase 7, `user-experience` define para quais dispositivos projetar; `design-systems`, a estrutura de cada tela; só depois `design` escolhe com o que montar.
+- **Infra antes de construir:** staging e CI prontos fazem cada item da fase 9 ser verificado no ambiente real, e não só no fim.
+- **No ciclo, dados antes do back e back antes da tela:** a tela consome a API, e a API depende das tabelas. Fazer na ordem evita tela com dado inventado que depois não encaixa.
+- **Fatia vertical, um item por vez:** cada item fecha de ponta a ponta antes do próximo; o sistema está sempre funcionando, só que menor.
 
 ### Atalhos por tipo de projeto
 
 | Projeto | Fases | Observação |
 |---|---|---|
-| Site de conteúdo, blog, landing | 1 → 2 → 3 → 5 → 6 → 7 | Pule `code-indexes`; infra costuma ser PaaS ou estático |
-| MVP de SaaS | 1 → 2 → 3 → 5 → 6 → 7 → 4 | Índice só quando a base crescer |
-| SaaS em crescimento, sistema corporativo | 1 → 2 → 3 → 4 → 5 → 6 → 7 | Todas; arquitetura e infra com mais peso |
-| API, worker, CLI | 1 → 2 → 3 → 4 → 5 → 7 | Sem a fase 6 (`user-experience`, `design-systems` e `design`) |
-| Mobile, desktop | 1 → 2 → 3 → 5 → 6 → 7 | Infra cobre só o backend e o CI de build |
+| Site de conteúdo, blog, landing | 0 → 1 → 2 → 4 → 6 → 7 → 8 → 9 | Fase 0 curta (lista de páginas); sem `data` e `code-indexes` |
+| MVP de SaaS | 0 → 1 → 2 → 3 → 4 → 6 → 7 → 8 → 9 → 5 | Índice só quando a base crescer |
+| SaaS em crescimento, sistema corporativo | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 | Todas; dados, arquitetura e infra com mais peso |
+| API, worker, CLI | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 8 → 9 | Sem a fase 7; no ciclo, sem o passo de tela |
+| Mobile, desktop | 0 → 1 → 2 → 3 → 4 → 6 → 7 → 8 → 9 | Infra cobre o backend e o CI de build |
 
 ## Projeto existente
 
 Quando a pasta já tem código, a ordem inverte: primeiro entender, depois mudar.
 
 1. `ia` e `code-indexes`: configure o agente e, em base grande ou desconhecida, o índice, para ler o projeto com menos tokens.
-2. `architecture`: compare a estrutura atual com a recomendada para a stack. Proponha a mudança em passos; não mova tudo de uma vez.
-3. `coding`: lint, format e testes antes de refatorar.
-4. `user-experience`, `design-systems`, `design` e `infra`: só se o pedido cobre essas áreas.
-5. `stacks`: só se o usuário quer trocar ou acrescentar uma tecnologia. Não proponha trocar a stack por conta própria.
+2. `product`: se não houver backlog nem regras escritas, levante o que o sistema já faz e o que o pedido acrescenta, e registre.
+3. `architecture` e `data`: compare a estrutura e o modelo atuais com o recomendado. Proponha a mudança em passos; não mova tudo de uma vez.
+4. `coding`: lint, format e testes antes de refatorar.
+5. `user-experience`, `design-systems`, `design` e `infra`: só se o pedido cobre essas áreas.
+6. `stacks`: só se o usuário quer trocar ou acrescentar uma tecnologia. Não proponha trocar a stack por conta própria.
+7. Funcionalidade nova: siga o ciclo da fase 9 para ela.
 
 ## Regras de uso
 
 - **Uma skill por vez, na ordem.** Leia o `SKILL.md` da skill da fase e siga o "Como usar" dela; não decida a área por conta própria nesta skill.
-- **Passe o contexto adiante.** Ao abrir cada fase, resuma em poucas linhas o que as anteriores decidiram (stack, árvore, comandos). A skill seguinte depende disso.
-- **Confirme as decisões grandes.** Mostre e espere o ok antes de: fixar a stack (fase 1), criar a árvore de pastas (fase 2) e qualquer coisa que gere custo ou conta externa (fase 7). O resto segue direto.
+- **Passe o contexto adiante.** Ao abrir cada fase, resuma em poucas linhas o que as anteriores decidiram (escopo, stack, árvore, modelo de dados, comandos). A skill seguinte depende disso.
+- **Confirme as decisões grandes.** Mostre e espere o ok antes de: fechar o escopo do MVP (fase 0), fixar a stack (fase 1), criar a árvore de pastas (fase 2), aplicar o modelo de dados (fase 3) e qualquer coisa que gere custo ou conta externa (fase 8). O resto segue direto.
 - **O que o usuário fixou não se rediscute.** Se uma escolha fixa conflita com a recomendação de uma skill, diga o risco em uma frase e siga a escolha do usuário.
-- **Requisitos do cliente guiam cada fase.** Ao escolher entre duas opções numa fase, a que atende melhor ao resumo aprovado no passo 0 ganha da que é só mais popular.
-- **Registre as decisões no projeto.** O resumo do passo 0 (o que o sistema faz e para quem) vai no `README`. Stack, padrão de arquitetura e hospedagem vão no `ARCHITECTURE.md` (ou `README`); comandos e armadilhas no `CLAUDE.md`/`AGENTS.md`. Não crie documento de planejamento separado.
-- **Não pule a verificação.** Ao fim de cada fase, rode o que der para rodar (instalar, build, lint, teste, abrir a página) antes de passar à próxima.
-- **Mostre o progresso.** Diga em uma linha a fase em que está e as que faltam, por exemplo: "Fase 3 de 7 (ia). Faltam: coding, design, infra".
+- **Requisitos do cliente guiam cada fase.** Ao escolher entre duas opções numa fase, a que atende melhor ao escopo aprovado na fase 0 ganha da que é só mais popular.
+- **Registre as decisões no projeto.** O que o sistema faz e para quem vai no `README`; backlog e critérios no `BACKLOG.md`; regras em `docs/regras-de-negocio.md`; stack, padrão de arquitetura, modelo de dados e hospedagem no `ARCHITECTURE.md` (ou `README`); comandos e armadilhas no `CLAUDE.md`/`AGENTS.md`. Não crie documento de planejamento separado.
+- **Não pule a verificação.** Ao fim de cada fase e de cada item, rode o que der para rodar (instalar, build, lint, teste, abrir a página) antes de passar adiante.
+- **Mostre o progresso.** Diga em uma linha a fase em que está e as que faltam, por exemplo: "Fase 4 de 9 (ia). Faltam: coding, design, infra, construção". Na fase 9, diga o item e o passo.
 
 ## Quando a lista não cobre
 
-Se o projeto pede uma área sem skill aqui (dados e analytics, pagamentos, compliance específico, app de jogos, hardware), diga isso ao usuário, cubra com a documentação oficial da ferramenta e siga a ordem das fases para o resto.
+Se o projeto pede uma área sem skill aqui (analytics, pagamentos, compliance específico, app de jogos, hardware), diga isso ao usuário, cubra com a documentação oficial da ferramenta e siga a ordem das fases para o resto.
 
 ## Validade dos dados
 

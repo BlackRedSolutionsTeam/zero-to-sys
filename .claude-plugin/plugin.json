@@ -1,6 +1,6 @@
 {
   "name": "zero-to-sys",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: produto, stack, dados, arquitetura, IA, índice de código, código, UX, layouts, UI kit e infra.",
   "author": {
     "name": "BlackRed Solutions",
