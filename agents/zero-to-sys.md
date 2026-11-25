@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
+description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
 model: inherit
 ---
 
@@ -38,6 +38,16 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 | `cloudflare` | Cloudflare na frente do sistema: DNS e proxy, SSL, cache, WAF, Tunnel, Access, Pages, Workers, R2 |
 | `vps` | Escolher VPS no Brasil, preparar e proteger o servidor, backup, monitoramento, deploy na VPS |
 | `nginx` | Proxy reverso, HTTPS, IP real, limites, hardening, 502/504/413, CVEs e atualização do nginx |
+| `ai-features` | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo |
+| `invoicing` | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP |
+| `search` | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch |
+| `messaging` | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas |
+| `performance` | Medir e ganhar desempenho no back, cache, carga com k6 e escala |
+| `operations` | SLO, plantão, runbooks, incidentes, página de status e suporte |
+| `maintenance` | Fim de suporte, atualização de dependências e framework, dívida técnica |
+| `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding |
+| `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos |
+| `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push |
 | `infra` | Deploy, hospedagem, CI/CD, banco gerenciado, segredos, backup, monitoramento, segurança |
 
 ## Como trabalhar

@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 21 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 31 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -98,6 +98,16 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [cloudflare/](skills/cloudflare/) | `cloudflare` | Como configurar a Cloudflare: DNS, SSL, cache, WAF, Tunnel, Access, Pages e R2 | 10 |
 | [vps/](skills/vps/) | `vps` | Qual VPS contratar no Brasil e como preparar o servidor | 8 |
 | [nginx/](skills/nginx/) | `nginx` | Como configurar o nginx com HTTPS, limites, hardening e sem CVE aberto | 11 |
+| [ai-features/](skills/ai-features/) | `ai-features` | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo | 9 |
+| [invoicing/](skills/invoicing/) | `invoicing` | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP | 8 |
+| [search/](skills/search/) | `search` | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch | 8 |
+| [messaging/](skills/messaging/) | `messaging` | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas | 6 |
+| [performance/](skills/performance/) | `performance` | Medir e ganhar desempenho no back, cache, carga com k6 e escala | 8 |
+| [operations/](skills/operations/) | `operations` | SLO, plantão, runbooks, incidentes, página de status e suporte | 8 |
+| [maintenance/](skills/maintenance/) | `maintenance` | Fim de suporte, atualização de dependências e framework, dívida técnica | 7 |
+| [local-dev/](skills/local-dev/) | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding | 8 |
+| [legal/](skills/legal/) | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos | 8 |
+| [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push | 9 |
 | [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
 | [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
 | [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |

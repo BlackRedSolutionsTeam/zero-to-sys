@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -28,7 +28,34 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `cloudflare` | [cloudflare/](../cloudflare/SKILL.md) | Como pôr a Cloudflare na frente do sistema |
 | `vps` | [vps/](../vps/SKILL.md) | Qual VPS no Brasil e como preparar o servidor |
 | `nginx` | [nginx/](../nginx/SKILL.md) | Como configurar o nginx no servidor |
+| `ai-features` | [ai-features/](../ai-features/SKILL.md) | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo |
+| `invoicing` | [invoicing/](../invoicing/SKILL.md) | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP |
+| `search` | [search/](../search/SKILL.md) | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch |
+| `messaging` | [messaging/](../messaging/SKILL.md) | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas |
+| `performance` | [performance/](../performance/SKILL.md) | Medir e ganhar desempenho no back, cache, carga com k6 e escala |
+| `operations` | [operations/](../operations/SKILL.md) | SLO, plantão, runbooks, incidentes, página de status e suporte |
+| `maintenance` | [maintenance/](../maintenance/SKILL.md) | Fim de suporte, atualização de dependências e framework, dívida técnica |
+| `local-dev` | [local-dev/](../local-dev/SKILL.md) | Ambiente local, Compose, devcontainer, .env.example e onboarding |
+| `legal` | [legal/](../legal/SKILL.md) | Termos, política de privacidade, cookies, aceite versionado e contratos |
+| `mobile-release` | [mobile-release/](../mobile-release/SKILL.md) | Contas, assinatura, EAS, lojas, regras de revisão e push |
 | `infra` | [infra/](../infra/SKILL.md) | Onde e como pôr em produção |
+
+## Skills sob demanda
+
+Estas skills não têm fase fixa: chame cada uma quando a condição valer.
+
+| Skill | Quando entra |
+|---|---|
+| `ai-features` | Quando o produto tem chat, assistente, busca semântica, extração ou classificação com LLM |
+| `invoicing` | Quando o sistema cobra e precisa emitir nota fiscal |
+| `search` | Quando o produto precisa de busca com relevância, filtros e facetas |
+| `messaging` | Quando fila do Postgres ou Redis não basta, ou há vídeo e chamadas |
+| `performance` | Quando há lentidão, antes de escalar ou de um pico de uso |
+| `operations` | Quando o sistema entra no ar e precisa ser operado |
+| `maintenance` | Depois do lançamento, em rotina trimestral |
+| `local-dev` | Ao montar o repositório e quando alguém novo entra no time |
+| `legal` | Antes de abrir o produto ao público |
+| `mobile-release` | Quando há app mobile para publicar |
 
 ## Passo 0 — Descobrir o contexto
 
