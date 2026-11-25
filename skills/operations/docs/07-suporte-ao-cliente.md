@@ -58,7 +58,10 @@ Ferramentas (conferidas em 2026-11-25 na página oficial do Chatwoot; outras: co
 | Ferramenta | Grátis | Pago |
 |---|---|---|
 | Chatwoot Cloud | Hacker: até 2 agentes, 500 conversas por mês, só chat ao vivo, retenção de 30 dias | Startups US$ 19, Business US$ 39 e Enterprise US$ 99 por agente/mês |
-| Chatwoot autohospedado | Existe versão aberta; a página não informou preço nem licença | Veja a licença no repositório antes de adotar |
+| Chatwoot autohospedado | Licença MIT no código principal (LICENSE do repositório, conferida em 2026-11-25); sem custo de licença | A pasta `enterprise/` tem licença própria (`enterprise/LICENSE`, não lida aqui): recursos dela exigem plano pago; confirme se o recurso que você quer está nela |
+| HelpScout | Plano Free com 25 contatos por mês | Standard US$ 25, Plus US$ 45 e Pro US$ 75 por usuário/mês no anual (US$ 30, 54 e 90 no mensal), contatos ilimitados; conferido em 2026-11-25 |
+| Freshdesk | Sem plano grátis permanente; 14 dias de teste | Growth US$ 19, Pro US$ 55 e Enterprise US$ 89 por agente/mês no anual; o mensal não aparece na página; conferido em 2026-11-25 |
+| Crisp | Free: 2 assentos | Mini US$ 45 (4 assentos), Essentials US$ 95 (10) e Plus US$ 295 (20+) por workspace/mês; assento extra US$ 10; conferido em 2026-11-25 |
 | E-mail compartilhado | Caixa `suporte@` com etiquetas | Sem custo adicional |
 
 Triagem na entrada:
@@ -98,7 +101,7 @@ Ligação com o backlog:
 - [Página de status](05-pagina-de-status-e-comunicacao.md): aponte o cliente para ela durante incidentes.
 - [Revisão operacional mensal](08-revisao-operacional-mensal.md): tempo de resposta e motivos mais comuns.
 - Backlog e priorização: skill `product`.
-- Alternativas: HelpScout, Freshdesk, Crisp (preços não conferidos aqui) ou issues no GitHub para produto aberto.
+- Alternativas: HelpScout, Freshdesk, Crisp (preços na tabela acima) ou issues no GitHub para produto aberto.
 
 ## Decisão rápida
 

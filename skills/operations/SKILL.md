@@ -70,4 +70,4 @@ Conformidade formal (ISO 27001, SOC 2), centro de operações 24 horas, SRE com 
 
 ## Validade dos dados
 
-Preços e limites de PagerDuty, Better Stack, Statuspage, Instatus e Chatwoot foram conferidos em 2026-11-25 nas páginas oficiais e mudam com frequência; cada documento tem a linha "Verificado em".
+Preços e limites de PagerDuty, Better Stack, Statuspage, Instatus, Chatwoot, HelpScout, Freshdesk e Crisp foram conferidos em 2026-11-25 nas páginas oficiais e mudam com frequência; cada documento tem a linha "Verificado em".
