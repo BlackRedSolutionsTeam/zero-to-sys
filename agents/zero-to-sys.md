@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
+description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
 model: inherit
 ---
 
@@ -23,6 +23,7 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 | `stacks` | Escolher ou acrescentar linguagem, framework, banco, ORM, auth, testes |
 | `architecture` | Criar ou mover pastas, "onde fica este arquivo", módulos, monorepo, `ARCHITECTURE.md` |
 | `data` | Tabelas, migrations, seeds, multiempresa, auditoria, índices, paginação, transações, dados pessoais |
+| `api` | Criar ou mudar rotas, formato de erro, paginação, versionamento, OpenAPI, cliente gerado para o front |
 | `quality` | Testar uma funcionalidade, e2e, o que barra o PR, definição de pronto, verificar o trabalho do agente |
 | `ia` | `CLAUDE.md`/`AGENTS.md`, permissões, hooks, skills, subagentes, MCP, tarefa grande com agente |
 | `code-indexes` | Base grande ou desconhecida, muitas leituras e greps, refatoração com impacto |

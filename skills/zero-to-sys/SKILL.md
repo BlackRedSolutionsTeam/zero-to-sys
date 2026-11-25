@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -13,6 +13,7 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `stacks` | [stacks/](../stacks/SKILL.md) | Qual stack completa usar |
 | `architecture` | [architecture/](../architecture/SKILL.md) | Como organizar pastas e arquivos |
 | `data` | [data/](../data/SKILL.md) | Como modelar tabelas, migrations e isolamento por cliente |
+| `api` | [api/](../api/SKILL.md) | Como desenhar o contrato da API entre front e back |
 | `quality` | [quality/](../quality/SKILL.md) | Como testar, o que barra o PR e quando um item está pronto |
 | `ia` | [ia/](../ia/SKILL.md) | Como configurar e usar o agente no projeto |
 | `code-indexes` | [code-indexes/](../code-indexes/SKILL.md) | Se e qual índice de código usar |
@@ -90,7 +91,7 @@ Para cada item do `BACKLOG.md`, na ordem do backlog, rode os passos abaixo. Um i
 |---|---|---|---|
 | 1. Critério | `product` | Releia a história e os critérios de aceite do item; se estiverem vagos, reescreva antes de codar | Nunca |
 | 2. Dados | `data` | Tabelas, colunas e constraints que o item pede; migration e seed; checklist de tabela nova | O item não muda o banco |
-| 3. Back | `coding` (e `api`, se instalada) | Rota ou ação, validação na borda, regras de negócio, erros no padrão do projeto | O item é só de tela |
+| 3. Back | `api` (e `coding` para o código) | Rota ou ação no padrão de rotas, erro e lista da API, validação na borda, regras de negócio; OpenAPI e cliente do front regenerados | O item é só de tela |
 | 4. Tela | `user-experience` → `design-systems` → `design` | Tela no layout escolhido, com os estados vazio, carregando, erro e sem permissão | O item não tem interface |
 | 5. Testes | `quality` (estilo do teste em `coding`) | Um teste por critério de aceite, na camada mais barata; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
 | 6. Pronto | `quality` | Definição de pronto abaixo (detalhada em `quality`, doc 08); PR pequeno com o item | Nunca |
