@@ -13,8 +13,9 @@
 ## O que é
 
 - **Crash e erros:** relatório automático de falhas, com a versão e o aparelho. Opções: o painel de qualidade das lojas (App Store Connect e Play Console, com os dados de usuários que compartilham diagnósticos) ou uma ferramenta própria como Sentry ou Firebase Crashlytics.
+- **Limites do Android vitals (Google):** a taxa de crash percebido pelo usuário de 1,09% dos usuários diários (todos os aparelhos) ou 8% em um único modelo, e a de ANR de 0,47% ou 8% por modelo, deixam o app menos descoberto na Play e podem exibir aviso na ficha (support.google.com/googleplay/android-developer/answer/9844486, lida em 2026-11-25). A Apple não publica um limite equivalente que eu tenha conferido.
 - **Avaliações:** as duas lojas permitem responder publicamente a cada avaliação.
-- **Versão mínima forçada:** o app consulta o seu back-end, que informa a menor versão aceita; se a instalada for menor, mostra uma tela que leva à loja.
+- **Versão mínima forçada:** o app consulta o seu back-end, que informa a menor versão aceita; se a instalada for menor, mostra uma tela que leva à loja. No Android, a alternativa nativa é a atualização imediata das in-app updates da Play (tela cheia que exige atualizar para continuar), disponível a partir do Android 5.0 e incompatível com apps que usam arquivos .obb (developer.android.com/guide/playcore/in-app-updates, lida em 2026-11-25); o iOS não tem equivalente, então a consulta ao back-end continua necessária.
 
 ## Por que usar
 
@@ -57,7 +58,7 @@ Endpoint do back-end:
 }
 ```
 
-Comparação no app:
+Comparação no app (lógica escrita por nós, não é API oficial; o trecho não foi executado em um app real, só a comparação de versões é simples o bastante para conferir por leitura):
 
 ```tsx
 import { Platform } from "react-native";
