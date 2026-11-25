@@ -88,8 +88,8 @@ Página: https://www.locaweb.com.br/servidor-vps/
 | Gerenciada | não informado na página ("customização total") |
 | Root | Sim (a página define VPS como máquina virtual com acesso root) |
 | Snapshot/backup | 1 imagem instantânea (snapshot) grátis; backup automático: não informado na página |
-| Pagamento | Cartão em até 12x sem juros nos planos anual e bienal (parcela mínima R$ 15); PIX e boleto: não informado na página |
-| Nota fiscal | não informado na página |
+| Pagamento | Cartão (até 12x sem juros no anual e bienal), boleto, débito automático e Pix (ajuda Financeiro da Locaweb) |
+| Nota fiscal | Sim: a ajuda Financeiro tem o artigo "Como ver nota fiscal" |
 | SLA | não informado na página para o VPS (o 99,9% citado é do Locaweb Cloud) |
 | Suporte | Técnico 24h por telefone, 7 dias; chat; vendas e cobrança de segunda a sexta, 8h às 18h |
 
@@ -105,8 +105,8 @@ Página: https://king.host/servidor-vps
 | Gerenciada | não informado na página (cita acesso root e painel próprio) |
 | Root | Sim |
 | Snapshot/backup | não informado na página |
-| Pagamento | Cartão, com 12x sem juros nos planos anual e bienal (parcela mínima R$ 15); PIX e boleto: não informado na página |
-| Nota fiscal | não informado na página |
+| Pagamento | Cartão (até 12x sem juros no anual e bienal), boleto e Pix (Painel de pagamentos da KingHost) |
+| Nota fiscal | Sim: as notas fiscais ficam disponíveis no app da KingHost |
 | SLA | 99,9% |
 | Suporte | 24/7 em português, humano, por chat e WhatsApp |
 
@@ -133,11 +133,11 @@ Páginas: https://www.hostdime.com.br/cloud-server/ e https://www.hostdime.com.b
 |---|---|---|---|---|---|---|
 | Hostinger | 29,99 | contrato de 24 meses | 1 vCPU, 4 GB, 50 GB | sim, cidade não informada | Pix, boleto e cartão | não informado |
 | HostGator | 20,99 | contrato de 3 anos | 1 vCPU, 2 GB, 50 GB | sim, São Paulo (OCI) | Pix, boleto, cartão e PayPal | sem SLA formal |
-| Locaweb | 15,90 | contrato de 24 meses | 2 vCPU, 1 GB, 40 GB | sim, cidade não informada | só cartão informado | não informado |
-| KingHost | 32,90 | mensal, sem contrato | 2 vCPU, 4 GB, 70 GB | sim, cidade não informada | só cartão informado | 99,9% |
+| Locaweb | 15,90 | contrato de 24 meses | 2 vCPU, 1 GB, 40 GB | sim, cidade não informada | Pix, boleto, cartão e débito automático | não informado |
+| KingHost | 32,90 | mensal, sem contrato | 2 vCPU, 4 GB, 70 GB | sim, cidade não informada | Pix, boleto e cartão | 99,9% |
 | HostDime | não informado | crédito mínimo R$ 75,00 | configurável | sim, São Paulo e João Pessoa | cartão e boleto | 99,9% |
 
-Compare planos de 4 GB: o preço promo só vale enquanto o contrato dura. Nota fiscal não aparece em nenhuma das cinco páginas; Locaweb e KingHost não puderam ser relidas no navegador nesta verificação. Para cliente que exige nota, confirme com o comercial antes de contratar.
+Compare planos de 4 GB: o preço promo só vale enquanto o contrato dura. Nota fiscal: Locaweb e KingHost emitem (artigo de ajuda e app); Hostinger, HostGator e HostDime não informam nas páginas. Para cliente que exige nota, confirme com o comercial antes de contratar.
 
 ## Quando é bom e quando é ruim
 
