@@ -99,7 +99,7 @@ Ordem prática:
 
 ### 4. Registre `.com`, `.app` ou `.dev`
 
-No Cloudflare Registrar a compra é feita no painel da Cloudflare, pela conta do cliente. Porkbun, Namecheap e GoDaddy também vendem esses TLDs; não conferi os preços deles nesta verificação, então compare a página oficial de cada um, incluindo o valor de renovação, antes de escolher.
+No Cloudflare Registrar a compra é feita no painel da Cloudflare, pela conta do cliente. Porkbun, Namecheap e GoDaddy também vendem esses TLDs. Conferido em 2026-11-25: a Porkbun anuncia `.com` a partir de US$ 11,81 por ano; a GoDaddy Brasil anuncia `.com` por R$ 0,01 no primeiro ano, que é promoção (a página não mostra a renovação, que costuma ser bem mais cara). A página da Namecheap não foi conferida. Compare sempre o valor de **renovação**, não o do primeiro ano.
 
 ### 5. Registre a titularidade
 

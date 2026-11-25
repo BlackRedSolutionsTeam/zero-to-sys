@@ -54,7 +54,7 @@ Página: https://www.hostinger.com/br/servidor-vps
 | Gerenciada | Autogerenciada, com assistente de IA no terminal web |
 | Root | Sim |
 | Snapshot/backup | Backup semanal grátis; snapshot: só citado na FAQ, sem detalhes |
-| Pagamento | Cartão em até 12x; PIX e boleto: não informado na página |
+| Pagamento | Cartão em até 12x, Pix e boleto (logos no rodapé da página de VPS); o plano é pago integralmente no início |
 | Nota fiscal | não informado na página |
 | SLA | não informado na página (sem percentual) |
 | Suporte | 24h, com agente de IA e atendimento humano quando a IA não resolve |
@@ -67,11 +67,11 @@ Página: https://www.hostgator.com.br/servidor-vps
 | Plano de entrada | VPS NVMe 2: R$ 20,99/mês promo de 3 anos (total R$ 755,64); preço mensal sem contrato: não informado na página |
 | vCPU / RAM / disco | 1 vCPU / 2 GB DDR5 / 50 GB NVMe |
 | Tráfego | Ilimitado |
-| Datacenter | Brasil (a página cita o datacenter da OCI em São Paulo na nota de latência); também México, Chile, Colômbia e EUA |
+| Datacenter | Brasil, em servidores da Oracle Cloud (OCI) em São Paulo; também México, Chile, Colômbia e EUA |
 | Gerenciada | não informado na página ("controle total") |
 | Root | Sim |
 | Snapshot/backup | Backup semanal automático grátis; snapshot: não informado na página |
-| Pagamento | não informado na página (a cobrança aparece via Asaas, sem listar meios) |
+| Pagamento | Cartão de crédito, boleto, Pix e PayPal (página "Formas de pagamento" da HostGator); suporte 24h em português e reembolso em até 30 dias |
 | Nota fiscal | não informado na página |
 | SLA | Sem SLA formal; cita "uptime de 99,9%" e "disponibilidade superior a 99,95%" na infraestrutura OCI |
 | Suporte | 24h, todos os dias, em português, chat e ticket, com fila prioritária |
@@ -118,7 +118,7 @@ Páginas: https://www.hostdime.com.br/cloud-server/ e https://www.hostdime.com.b
 | Plano de entrada | não informado na página: configurador sem planos nomeados nem preço mensal; só crédito mínimo de R$ 75,00 |
 | vCPU / RAM / disco | configuráveis; cloud em SSD corporativo; dedicados de 4 cores (Intel E3-1230v5) a 2x AMD EPYC 7K62 |
 | Tráfego | Brasil: 10 TB de saída e 5 TB de entrada grátis; excedente R$ 0,04/GB de saída. A página também diz "ilimitado": confirme com a HostDime |
-| Datacenter | São Paulo (SP) e João Pessoa (PB); também Orlando, México e Colômbia |
+| Datacenter | Próprios: João Pessoa (PB) e São Paulo (SP), Tier III; também Orlando (Tier IV), Londres, Guadalajara e Bogotá. Dedicados são vendidos por proposta, com ISO 27701 e gerenciamento com resposta inicial em até 60 minutos |
 | Gerenciada | Opcional em 4 níveis (Padrão, Avançado, Full, Premium); base: não informado na página |
 | Root | Sim no cloud ("Acesso Root completo"); no dedicado: não informado na página |
 | Snapshot/backup | Backup opcional (agente Acronis); snapshot: não informado na página |
@@ -131,13 +131,13 @@ Páginas: https://www.hostdime.com.br/cloud-server/ e https://www.hostdime.com.b
 
 | Provedor | Entrada (R$/mês) | Condição do preço | Config. de entrada | Datacenter no Brasil | PIX/boleto/cartão | SLA |
 |---|---|---|---|---|---|---|
-| Hostinger | 29,99 | contrato de 24 meses | 1 vCPU, 4 GB, 50 GB | sim, cidade não informada | só cartão informado | não informado |
-| HostGator | 20,99 | contrato de 3 anos | 1 vCPU, 2 GB, 50 GB | sim, São Paulo (OCI) | não informado | sem SLA formal |
+| Hostinger | 29,99 | contrato de 24 meses | 1 vCPU, 4 GB, 50 GB | sim, cidade não informada | Pix, boleto e cartão | não informado |
+| HostGator | 20,99 | contrato de 3 anos | 1 vCPU, 2 GB, 50 GB | sim, São Paulo (OCI) | Pix, boleto, cartão e PayPal | sem SLA formal |
 | Locaweb | 15,90 | contrato de 24 meses | 2 vCPU, 1 GB, 40 GB | sim, cidade não informada | só cartão informado | não informado |
 | KingHost | 32,90 | mensal, sem contrato | 2 vCPU, 4 GB, 70 GB | sim, cidade não informada | só cartão informado | 99,9% |
 | HostDime | não informado | crédito mínimo R$ 75,00 | configurável | sim, São Paulo e João Pessoa | cartão e boleto | 99,9% |
 
-Compare planos de 4 GB: o preço promo só vale enquanto o contrato dura.
+Compare planos de 4 GB: o preço promo só vale enquanto o contrato dura. Nota fiscal não aparece em nenhuma das cinco páginas; Locaweb e KingHost não puderam ser relidas no navegador nesta verificação. Para cliente que exige nota, confirme com o comercial antes de contratar.
 
 ## Quando é bom e quando é ruim
 

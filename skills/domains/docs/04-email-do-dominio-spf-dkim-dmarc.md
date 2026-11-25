@@ -69,7 +69,7 @@ Exemplo do doc: a clínica recebe e-mail em `contato@clinica-exemplo.com.br` e o
 | Microsoft 365 | `@` | valor mostrado no centro de administração | 0 |
 | Zoho Mail | `@` | `mx.zoho.com`, `mx2.zoho.com`, `mx3.zoho.com` | 10, 20, 50 |
 
-O Google informa que contas criadas antes de 2023 podem ter valores `aspmx...` e que eles continuam valendo. No Microsoft 365 o valor do MX é exclusivo do seu domínio: copie do painel. No Zoho, os valores mudam conforme o data center (veja o Admin Console). Planos: o Zoho Mail tem plano gratuito para um domínio e até cinco usuários, sem IMAP/POP (página de preços conferida na data acima); preços de Google e Microsoft mudam, consulte as páginas oficiais.
+O Google informa que contas criadas antes de 2023 podem ter valores `aspmx...` e que eles continuam valendo. No Microsoft 365 o valor do MX é exclusivo do seu domínio: copie do painel. No Zoho, os valores mudam conforme o data center (veja o Admin Console). Planos (conferidos em 2026-11-25 nas páginas oficiais em pt-BR): Google Workspace Business Starter a R$ 40,90 por usuário por mês (R$ 32,72 em promoção no primeiro ano), Standard a R$ 81,80 e Plus a R$ 128,40; Microsoft 365 Business Basic a R$ 33,40 por usuário por mês; Zoho Mail com plano gratuito para um domínio e até cinco usuários, sem IMAP/POP. Preços sem impostos podem variar no checkout.
 
 **2. SPF.** Um único TXT no apex. Os `include` abaixo são o formato; copie o valor exato do painel de cada provedor.
 
