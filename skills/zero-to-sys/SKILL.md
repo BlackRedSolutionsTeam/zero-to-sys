@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (stacks, architecture, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -9,6 +9,7 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 
 | Skill | Pasta | Responde |
 |---|---|---|
+| `product` | [product/](../product/SKILL.md) | O que construir: MVP, fluxos, regras, histórias e backlog |
 | `stacks` | [stacks/](../stacks/SKILL.md) | Qual stack completa usar |
 | `architecture` | [architecture/](../architecture/SKILL.md) | Como organizar pastas e arquivos |
 | `ia` | [ia/](../ia/SKILL.md) | Como configurar e usar o agente no projeto |
@@ -66,7 +67,8 @@ Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos.
 
 | # | Skill | Entra com | Entrega | Pule se |
 |---|---|---|---|---|
-| 1 | `stacks` | Contexto e resumo aprovado do passo 0 | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
+| 0 | `product` | Resumo aprovado do passo 0 | Escopo do MVP (dentro, fora, depois), fluxo principal, regras de negócio, histórias com critérios de aceite e `BACKLOG.md` em ordem de construção | Site de conteúdo simples: basta a lista de páginas |
+| 1 | `stacks` | Contexto, resumo aprovado e escopo da fase 0 | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
 | 2 | `architecture` | Stack escolhida, porte | Árvore de pastas, padrão (feature-first, monólito modular, monorepo…), `ARCHITECTURE.md` | Nunca em projeto novo |
 | 3 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
 | 4 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
