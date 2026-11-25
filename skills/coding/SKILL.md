@@ -1,6 +1,6 @@
 ---
 name: coding
-description: Guia de boas práticas para escrever código bem organizado, simples e fácil de ler por qualquer senioridade, principalmente júnior (nomes, funções pequenas, módulos, simplicidade, erros, validação, comentários, testes, lint e formatação, refatoração, commits, PRs e revisão). Use sempre que for escrever código novo, mexer em código legado, quando uma função ou arquivo ficar grande, quando houver código repetido, ao revisar um PR, ou quando o usuário pedir para "deixar o código limpo", "simplificar", "refatorar", "organizar o código", "melhorar a legibilidade" ou "boas práticas".
+description: Guia de boas práticas para escrever código bem organizado, simples e fácil de ler por qualquer senioridade, principalmente júnior (nomes, funções pequenas, módulos, simplicidade, erros, validação, sem comentários no código, testes, lint e formatação, refatoração, commits, PRs e revisão). Use sempre que for escrever código novo, mexer em código legado, quando uma função ou arquivo ficar grande, quando houver código repetido, ao revisar um PR, ou quando o usuário pedir para "deixar o código limpo", "simplificar", "refatorar", "organizar o código", "melhorar a legibilidade" ou "boas práticas".
 ---
 
 # coding
@@ -28,7 +28,7 @@ Fronteiras: estrutura de pastas e arquivos do projeto é da skill **architecture
 | O arquivo ou módulo ficou grande, ou tudo importa tudo | [03 Modularização e limites](docs/03-modularizacao-e-limites.md) (pastas e estrutura: skill architecture) |
 | Tenho código repetido | [04 Simplicidade](docs/04-simplicidade.md) (regra de três), depois [10 Refatoração segura](docs/10-refatoracao-segura.md) |
 | Estou lidando com erro, entrada de usuário ou API externa | [05 Tratamento de erros](docs/05-tratamento-de-erros.md), [06 Tipos e validação na borda](docs/06-tipos-e-validacao-na-borda.md) |
-| Preciso explicar uma decisão ou documentar uma função pública | [07 Comentários e documentação](docs/07-comentarios-e-documentacao.md) |
+| Tive vontade de escrever um comentário | [07 Sem comentários no código](docs/07-comentarios-e-documentacao.md) |
 | Estou configurando um projeto novo | [09 Formatação e lint automáticos](docs/09-formatacao-e-lint-automaticos.md) |
 | Vou commitar ou abrir PR | [11 Commits e PRs pequenos](docs/11-commits-e-prs-pequenos.md) |
 | Estou revisando um PR | [12 Revisão de código](docs/12-revisao-de-codigo.md), [04 Simplicidade](docs/04-simplicidade.md) |
@@ -41,7 +41,7 @@ Fronteiras: estrutura de pastas e arquivos do projeto é da skill **architecture
 | Simplicidade | [docs/04-simplicidade.md](docs/04-simplicidade.md) | KISS, YAGNI e regra de três |
 | Tratamento de erros | [docs/05-tratamento-de-erros.md](docs/05-tratamento-de-erros.md) | Falhar cedo, com contexto, sem engolir |
 | Tipos e validação na borda | [docs/06-tipos-e-validacao-na-borda.md](docs/06-tipos-e-validacao-na-borda.md) | Validar o que vem de fora e confiar nos tipos por dentro |
-| Comentários e documentação | [docs/07-comentarios-e-documentacao.md](docs/07-comentarios-e-documentacao.md) | Comentar o porquê, não o quê |
+| Sem comentários no código | [docs/07-comentarios-e-documentacao.md](docs/07-comentarios-e-documentacao.md) | Nada de comentário: nome, função, teste e commit explicam |
 | Testes | [docs/08-testes.md](docs/08-testes.md) | Testar comportamento, pirâmide ou troféu |
 | Formatação e lint automáticos | [docs/09-formatacao-e-lint-automaticos.md](docs/09-formatacao-e-lint-automaticos.md) | Biome, ESLint + Prettier, Ruff, dotnet format |
 | Refatoração segura | [docs/10-refatoracao-segura.md](docs/10-refatoracao-segura.md) | Passos pequenos com testes rodando |
@@ -51,7 +51,7 @@ Fronteiras: estrutura de pastas e arquivos do projeto é da skill **architecture
 ## Regras de uso
 
 - **Escreva para o júnior.** Se uma pessoa em início de carreira não entende o código lendo uma vez, simplifique.
-- **Nome antes de comentário.** Renomeie antes de comentar. Comente só o porquê.
+- **Sem comentários no código.** Se algo precisa de explicação, renomeie, extraia uma função ou escreva um teste; o porquê vai no commit ou no PR. Só diretivas exigidas por ferramenta (lint, typecheck, licença) são aceitas.
 - **Uma responsabilidade por função e por módulo.** Se o nome pede "e", divida.
 - **Simples primeiro.** Sem abstração, flag ou camada que ninguém pediu. Extraia na terceira repetição real, não na segunda.
 - **Valide na borda, confie por dentro.** Dado de fora é validado uma vez; o resto usa tipos. Nada de `any` ou `as` para fazer passar.

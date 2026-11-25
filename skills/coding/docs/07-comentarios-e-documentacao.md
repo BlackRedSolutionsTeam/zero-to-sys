@@ -1,103 +1,104 @@
-# Comentários e documentação
+# Sem comentários no código
 
-> Comente o porquê, não o quê: o código já diz o que faz; só você sabe por que fez assim.
+> O código não leva comentário. Se uma linha precisa de explicação, o nome está errado ou a função faz coisa demais: conserte o código. O porquê vai para o commit, o PR, o teste ou o documento de decisão.
 
 | | |
 |---|---|
-| **Referência** | página do livro A Philosophy of Software Design (web.stanford.edu/~ouster/cgi-bin/book.php); TSDoc (tsdoc.org); PEP 257 (docstrings); documentação XML do C# (Microsoft Learn) |
+| **Referência** | Clean Code, cap. 4 "Comments" (Robert C. Martin); A Philosophy of Software Design (web.stanford.edu/~ouster/cgi-bin/book.php), para a visão contrária; Conventional Commits (conventionalcommits.org) |
 | **Categoria** | Legibilidade |
 | **Tipo** | Prática de escrita de código |
-| **Vale para** | Qualquer linguagem; o formato do comentário de documentação muda (TSDoc, docstring, XML doc) |
+| **Vale para** | Qualquer linguagem |
 | **Verificado em** | 2026-11-24 |
 
 ## O que é
 
-Comentário é texto que o compilador ignora e que explica o que o código sozinho não mostra: a razão de uma decisão, uma restrição, uma armadilha. Documentação é o texto sobre o contrato público: o que a função recebe, devolve e quando falha.
+A regra é não escrever comentário em código de produção nem de teste: nem explicando a linha, nem descrevendo a função, nem código comentado. A intenção aparece no próprio código, por nome de variável, de função e de teste. O contexto que o código não consegue carregar (motivo histórico, ticket, decisão) fica fora do arquivo, onde não polui a leitura e não desatualiza escondido.
 
-Comentário que repete o código vira mentira quando o código muda. Comentário que explica o motivo continua válido.
+## Por que
 
-## Por que usar
+- **Comentário desatualiza.** O código muda, o texto fica e passa a mentir. Ninguém testa comentário.
+- **Comentário esconde nome ruim.** Quem comenta deixa de renomear.
+- **Ruído visual.** O leitor lê duas vezes a mesma coisa, uma em português e outra em código.
+- **O porquê tem lugar melhor.** O `git blame` leva ao commit e ao PR, que têm o contexto completo e a data.
 
-- **Guarda o contexto:** por que escolhemos isto, o que já foi tentado.
-- **Evita "conserto" errado:** um aviso sobre um truque impede que alguém o desfaça.
-- **API compreensível:** o editor mostra a documentação ao passar o mouse.
-- **Onboarding:** README e documentação de decisão encurtam a entrada de gente nova.
+## Onde fica cada coisa
 
-## Quando usar
+| Você queria comentar… | Faça isto |
+|---|---|
+| O que a linha faz | Extraia uma variável ou função com nome que diga isso |
+| O que a função faz | Renomeie a função; se não cabe num nome, ela faz coisa demais: divida |
+| Por que foi feito assim (regra de negócio, exigência fiscal, limite de API) | Nome que carregue a regra (`roundUpForNfe`), teste com nome que conte o caso, e o motivo na mensagem do commit ou no PR |
+| Armadilha que alguém pode "consertar" errado | Um teste que quebra se alguém desfizer, com nome explicando o motivo |
+| Decisão de arquitetura | Documento de decisão (ADR) ou `ARCHITECTURE.md` |
+| Pendência (`TODO`) | Issue no rastreador, não no código |
+| Código antigo "por garantia" | Apague; o git guarda |
+| Contrato de uma API pública | Tipos fortes, nomes de parâmetro claros e a documentação no README ou na página de referência da API |
 
-- Existe uma regra de negócio não óbvia ou uma exceção histórica.
-- O código parece estranho de propósito (workaround de bug de terceiros, otimização).
-- A função é pública e usada por outros módulos ou pessoas.
-- Há uma decisão de arquitetura que vai ser questionada (registre em um documento de decisão).
+## Exceções
 
-## Para que tipo de código
+Só o que uma ferramenta exige para funcionar, sempre na forma mais curta:
 
-| Tipo de código/projeto | Encaixe | Por quê |
-|---|---|---|
-| Biblioteca / API pública | ✅ Ótimo | Formatos TSDoc, PEP 257 e XML doc |
-| Código interno simples | 🟡 Serve | Ousterhout e Martin divergem sobre o papel dos comentários (web.stanford.edu/~ouster/cgi-bin/book.php) |
+- diretivas de compilador, lint ou typecheck (`// @ts-expect-error`, `// biome-ignore lint/...: motivo`, `# type: ignore[...]`, `#pragma`), quando a ferramenta pede o motivo na própria diretiva;
+- cabeçalho de licença quando a licença do projeto obriga;
+- arquivos gerados por ferramenta (migrations, código gerado), que não se editam à mão.
 
-## Quando é bom
+Se o repositório já tem regra própria de comentários (por exemplo, documentação XML obrigatória em métodos públicos no C#), a regra do repositório vale.
 
-- **Explica o porquê:** "Arredondamos para cima por exigência fiscal (NF-e)".
-- **Aponta fonte:** link para issue, RFC ou página de documentação.
-- **Marca pendência com dono:** `TODO(ticket-123): remover após migração`.
-- **Documenta o contrato:** parâmetros, retorno, erros possíveis e exemplo, na função pública.
-- **Fica perto do código:** comentário na linha que explica, não num arquivo distante.
-
-## Quando é ruim
-
-- **Comentário que repete:** `// busca o usuário` sobre `getUser()`.
-- **Comentário que mente:** o código mudou e o texto ficou.
-- **Código comentado:** o git guarda o histórico; apague.
-- **Comentário para desculpar nome ruim:** renomeie em vez de comentar.
-- **Documentação em excesso:** docblock em toda função privada gera ruído e desatualiza.
-- **Divergência:** Ousterhout e Martin (Clean Code) têm diferenças significativas sobre o papel dos comentários (web.stanford.edu/~ouster/cgi-bin/book.php). O meio-termo: pouco comentário de implementação, bom comentário de contrato e de motivo.
-
-## Como começar
+## Como fazer
 
 Antes:
 
 ```ts
-// incrementa o contador
-count++;
-
-// verifica se o usuário é maior de idade
-if (u.a >= 18) { /* ... */ }
+const trimmedName = name.trim();
+if (!trimmedName) return;
+// Limpa o campo na hora para a pessoa já digitar o próximo item.
+setName("");
+void onAdd(trimmedName);
 ```
 
 Depois:
 
 ```ts
-count++;
+const trimmedName = name.trim();
+if (!trimmedName) return;
+clearFieldForNextItem();
+void onAdd(trimmedName);
+```
 
-const isAdult = user.age >= 18;
-if (isAdult) { /* ... */ }
+Antes:
 
+```ts
 // A API de pagamentos devolve 202 mesmo quando a cobrança falha;
 // o resultado real só chega pelo webhook. Ver ticket PAY-482.
 if (res.status === 202) return { status: "pending" };
 ```
 
-Documentação de função pública em TypeScript (TSDoc):
+Depois:
 
 ```ts
-/** Calcula o frete. Lança `InvalidZipError` se o CEP não existir. */
-export function calculateShipping(zip: string, weightKg: number): number { /* ... */ }
+const paymentAwaitsWebhook = res.status === 202;
+if (paymentAwaitsWebhook) return { status: "pending" };
 ```
 
-Em Python, use docstring (PEP 257); em C#, comentário XML `/// <summary>`. Se o time ou o repositório tiver regra própria (alguns só aceitam comentário em tipos e métodos públicos), a regra do time vale.
+```ts
+it("trata 202 como pendente porque a API só confirma a cobrança pelo webhook", () => { /* ... */ });
+```
 
-## Combina com / alternativas
+E o commit: `fix(pagamentos): tratar 202 como pendente até o webhook (PAY-482)`.
 
-Combina com:
-- [Nomes claros](01-nomes-claros.md): nome bom reduz a necessidade de comentário.
-- [Commits e PRs pequenos](11-commits-e-prs-pequenos.md): a mensagem do commit guarda o porquê da mudança.
-- [Revisão de código](12-revisao-de-codigo.md): pergunta de revisor vira comentário ou nome melhor.
+## Na revisão
 
-Alternativas: registro de decisões de arquitetura (ADR) para decisões grandes, README por módulo para visão geral.
+Comentário em diff é apontamento de revisão: peça para trocar por nome, função ou teste, ou mover o motivo para o commit ou o PR. O agente de IA segue a mesma regra e não deixa comentário explicando o que acabou de escrever.
+
+## Combina com
+
+- [Nomes claros](01-nomes-claros.md): é o substituto direto do comentário.
+- [Funções pequenas](02-funcoes-pequenas.md): função com um só propósito cabe num nome.
+- [Testes](08-testes.md): o nome do teste documenta o comportamento e quebra quando ele muda.
+- [Commits e PRs pequenos](11-commits-e-prs-pequenos.md): a mensagem guarda o porquê.
+- [Revisão de código](12-revisao-de-codigo.md): comentário no diff é apontamento.
 
 ## Decisão rápida
 
-- **Use se:** o motivo não está claro no código, ou a função é pública e usada por terceiros.
-- **Evite se:** o comentário só diz o que a linha já diz, ou se o nome melhor resolveria.
+- **Nunca:** comentário explicando linha, função, regra ou pendência; código comentado.
+- **Só se a ferramenta exigir:** diretiva de lint, compilador ou typecheck, cabeçalho de licença.

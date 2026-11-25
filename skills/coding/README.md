@@ -14,7 +14,7 @@ Só entrou o que passa em três critérios: referência reconhecida, benefício 
 | Simplicidade | KISS, YAGNI e regra de três | [docs/04-simplicidade.md](docs/04-simplicidade.md) |
 | Tratamento de erros | Falhar cedo, com contexto | [docs/05-tratamento-de-erros.md](docs/05-tratamento-de-erros.md) |
 | Tipos e validação na borda | Validar o que vem de fora | [docs/06-tipos-e-validacao-na-borda.md](docs/06-tipos-e-validacao-na-borda.md) |
-| Comentários e documentação | Comentar o porquê | [docs/07-comentarios-e-documentacao.md](docs/07-comentarios-e-documentacao.md) |
+| Sem comentários no código | Nome, função e teste no lugar do comentário | [docs/07-comentarios-e-documentacao.md](docs/07-comentarios-e-documentacao.md) |
 | Testes | Comportamento, pirâmide ou troféu | [docs/08-testes.md](docs/08-testes.md) |
 | Formatação e lint automáticos | Biome, ESLint + Prettier, Ruff, dotnet format | [docs/09-formatacao-e-lint-automaticos.md](docs/09-formatacao-e-lint-automaticos.md) |
 | Refatoração segura | Passos pequenos com testes | [docs/10-refatoracao-segura.md](docs/10-refatoracao-segura.md) |
@@ -45,7 +45,7 @@ Com a skill carregada, o Claude:
 1. descobre linguagem, convenções do repositório e se há testes, lint e formatador;
 2. escolhe as práticas pela tabela de decisão do [SKILL.md](SKILL.md);
 3. lê o documento de cada prática escolhida;
-4. aplica em passos pequenos, seguindo as regras de uso (nome antes de comentário, simples primeiro, validar na borda, refatoração separada);
+4. aplica em passos pequenos, seguindo as regras de uso (sem comentários no código, simples primeiro, validar na borda, refatoração separada);
 5. roda formatador, lint e testes;
 6. explica a escolha em uma ou duas frases.
 

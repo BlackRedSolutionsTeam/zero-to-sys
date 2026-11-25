@@ -38,6 +38,10 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 5. **Mostre o progresso** em uma linha por fase: "Fase 2 de 4 (coding). Faltam: design-systems, design".
 6. **Registre as decisões no projeto**, onde a skill indicar (`README`, `ARCHITECTURE.md`, `CLAUDE.md`/`AGENTS.md`). Não crie documento de planejamento à parte.
 
+## Regras de código que valem em toda fase
+
+- **Sem comentários no código.** Não escreva comentário explicando linha, função, regra ou pendência, nem deixe código comentado. Se algo precisa de explicação, renomeie, extraia uma função ou escreva um teste; o porquê vai no commit, no PR ou no `ARCHITECTURE.md`. Só entram diretivas que a ferramenta exige (lint, typecheck, licença). Detalhes em `coding`, documento 07.
+
 ## Quando não disparar
 
 - Tarefa pequena e de uma área só (renomear, corrigir um bug pontual): use só a skill daquela área, ou nenhuma se for trivial.

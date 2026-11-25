@@ -23,7 +23,7 @@ Um documento por prática, explicando quando usar, em que tipo de código encaix
 
 | Prática | O que é | Doc |
 |---|---|---|
-| Comentários e documentação | Comentar o porquê, documentar o contrato | [07-comentarios-e-documentacao.md](07-comentarios-e-documentacao.md) |
+| Sem comentários no código | Nome, função, teste e commit no lugar do comentário | [07-comentarios-e-documentacao.md](07-comentarios-e-documentacao.md) |
 | Formatação e lint automáticos | A máquina decide o estilo | [09-formatacao-e-lint-automaticos.md](09-formatacao-e-lint-automaticos.md) |
 | Refatoração segura | Melhorar a estrutura em passos pequenos | [10-refatoracao-segura.md](10-refatoracao-segura.md) |
 
@@ -55,6 +55,6 @@ Um documento por prática, explicando quando usar, em que tipo de código encaix
 | TDD estrito como regra | A comunidade diverge (DHH criticou em 2014); ficou como "teste o comportamento" em [08](08-testes.md) |
 | Cobertura de testes como meta | Mede o que rodou, não o que foi verificado |
 | Programação funcional pura como regra | Ótima em certos trechos, mas é escolha de estilo e de linguagem (skill stacks) |
-| "Comentário é falha" | Visão do Clean Code contestada por Ousterhout; ficou o meio-termo em [07](07-comentarios-e-documentacao.md) |
+| "Comente o porquê" | Visão de Ousterhout; preferimos levar o porquê para nome, teste e commit, ver [07](07-comentarios-e-documentacao.md) |
 | Estrutura de pastas e arquitetura (camadas, hexagonal, DDD) | Assunto da skill architecture |
 | Escolha de linguagem e framework | Assunto da skill stacks |

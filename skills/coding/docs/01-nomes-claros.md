@@ -82,7 +82,7 @@ Teste prático: leia o código em voz alta para alguém que não o conhece. Onde
 
 Combina com:
 - [Funções pequenas](02-funcoes-pequenas.md): função curta é fácil de nomear.
-- [Comentários e documentação](07-comentarios-e-documentacao.md): nome bom corta comentário que repete o código.
+- [Sem comentários no código](07-comentarios-e-documentacao.md): o nome substitui o comentário.
 - [Formatação e lint automáticos](09-formatacao-e-lint-automaticos.md): o lint força a convenção de caixa.
 
 Alternativas: não há. Nomes ruins com comentário em cima é pior que nome bom sem comentário.
