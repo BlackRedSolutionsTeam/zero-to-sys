@@ -40,6 +40,21 @@ Guia de decisão para montar a infraestrutura de um projeto, do zero até produ�
 | Observabilidade | [docs/10-observabilidade.md](docs/10-observabilidade.md) | OpenTelemetry, Grafana e Sentry |
 | Backup | [docs/11-backup-e-recuperacao.md](docs/11-backup-e-recuperacao.md) | Cópias, restauração testada e metas de recuperação |
 | Segurança | [docs/12-seguranca-base.md](docs/12-seguranca-base.md) | Menor privilégio, rede, TLS e dependências |
+| Analytics de produto | [docs/13-analytics-de-produto.md](docs/13-analytics-de-produto.md) | Medir o uso: eventos, funil, PostHog, Plausible, Umami |
+| Feature flags e rollback | [docs/14-feature-flags-e-rollback.md](docs/14-feature-flags-e-rollback.md) | Liberar aos poucos e voltar atrás |
+
+## Checklist de todo ambiente que vai para produção
+
+- [ ] O deploy sai do Git por pipeline versionado (`ls .github/workflows`).
+- [ ] Nenhum segredo no repositório, em `.env` commitado, em imagem ou em log (`git ls-files | grep -E '\.env$'`; `gitleaks detect`).
+- [ ] Existe `.env.example` sem valores reais (`ls .env.example`).
+- [ ] A infra está em código (Dockerfile e pipeline, ou OpenTofu ou Pulumi) e não só no painel (`ls Dockerfile *.tf`).
+- [ ] O banco tem backup automático e a restauração foi testada em ambiente separado (registro do teste no repositório ou no runbook).
+- [ ] O banco não tem IP público aberto e todo acesso usa TLS (conferir a regra de rede no provedor).
+- [ ] Existe ambiente de homologação separado de produção, a partir do SaaS pequeno (`grep -rn 'staging' .github`).
+- [ ] Há alerta de erro, de indisponibilidade e de custo mensal (conferir Sentry, uptime e orçamento no provedor).
+- [ ] Há limite de gasto nas plataformas cobradas por uso (conferir no painel do provedor).
+- [ ] As dependências são verificadas no pipeline (`grep -rn 'audit\|dependabot' .github`).
 
 ## Regras de uso
 
@@ -56,7 +71,7 @@ Guia de decisão para montar a infraestrutura de um projeto, do zero até produ�
 
 ## Quando a lista não cobre
 
-Se o projeto pede algo fora destes doze tópicos (mensageria, filas, busca, data warehouse, edge computing avançado, requisitos regulatórios como PCI ou HIPAA, multi-região ativa), diga isso ao usuário em vez de forçar um deles. O `docs/README.md` registra o que foi avaliado e saiu da lista, com o motivo.
+Se o projeto pede algo fora destes catorze tópicos (mensageria, filas, busca, data warehouse, edge computing avançado, requisitos regulatórios como PCI ou HIPAA, multi-região ativa), diga isso ao usuário em vez de forçar um deles. O `docs/README.md` registra o que foi avaliado e saiu da lista, com o motivo.
 
 ## Validade dos dados
 

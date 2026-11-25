@@ -32,6 +32,8 @@ Catálogo de layouts por tipo de sistema. Cada tipo tem um documento em `docs/` 
 | Marcar horário e ver a agenda | Agendamento | [10](docs/10-agendamento.md) | [HTML](examples/10-agendamento.html) |
 | Ler e consultar conteúdo técnico ou ajuda | Documentação | [11](docs/11-documentacao.md) | [HTML](examples/11-documentacao.html) |
 | Usar no celular, em app instalado | App mobile | [12](docs/12-app-mobile.md) | [HTML](examples/12-app-mobile.html) |
+| Qualquer tela: vazio, carregando, erro, sem permissão | Estados de tela | [13](docs/13-estados-de-tela.md) | no próprio doc |
+| Site público que precisa aparecer no Google | SEO | [14](docs/14-seo.md) | no próprio doc |
 
 As regras comuns a todos estão em [docs/01-fundamentos.md](docs/01-fundamentos.md).
 
@@ -45,6 +47,18 @@ As regras comuns a todos estão em [docs/01-fundamentos.md](docs/01-fundamentos.
 | Clínica, salão, serviços | 10 como tela principal, 03 para cadastros, 04 |
 | Produto para desenvolvedores | 05, 11, 02 |
 | App de celular | 12, com 04 adaptado para as telas de entrada |
+
+## Checklist de toda tela montada a partir de um layout
+
+- [ ] O layout foi escolhido pela ação principal da tela, e o motivo está registrado (conferir na conversa ou no PR).
+- [ ] Cores, tipografia, espaçamento e raio estão em tokens, sem valor solto no CSS (`grep -rnE '#[0-9a-fA-F]{3,6}' src`).
+- [ ] A tela usa os tokens da marca do projeto, não os do exemplo (`diff` entre os tokens do projeto e os do exemplo).
+- [ ] A tela tem os estados vazio, carregando e erro (`grep -rniE 'empty|loading|error' src`).
+- [ ] Abaixo de 600 px a barra lateral, a tabela e as colunas viram o que o documento diz (abrir a 360 px).
+- [ ] O contraste atinge AA e o foco é visível (Lighthouse de acessibilidade ou `axe`).
+- [ ] Alvos de toque têm pelo menos 44 pt e a informação não depende só de cor (inspecionar a tela).
+- [ ] A tela foi aberta e olhada em tema claro e escuro (captura de tela das duas).
+- [ ] Nenhum visual, nome ou logotipo de produto existente foi copiado (comparar com a referência).
 
 ## Regras de uso
 

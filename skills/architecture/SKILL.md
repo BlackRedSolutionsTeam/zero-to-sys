@@ -52,6 +52,18 @@ Guia de decisão para estruturar pastas e arquivos de um projeto. Cada padrão e
 | Laravel | [docs/12-laravel.md](docs/12-laravel.md) | Estrutura oficial |
 | Go | [docs/13-go.md](docs/13-go.md) | Layout oficial do go.dev |
 
+## Checklist de toda estrutura de projeto
+
+- [ ] Existe ARCHITECTURE.md ou AGENTS.md na raiz com a árvore e a regra de onde pôr cada coisa (`ls ARCHITECTURE.md AGENTS.md`).
+- [ ] A estrutura segue a convenção do framework onde ele define pasta ou arquivo (conferir com o documento da stack em `docs/`).
+- [ ] Pastas de primeiro nível têm nome de domínio (`orders/`, `billing/`), não de tipo (`ls src`; nada de `services/` ou `helpers/` com tudo dentro).
+- [ ] Nenhuma pasta vazia criada para o futuro (`find . -type d -empty -not -path './node_modules/*' -not -path './.git/*'`).
+- [ ] Teste, estilo e tipo ficam ao lado do código que servem (`find src -name '*.test.*'`).
+- [ ] Não há `utils/` genérico; `shared/` ou `common/` só tem o que mais de uma feature usa (`ls src/shared src/common`).
+- [ ] Feature importa outra feature só pela porta pública, reforçado por lint ou projeto separado (rodar o lint do projeto).
+- [ ] Há um padrão único de caixa nos nomes de arquivo, com sufixo de papel (`ls -R src | head -50`).
+- [ ] Padrão pesado (camadas, monorepo, microserviços) tem o motivo registrado no ARCHITECTURE.md (`grep -i 'por que' ARCHITECTURE.md`).
+
 ## Regras de uso
 
 - **A convenção do framework ganha da preferência pessoal.** Onde o framework define pasta ou arquivo (`app/` do Next.js, `routes/` do Laravel, `internal/` do Go), siga-o. Escolha o padrão só para o que ele deixa livre.

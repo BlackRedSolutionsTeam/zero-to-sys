@@ -52,6 +52,18 @@ Guia de decisão para escolher a stack de um sistema novo. Cada documento em `do
 | Mobile (Expo, Flutter, nativo) | [docs/11-mobile.md](docs/11-mobile.md) | Apps de celular |
 | Desktop (Tauri, Electron) | [docs/12-desktop.md](docs/12-desktop.md) | Apps de computador |
 
+## Checklist de toda stack escolhida
+
+- [ ] A stack está registrada com o motivo no README ou no AGENTS.md (`grep -niE 'stack' README.md AGENTS.md`).
+- [ ] O time sabe operar a linguagem e o framework, ou o risco foi dito ao usuário (conferir na conversa).
+- [ ] Front, back, banco, ORM, auth e testes têm uma escolha cada, sem duas ferramentas para o mesmo papel (`cat package.json`).
+- [ ] Há uma linguagem só, ou o motivo para separar está escrito (`ls`).
+- [ ] Todas as ferramentas escolhidas são gratuitas (conferir a licença e o preço na fonte do documento).
+- [ ] A versão e o comando de criação foram conferidos na fonte oficial (`pnpm view <pacote> version`).
+- [ ] O projeto foi criado pelo comando oficial e abre em desenvolvimento (`pnpm dev`).
+- [ ] Lint, typecheck e testes rodam no projeto novo (`pnpm lint && pnpm test`).
+- [ ] O que já existia no projeto foi mantido, sem proposta de reescrita (`git diff --stat`).
+
 ## Regras de uso
 
 - **O que o time já sabe pesa mais que a moda.** Uma stack mediana que o time domina entrega mais que a melhor stack que ninguém conhece. Só recomende trocar de linguagem com motivo claro.

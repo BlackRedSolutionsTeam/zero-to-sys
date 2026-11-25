@@ -28,6 +28,8 @@ Um documento por tópico, explicando quando usar, para que tipo de projeto, quan
 | Observabilidade | OpenTelemetry, Grafana e Sentry | Planos grátis nos dois serviços | [10-observabilidade.md](10-observabilidade.md) |
 | Backup | Cópias, restauração testada, RPO e RTO | Incluído em parte dos bancos gerenciados | [11-backup-e-recuperacao.md](11-backup-e-recuperacao.md) |
 | Segurança | Base mínima de segurança | Prática, sem licença | [12-seguranca-base.md](12-seguranca-base.md) |
+| Analytics | Medir o uso do produto (eventos, funil) | Plano grátis ou self-host, conforme a ferramenta | [13-analytics-de-produto.md](13-analytics-de-produto.md) |
+| Feature flags | Liberar aos poucos e voltar atrás | Prática; serviços com plano grátis | [14-feature-flags-e-rollback.md](14-feature-flags-e-rollback.md) |
 
 ## Qual escolher
 

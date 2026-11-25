@@ -34,6 +34,8 @@ Um documento por tema, cada um com a tabela comparativa de celular, tablet e des
 | Documento | O que responde |
 |---|---|
 | [13-ios-android-web.md](13-ios-android-web.md) | Diferenças entre iOS, Android e web; site responsivo, PWA, híbrido ou nativo |
+| [14-acessibilidade.md](14-acessibilidade.md) | Checklist WCAG 2.2 AA: contraste, foco, teclado, rótulos, leitor de tela |
+| [15-internacionalizacao.md](15-internacionalizacao.md) | Preparar texto, data, número e moeda para outros idiomas |
 
 ## Qual escolher
 
@@ -44,6 +46,8 @@ Um documento por tema, cada um com a tabela comparativa de celular, tablet e des
 - **Algo abre por cima da tela:** [modais, folhas e painéis](10-modais-folhas-e-paineis.md).
 - **"No celular está ruim de clicar":** [toque, mouse e teclado](07-toque-mouse-teclado.md).
 - **"No celular está lento":** [desempenho e rede](12-desempenho-e-rede.md).
+- **"Acessível para todos?":** [Acessibilidade](14-acessibilidade.md).
+- **"Vai ter outro idioma?":** [Internacionalização](15-internacionalizacao.md).
 - **"Site ou app?":** [iOS, Android e web](13-ios-android-web.md), e a skill `stacks` para a tecnologia.
 - **Sistema usado no balcão, no campo ou no leito:** [tablet](03-tablet.md).
 

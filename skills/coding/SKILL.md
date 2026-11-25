@@ -48,6 +48,18 @@ Fronteiras: estrutura de pastas e arquivos do projeto é da skill **architecture
 | Commits e PRs pequenos | [docs/11-commits-e-prs-pequenos.md](docs/11-commits-e-prs-pequenos.md) | Conventional Commits e PR revisável |
 | Revisão de código | [docs/12-revisao-de-codigo.md](docs/12-revisao-de-codigo.md) | Revisar a lógica e a legibilidade, não o estilo |
 
+## Checklist de todo código novo ou alterado
+
+- [ ] Formatador e lint passam sem erro (`pnpm lint`, ou o comando equivalente do projeto).
+- [ ] Typecheck ou build passa (`pnpm typecheck`, `pnpm build`, ou o equivalente da stack).
+- [ ] Os testes passam e o comportamento novo tem teste (`pnpm test`).
+- [ ] Não há comentário no código, só diretivas exigidas por ferramenta (`git diff | grep -nE '^\+\s*(//|#|/\*)'`).
+- [ ] Não há `console.log`, `print` ou código morto esquecido (`grep -rn 'console.log' src`).
+- [ ] Não há `any`, `as` nem `catch` vazio para fazer passar (`grep -rnE ': any|as any|catch *\(.*\) *\{ *\}' src`).
+- [ ] Dado de fora (formulário, API, arquivo) é validado uma vez na borda (abrir o ponto de entrada e achar o schema ou validador).
+- [ ] Nenhuma função faz mais de uma coisa: o nome não pede "e" (ler o `git diff`).
+- [ ] Refatoração e funcionalidade estão em commits separados, com mensagem no padrão do projeto (`git log --oneline -5`).
+
 ## Regras de uso
 
 - **Escreva para o júnior.** Se uma pessoa em início de carreira não entende o código lendo uma vez, simplifique.

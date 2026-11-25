@@ -51,6 +51,19 @@ Guia para provar, com teste e com o sistema rodando, que cada funcionalidade faz
 | Definição de pronto | [docs/08-definition-of-done.md](docs/08-definition-of-done.md) | Quando um item está pronto de verdade |
 | Verificação pelo agente | [docs/09-verificacao-pelo-agente.md](docs/09-verificacao-pelo-agente.md) | Como o agente prova o que fez |
 
+## Checklist de qualidade do projeto
+
+- [ ] Existe teste automatizado para as regras de negócio principais (`ls tests/ test/ __tests__`).
+- [ ] Testes de integração usam banco real, não mock do ORM (procure Testcontainers ou serviço de banco no CI).
+- [ ] O fluxo principal do produto tem teste ponta a ponta (`ls e2e/ tests/e2e`, `playwright.config.*`).
+- [ ] O CI roda formatação, lint, typecheck, testes e build em todo PR (`.github/workflows`).
+- [ ] O PR é barrado quando o CI falha (branch protection ou ruleset com checks obrigatórios).
+- [ ] Os testes passam localmente com um comando documentado (`pnpm test` ou equivalente, no `CLAUDE.md` ou `README`).
+- [ ] Não há teste ignorado ou desligado sem motivo (`grep -rn "\.skip\|xit(\|@Ignore" tests/`).
+- [ ] Há definição de pronto no `CLAUDE.md` ou no template de PR (`.github/pull_request_template.md`).
+- [ ] Telas têm checagem de acessibilidade automática nas páginas principais (axe no Playwright).
+- [ ] Testes instáveis não são tolerados no CI (sem retry global sem investigar).
+
 ## Regras de uso
 
 - **Um teste por critério de aceite, no mínimo.** Critério sem teste não está provado; teste sem critério pode estar testando a coisa errada.

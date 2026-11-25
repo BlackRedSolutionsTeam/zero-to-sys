@@ -20,6 +20,8 @@ Só entrou o que passa em três critérios: ser a escolha mais sólida da camada
 | Observabilidade | OpenTelemetry, Grafana e Sentry | [docs/10-observabilidade.md](docs/10-observabilidade.md) |
 | Backup | Cópias, restauração testada, RPO e RTO | [docs/11-backup-e-recuperacao.md](docs/11-backup-e-recuperacao.md) |
 | Segurança | Menor privilégio, rede, TLS e dependências | [docs/12-seguranca-base.md](docs/12-seguranca-base.md) |
+| Analytics | Medir o uso do produto | [docs/13-analytics-de-produto.md](docs/13-analytics-de-produto.md) |
+| Feature flags | Liberar aos poucos e fazer rollback | [docs/14-feature-flags-e-rollback.md](docs/14-feature-flags-e-rollback.md) |
 
 O [docs/README.md](docs/README.md) tem o índice, um guia "Qual escolher" e a lista do que foi avaliado e saiu, com o motivo.
 
@@ -67,7 +69,9 @@ infra/
     ├── 09-segredos-e-configuracao.md
     ├── 10-observabilidade.md
     ├── 11-backup-e-recuperacao.md
-    └── 12-seguranca-base.md
+    ├── 12-seguranca-base.md
+    ├── 13-analytics-de-produto.md
+    └── 14-feature-flags-e-rollback.md
 ```
 
 ## Como manter

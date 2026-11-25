@@ -38,6 +38,8 @@ Um documento por tipo de sistema, com a anatomia do layout, medidas, tokens, pad
 | Layout | Estrutura | Direção visual do exemplo | Doc | Exemplo |
 |---|---|---|---|---|
 | App mobile | Abas inferiores, listas, folha inferior | Viva e tátil, cantos bem arredondados | [12](12-app-mobile.md) | [HTML](../examples/12-app-mobile.html) |
+| Estados de tela | Vazio, carregando, erro, sem permissão, offline | Vale para qualquer tela | [13](13-estados-de-tela.md) | no próprio doc |
+| SEO | Metadados, sitemap, JSON-LD, renderização | Vale para site público | [14](14-seo.md) | no próprio doc |
 
 ## Qual escolher
 
@@ -50,6 +52,7 @@ Um documento por tipo de sistema, com a anatomia do layout, medidas, tokens, pad
 - **É a porta de entrada do produto:** [landing](05-landing-saas.md) para vender, [login e onboarding](04-auth-onboarding-configuracoes.md) para entrar.
 - **Vende produto físico:** [e-commerce](06-ecommerce.md).
 - **É para ler:** [documentação](11-documentacao.md).
+- **Qualquer tela nova:** [estados de tela](13-estados-de-tela.md); **site público:** [SEO](14-seo.md).
 - **É app instalado no celular:** [app mobile](12-app-mobile.md). Sistema web usado no celular continua nos layouts acima, na versão responsiva.
 
 Sempre junto: [fundamentos](01-fundamentos.md).

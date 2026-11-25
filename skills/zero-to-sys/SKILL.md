@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, quality, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -14,6 +14,9 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `architecture` | [architecture/](../architecture/SKILL.md) | Como organizar pastas e arquivos |
 | `data` | [data/](../data/SKILL.md) | Como modelar tabelas, migrations e isolamento por cliente |
 | `api` | [api/](../api/SKILL.md) | Como desenhar o contrato da API entre front e back |
+| `security` | [security/](../security/SKILL.md) | Como proteger login, permissões, upload e dados pessoais |
+| `integrations` | [integrations/](../integrations/SKILL.md) | Como integrar serviços externos e rodar tarefas em segundo plano |
+| `audit` | [audit/](../audit/SKILL.md) | O que está bom e o que falta num projeto existente |
 | `quality` | [quality/](../quality/SKILL.md) | Como testar, o que barra o PR e quando um item está pronto |
 | `ia` | [ia/](../ia/SKILL.md) | Como configurar e usar o agente no projeto |
 | `code-indexes` | [code-indexes/](../code-indexes/SKILL.md) | Se e qual índice de código usar |
@@ -76,7 +79,7 @@ Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos.
 | 3 | `data` | Regras de negócio e histórias da fase 0, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
 | 4 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto apontando para `BACKLOG.md` e regras, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
 | 5 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
-| 6 | `coding` | Stack, árvore, `CLAUDE.md` | Lint e format configurados, padrão de erros, validação na borda, testes, Conventional Commits | Nunca |
+| 6 | `coding`, depois `security` e `quality` | Stack, árvore, `CLAUDE.md`, papéis do produto | Lint e format, padrão de erros, validação na borda, Conventional Commits (`coding`); login, sessão, papéis e permissões base, rate limit e auditoria de dependências (`security`, pule em site sem login); CI com os gates de testes (`quality`) | Nunca em `coding` e `quality` |
 | 7 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, fluxos da fase 0, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca (`design-systems`); UI kit e set de ícones para montá-las (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
 | 8 | `infra` | Stack, porte, restrições | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 8 parcial) |
 | 9 | Construção (ciclo abaixo) | `BACKLOG.md` e tudo o que as fases 0 a 8 montaram | Cada item do backlog pronto, testado e em staging | Nunca: é aqui que o sistema existe |
@@ -91,7 +94,7 @@ Para cada item do `BACKLOG.md`, na ordem do backlog, rode os passos abaixo. Um i
 |---|---|---|---|
 | 1. Critério | `product` | Releia a história e os critérios de aceite do item; se estiverem vagos, reescreva antes de codar | Nunca |
 | 2. Dados | `data` | Tabelas, colunas e constraints que o item pede; migration e seed; checklist de tabela nova | O item não muda o banco |
-| 3. Back | `api` (e `coding` para o código) | Rota ou ação no padrão de rotas, erro e lista da API, validação na borda, regras de negócio; OpenAPI e cliente do front regenerados | O item é só de tela |
+| 3. Back | `api` (e `coding`; `security` para login e permissões; `integrations` se houver serviço externo) | Rota ou ação no padrão de rotas, erro e lista da API, validação na borda, regras de negócio; OpenAPI e cliente do front regenerados | O item é só de tela |
 | 4. Tela | `user-experience` → `design-systems` → `design` | Tela no layout escolhido, com os estados vazio, carregando, erro e sem permissão | O item não tem interface |
 | 5. Testes | `quality` (estilo do teste em `coding`) | Um teste por critério de aceite, na camada mais barata; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
 | 6. Pronto | `quality` | Definição de pronto abaixo (detalhada em `quality`, doc 08); PR pequeno com o item | Nunca |
@@ -135,13 +138,14 @@ Mostre o progresso a cada passo: "Item 3 de 9 (cadastro de pacientes). Passo: da
 
 Quando a pasta já tem código, a ordem inverte: primeiro entender, depois mudar.
 
-1. `ia` e `code-indexes`: configure o agente e, em base grande ou desconhecida, o índice, para ler o projeto com menos tokens.
-2. `product`: se não houver backlog nem regras escritas, levante o que o sistema já faz e o que o pedido acrescenta, e registre.
-3. `architecture` e `data`: compare a estrutura e o modelo atuais com o recomendado. Proponha a mudança em passos; não mova tudo de uma vez.
-4. `coding`: lint, format e testes antes de refatorar.
-5. `user-experience`, `design-systems`, `design` e `infra`: só se o pedido cobre essas áreas.
-6. `stacks`: só se o usuário quer trocar ou acrescentar uma tecnologia. Não proponha trocar a stack por conta própria.
-7. Funcionalidade nova: siga o ciclo da fase 9 para ela.
+1. `audit`: diagnostique o projeto (só leitura) para saber o que está bom e o que falta antes de mudar qualquer coisa.
+2. `ia` e `code-indexes`: configure o agente e, em base grande ou desconhecida, o índice, para ler o projeto com menos tokens.
+3. `product`: se não houver backlog nem regras escritas, levante o que o sistema já faz e o que o pedido acrescenta, e registre.
+4. `architecture` e `data`: compare a estrutura e o modelo atuais com o recomendado. Proponha a mudança em passos; não mova tudo de uma vez.
+5. `coding` e `quality`: lint, format e testes antes de refatorar.
+6. `security`, `integrations`, `user-experience`, `design-systems`, `design` e `infra`: só se o pedido cobre essas áreas ou se a `audit` apontou falha grave de segurança ou de backup.
+7. `stacks`: só se o usuário quer trocar ou acrescentar uma tecnologia. Não proponha trocar a stack por conta própria.
+8. Funcionalidade nova: siga o ciclo da fase 9 para ela.
 
 ## Regras de uso
 

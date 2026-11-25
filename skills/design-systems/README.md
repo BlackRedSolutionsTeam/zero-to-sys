@@ -20,6 +20,8 @@ Ela decide a estrutura e o visual da tela. Os componentes e ícones para montá-
 | Agendamento | Agenda semanal e marcação de horário | [docs/10-agendamento.md](docs/10-agendamento.md) | [examples/10-agendamento.html](examples/10-agendamento.html) |
 | Documentação | Navegação em árvore e coluna de leitura | [docs/11-documentacao.md](docs/11-documentacao.md) | [examples/11-documentacao.html](examples/11-documentacao.html) |
 | App mobile | Abas inferiores, listas e folha inferior | [docs/12-app-mobile.md](docs/12-app-mobile.md) | [examples/12-app-mobile.html](examples/12-app-mobile.html) |
+| Estados de tela | Vazio, carregando, erro, sem permissão, offline | [docs/13-estados-de-tela.md](docs/13-estados-de-tela.md) | no próprio doc |
+| SEO | Metadados, sitemap, dados estruturados, renderização | [docs/14-seo.md](docs/14-seo.md) | no próprio doc |
 
 O [docs/README.md](docs/README.md) tem o índice, um guia "Qual escolher" e a lista do que ficou fora, com o motivo.
 

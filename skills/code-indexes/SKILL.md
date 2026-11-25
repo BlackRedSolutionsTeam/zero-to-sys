@@ -50,6 +50,18 @@ Guia de decisão para escolher como o agente lê e navega o código: grafo, LSP,
 | RTK | [docs/10-rtk.md](docs/10-rtk.md) | Compressão da saída de comandos |
 | ripgrep | [docs/11-ripgrep-linha-de-base.md](docs/11-ripgrep-linha-de-base.md) | Linha de base, texto |
 
+## Checklist de toda ferramenta de índice ligada
+
+- [ ] A base é grande ou desconhecida o bastante para justificar um índice; em base pequena fica o grep (`git ls-files | wc -l`).
+- [ ] Há um índice de código só (CodeGraph, codebase-memory-mcp ou GitNexus) (`claude mcp list`).
+- [ ] LSP nativo e Serena não estão ligados para a mesma linguagem (`claude mcp list`).
+- [ ] O custo foi medido com `/context` depois de ligar o MCP.
+- [ ] Foi confirmado se o código sai da máquina (embeddings, serviço hospedado, telemetria) antes de ligar (ler o documento da ferramenta).
+- [ ] A licença foi conferida: GitNexus é não comercial, Serena é GPL-3.0, RTK tem partes em BUSL-1.1 (ler o documento da ferramenta).
+- [ ] A pasta do índice está no `.gitignore` (`grep -n 'codegraph\|serena\|gitnexus' .gitignore`).
+- [ ] A ferramenta não alterou o repositório sem aviso, como `npx gitnexus analyze` escrevendo `AGENTS.md` e `CLAUDE.md` (`git status`).
+- [ ] O agente lê o trecho que o índice devolveu antes de editar, e busca texto de config e docs com ripgrep (conferir no uso).
+
 ## Regras de uso
 
 - **Grep primeiro em base pequena.** Indexar uma base que cabe no contexto só cria peça para manter.

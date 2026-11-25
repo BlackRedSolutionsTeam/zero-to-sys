@@ -42,6 +42,18 @@ Guia para decidir **o que** construir antes de decidir **como**. A saída desta 
 | Backlog | [docs/06-backlog-e-ordem-de-construcao.md](docs/06-backlog-e-ordem-de-construcao.md) | Fatias verticais e ordem de construção |
 | Onde registrar | [docs/07-onde-registrar.md](docs/07-onde-registrar.md) | `README`, `BACKLOG.md`, issues e o que o agente lê |
 
+## Checklist de todo escopo antes de construir
+
+- [ ] O problema a resolver e o público estão escritos em uma ou duas frases (`head README.md`).
+- [ ] O escopo tem as listas dentro, fora e depois (`grep -niE 'dentro|fora|depois' README.md BACKLOG.md`).
+- [ ] Todo item do backlog tem critério de aceite verificável, sem "rápido" nem "fácil" (`grep -c 'Critério' BACKLOG.md`).
+- [ ] O fluxo principal e os fluxos de erro estão descritos, com estados de tela vazio, carregando e erro (`ls docs`).
+- [ ] As regras de negócio estão em `docs/regras-de-negocio.md`, com a máquina de estados das entidades que mudam de status (`ls docs/regras-de-negocio.md`).
+- [ ] Os nomes do sistema usam as palavras do cliente, iguais no documento e no código (`grep -rn` pelos termos principais).
+- [ ] O primeiro item do backlog atravessa dados, API e tela e prova o deploy (`head -30 BACKLOG.md`).
+- [ ] Cada item é uma fatia vertical, não uma camada como "fazer todo o banco" (`grep -niE 'todo o banco|toda a api' BACKLOG.md`).
+- [ ] O que foi decidido está no repositório (README, BACKLOG, docs), e não só na conversa (`git status docs README.md BACKLOG.md`).
+
 ## Regras de uso
 
 - **Problema antes de solução.** Entenda o que o usuário precisa resolver antes de aceitar "precisa de um app" ou "precisa de um dashboard". O pedido do cliente é uma pista, não a especificação.

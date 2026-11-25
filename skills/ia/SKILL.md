@@ -70,6 +70,18 @@ Como propor:
 - **Antes de criar, veja se já existe.** Confira `.claude/skills/`, `.claude/agents/`, `.claude/settings.json` e `.mcp.json`. Atualizar o que existe é melhor que duplicar.
 - **Projeto ou pessoal:** o que é do time vai em arquivo versionado no repositório; o que é hábito de uma pessoa vai em `~/.claude/`.
 
+## Checklist de todo projeto configurado para agente de IA
+
+- [ ] Existe CLAUDE.md ou AGENTS.md curto, com menos de 200 linhas (`wc -l CLAUDE.md AGENTS.md`).
+- [ ] O arquivo de instruções não descreve arquitetura nem árvore de pastas (`grep -n 'src/' CLAUDE.md`).
+- [ ] O arquivo traz os comandos de teste, lint e build que o agente deve rodar (`grep -nE 'test|lint|build' CLAUDE.md`).
+- [ ] O que não admite exceção está em hook, regra `deny` ou CI, não só em texto (`cat .claude/settings.json`).
+- [ ] Os MCPs ligados são só os usados e confiáveis (`claude mcp list`, `/context`).
+- [ ] O modo `bypassPermissions` não está habilitado fora de contêiner descartável (`grep -rn 'bypassPermissions' .claude`).
+- [ ] Segredos e `.env` estão fora do alcance do agente por regra `deny` (`grep -n 'deny' .claude/settings.json`).
+- [ ] Cada skill ou subagente criado resolve um sinal real de repetição e tem descrição que diz quando usar (`ls .claude/skills .claude/agents`).
+- [ ] A tarefa tem um jeito de conferir (teste, typecheck, build ou captura de tela) e o agente apresentou a evidência (rodar o comando).
+
 ## Regras de uso
 
 - **Simples primeiro.** Plano, subagente, worktree e agent team custam tokens ou coordenação (best-practices, sub-agents, agent-teams); só entram quando a tarefa pede.

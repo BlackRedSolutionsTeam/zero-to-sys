@@ -19,6 +19,8 @@ Skill para o Claude Code que explica as diferenças de experiência do usuário 
 | Tipografia e densidade | Tamanho de fonte, linha, espaçamento | [docs/11-tipografia-e-densidade.md](docs/11-tipografia-e-densidade.md) |
 | Desempenho e rede | Celular lento, rede ruim, offline | [docs/12-desempenho-e-rede.md](docs/12-desempenho-e-rede.md) |
 | iOS, Android e web | Diferenças de plataforma; site, PWA ou app | [docs/13-ios-android-web.md](docs/13-ios-android-web.md) |
+| Acessibilidade | Checklist WCAG 2.2 AA aplicado | [docs/14-acessibilidade.md](docs/14-acessibilidade.md) |
+| Internacionalização | Preparar a tela para vários idiomas, datas e moedas | [docs/15-internacionalizacao.md](docs/15-internacionalizacao.md) |
 
 O [docs/README.md](docs/README.md) tem o índice, um guia "Qual escolher" e a lista do que ficou fora, com o motivo.
 

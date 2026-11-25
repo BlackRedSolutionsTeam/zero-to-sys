@@ -36,6 +36,18 @@ Guia de decisão para montar interfaces web com visual profissional, usando só 
 | Phosphor | [docs/06-phosphor.md](docs/06-phosphor.md) | Ícones com seis pesos, incluindo fill e duotone |
 | Tabler Icons | [docs/07-tabler-icons.md](docs/07-tabler-icons.md) | Catálogo grande de ícones, para telas densas |
 
+## Checklist de toda interface montada com UI kit e ícones
+
+- [ ] Há um único set de ícones no projeto (`grep -E 'lucide|phosphor|tabler' package.json`).
+- [ ] Ícones são importados pelo nome, não o pacote inteiro (`grep -rn 'import \* as' src`).
+- [ ] A stack tem React e Tailwind quando o kit pede; sem React, o kit é o HyperUI (`grep -E 'react|tailwind' package.json`).
+- [ ] shadcn/ui é a base em React e Magic UI ou Aceternity UI só entram por cima (`ls components.json`).
+- [ ] Animação do Magic UI e do Aceternity UI só está em páginas de marketing ou portfólio, não em dashboard nem painel admin (`grep -rln 'magicui\|aceternity' src`).
+- [ ] No máximo dois efeitos do Aceternity UI por página (`grep -rc 'aceternity' src`).
+- [ ] `prefers-reduced-motion` é respeitado nos componentes animados (`grep -rn 'prefers-reduced-motion' src`).
+- [ ] Cores, fontes, raios e espaçamentos dos componentes copiados foram trocados pelos tokens da marca (`grep -rnE '#[0-9a-fA-F]{3,6}' components`).
+- [ ] Nenhum item pago foi usado (`grep -rni 'pro' components.json package.json`).
+
 ## Regras de uso
 
 - **Um set de ícones por projeto.** Misturar Lucide, Phosphor e Tabler deixa traços e proporções inconsistentes. Se o projeto usa shadcn/ui, o padrão é Lucide; só troque o set inteiro, nunca ícone a ícone.

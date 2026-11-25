@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 14 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 17 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -86,12 +86,15 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [architecture/](skills/architecture/) | `architecture` | Como organizar pastas e arquivos para ser fácil achar e manter, pela documentação oficial de cada stack | 13 |
 | [data/](skills/data/) | `data` | Como modelar tabelas, migrations, multiempresa, auditoria, índices, transações e LGPD no banco | 10 |
 | [api/](skills/api/) | `api` | Como desenhar o contrato da API: rotas, erros, paginação, versionamento, OpenAPI e cliente tipado | 8 |
+| [security/](skills/security/) | `security` | Como proteger a aplicação: login, permissões, OWASP, rate limit, upload, dependências e LGPD | 9 |
+| [integrations/](skills/integrations/) | `integrations` | Como integrar pagamento, e-mail, WhatsApp, webhooks, filas, rotinas, arquivos e planilhas | 9 |
+| [audit/](skills/audit/) | `audit` | Como auditar um projeto existente e dizer o que está bom e o que falta | 3 |
 | [quality/](skills/quality/) | `quality` | Como provar que funciona: testes por camada, ponta a ponta, CI e definição de pronto | 9 |
 | [coding/](skills/coding/) | `coding` | Como escrever código simples, bem organizado e bem modularizado | 12 |
-| [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 13 |
-| [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 12 |
+| [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 15 |
+| [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 14 |
 | [design/](skills/design/) | `design` | Quais UI kits e ícones gratuitos usar para um visual profissional | 7 |
-| [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 12 |
+| [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
 | [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
 | [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |
 

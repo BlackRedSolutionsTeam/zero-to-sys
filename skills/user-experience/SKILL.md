@@ -34,6 +34,8 @@ Guia de decisão para adaptar a experiência a celular, tablet e desktop. A mesm
 | Tamanho de fonte, espaçamento, tela "apertada" ou "vazia" | [11 Tipografia e densidade](docs/11-tipografia-e-densidade.md) |
 | Lento no celular, rede ruim, offline | [12 Desempenho e rede](docs/12-desempenho-e-rede.md) |
 | App nativo, PWA, diferenças de iOS e Android | [13 iOS, Android e web](docs/13-ios-android-web.md) |
+| Acessibilidade, teclado, leitor de tela, contraste | [14 Acessibilidade](docs/14-acessibilidade.md) |
+| Tradução, vários idiomas, datas e moedas | [15 Internacionalização](docs/15-internacionalizacao.md) |
 
 ## Resumo dos três dispositivos
 
@@ -49,6 +51,18 @@ Guia de decisão para adaptar a experiência a celular, tablet e desktop. A mesm
 | Tabela | Vira lista de cartões ou colunas prioritárias | Menos colunas | Completa |
 
 Os números e as fontes de cada linha estão nos documentos.
+
+## Checklist de toda tela nova
+
+- [ ] O dispositivo principal e os demais foram definidos e registrados no resumo do projeto (`grep -ri 'dispositivo' README.md docs`).
+- [ ] A tela foi conferida em 360 px, cerca de 768 px e 1280 px ou mais (abrir no navegador com as larguras).
+- [ ] Não há rolagem horizontal no celular (inspecionar a 360 px).
+- [ ] O CSS base é do celular e cresce com `min-width` (`grep -rn 'max-width' src --include=*.css`).
+- [ ] Nenhuma ação essencial depende só de hover ou de gesto (`grep -rn ':hover' src`; conferir se há alternativa visível).
+- [ ] Alvos de toque têm o tamanho mínimo do documento 07 (inspecionar botões e links no celular).
+- [ ] Cada campo tem `type`, `inputmode` e `autocomplete` certos (`grep -rn '<input' src`).
+- [ ] O viewport não trava o zoom (`grep -rn 'user-scalable' .`; deve voltar vazio).
+- [ ] Tabelas viram lista de cartões ou colunas prioritárias no celular, e modais viram folha ou tela cheia (abrir a tela a 360 px).
 
 ## Regras de uso
 
