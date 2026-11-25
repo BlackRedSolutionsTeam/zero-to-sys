@@ -82,6 +82,35 @@ Regras de nome e lugar:
 - **Apelido de importação:** `@/features/orders` configurado no tsconfig e no Vite evita `../../..`.
 - **Testes e estilos** ao lado do arquivo ([01](01-feature-first-colocation.md)).
 - **Variáveis de ambiente:** `.env` na raiz; no Vite só as prefixadas com `VITE_` chegam ao cliente (vite.dev/guide/env-and-mode, conferido em 2026-11-24).
+- **Componentes de UI kit:** com shadcn/ui, os componentes genéricos ficam em `src/components/ui/`, caminho definido no `components.json` (ui.shadcn.com/docs/components-json). Componente que só uma feature usa fica dentro da feature.
+
+### Quando abrir subpastas dentro da feature
+
+Comece plano: todos os arquivos da feature lado a lado. Abra subpastas por tipo só quando a pasta crescer, no formato do Bulletproof React (github.com/alan2207/bulletproof-react, `docs/project-structure.md`), criando só as que tiverem arquivo:
+
+| Sinal | Faça |
+|---|---|
+| Até uns 8 arquivos, fácil de achar | Mantenha plano |
+| Passou de 8 a 10 arquivos, ou há 3 ou mais do mesmo tipo (componentes, hooks, chamadas de API) | Abra `components/`, `hooks/`, `api/`, `types/` conforme o tipo que cresceu; a tela principal fica na raiz da feature |
+| Um assunto dentro da feature tem vários arquivos próprios (ex.: o checkout dentro de `orders`) | Vire uma feature separada em `src/features/`, não uma subpasta funda |
+
+```
+features/shopping-list/           plano (até ~8 arquivos)
+├── ShoppingListPage.tsx
+├── AddItemForm.tsx
+├── ItemRow.tsx
+├── useShoppingList.ts
+└── api.ts
+
+features/orders/                  com subpastas (cresceu)
+├── OrdersPage.tsx
+├── api/
+├── components/
+├── hooks/
+└── types.ts
+```
+
+Não passe de dois níveis dentro da feature e não crie pasta vazia "para o futuro".
 
 ## Combina com / alternativas
 
