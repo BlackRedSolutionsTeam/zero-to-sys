@@ -1,7 +1,7 @@
 {
   "name": "zero-to-sys",
-  "version": "1.10.0",
-  "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: produto, stack, dados, arquitetura, API, segurança, integrações, qualidade, auditoria, domínio, Cloudflare, VPS, nginx, IA, índice de código, código, UX, layouts, UI kit e infra, IA no produto, nota fiscal, busca, mensageria, desempenho, operação, manutenção, ambiente local, jurídico e publicação mobile e painel administrativo.",
+  "version": "1.11.0",
+  "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: produto, stack, dados, arquitetura, API, segurança, integrações, qualidade, auditoria, domínio, Cloudflare, VPS, nginx, IA, índice de código, código, UX, layouts, UI kit e infra, IA no produto, nota fiscal, busca, mensageria, desempenho, operação, manutenção, ambiente local, jurídico e destinos de publicação, publicação mobile e desktop e painel administrativo.",
   "author": {
     "name": "BlackRed Solutions",
     "url": "https://github.com/BlackRedSolutionsTeam"
@@ -35,7 +35,9 @@
     "maintenance",
     "local-dev",
     "legal",
+    "store-targets",
     "mobile-release",
+    "desktop-release",
     "admin-panel"
   ],
   "repository": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",

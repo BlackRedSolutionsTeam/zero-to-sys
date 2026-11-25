@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 32 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 34 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -107,7 +107,9 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [maintenance/](skills/maintenance/) | `maintenance` | Fim de suporte, atualização de dependências e framework, dívida técnica | 7 |
 | [local-dev/](skills/local-dev/) | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding | 8 |
 | [legal/](skills/legal/) | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos | 8 |
-| [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push | 9 |
+| [store-targets/](skills/store-targets/) | `store-targets` | Onde o projeto vai ser publicado e o que cada loja exige desde o início | 3 |
+| [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push | 10 |
+| [desktop-release/](skills/desktop-release/) | `desktop-release` | Microsoft Store, Mac App Store, assinatura, notarização e Linux | 6 |
 | [admin-panel/](skills/admin-panel/) | `admin-panel` | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte | 13 |
 | [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
 | [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
@@ -118,7 +120,7 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa ordem sozinha e ajusta por tipo de projeto:
 
 0. **[product/](skills/product/SKILL.md):** defina o que construir: MVP, regras de negócio e backlog.
-1. **[stacks/](skills/stacks/SKILL.md):** escolha a stack pelo tipo de projeto.
+1. **[store-targets/](skills/store-targets/SKILL.md)** e **[stacks/](skills/stacks/SKILL.md):** diga onde o projeto vai ser publicado e escolha a stack que chega a esses destinos.
 2. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
 3. **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
 4. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).

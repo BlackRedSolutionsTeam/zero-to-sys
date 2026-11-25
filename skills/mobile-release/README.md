@@ -15,5 +15,6 @@ Skill para o Claude Code que leva um app Expo, Flutter ou nativo até a App Stor
 | Atualização sem loja | [docs/07-atualizacao-sem-loja-eas-update-e-versionamento.md](docs/07-atualizacao-sem-loja-eas-update-e-versionamento.md) |
 | Push | [docs/08-notificacoes-push-fcm-e-apns.md](docs/08-notificacoes-push-fcm-e-apns.md) |
 | Pós-lançamento | [docs/09-pos-lancamento-crash-avaliacoes-e-versao-minima.md](docs/09-pos-lancamento-crash-avaliacoes-e-versao-minima.md) |
+| Regras que mudam o projeto desde o início | [docs/10-regras-que-mudam-o-projeto-desde-o-inicio.md](docs/10-regras-que-mudam-o-projeto-desde-o-inicio.md) |
 
 O [docs/README.md](docs/README.md) tem o índice e um guia "Por onde começar".

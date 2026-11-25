@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, admin-panel, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, store-targets, mobile-release, desktop-release, admin-panel, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -37,7 +37,9 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `maintenance` | [maintenance/](../maintenance/SKILL.md) | Fim de suporte, atualização de dependências e framework, dívida técnica |
 | `local-dev` | [local-dev/](../local-dev/SKILL.md) | Ambiente local, Compose, devcontainer, .env.example e onboarding |
 | `legal` | [legal/](../legal/SKILL.md) | Termos, política de privacidade, cookies, aceite versionado e contratos |
+| `store-targets` | [store-targets/](../store-targets/SKILL.md) | Onde o projeto vai ser publicado e o que cada loja exige desde o início |
 | `mobile-release` | [mobile-release/](../mobile-release/SKILL.md) | Contas, assinatura, EAS, lojas, regras de revisão e push |
+| `desktop-release` | [desktop-release/](../desktop-release/SKILL.md) | Microsoft Store, Mac App Store, assinatura, notarização e Linux |
 | `admin-panel` | [admin-panel/](../admin-panel/SKILL.md) | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte |
 | `infra` | [infra/](../infra/SKILL.md) | Onde e como pôr em produção |
 
@@ -56,7 +58,9 @@ Estas skills não têm fase fixa: chame cada uma quando a condição valer.
 | `maintenance` | Depois do lançamento, em rotina trimestral |
 | `local-dev` | Ao montar o repositório e quando alguém novo entra no time |
 | `legal` | Antes de abrir o produto ao público |
+| `store-targets` | Logo depois da `product` e antes da `stacks`, sempre que o projeto pode virar app; gera o `docs/STORES.md` |
 | `mobile-release` | Quando há app mobile para publicar |
+| `desktop-release` | Quando há app desktop para publicar (loja ou download) |
 | `admin-panel` | Quando o sistema tem clientes, cobrança ou operação que a equipe precisa gerir sem mexer no banco; entra no backlog como item próprio |
 
 ## Passo 0 — Descobrir o contexto
@@ -69,6 +73,7 @@ Antes de disparar qualquer skill, levante estes pontos. Leia primeiro o que já 
 | Tem interface? | Decide se `design` entra | Web, mobile, nenhuma (API, CLI, worker) |
 | O que o time já sabe | Pesa mais que a moda na stack | "Só .NET", "React e Node", "sozinho, sei Python" |
 | Porte e prazo | Define o nível da infra e da arquitetura | MVP em semanas, produto em crescimento, corporativo |
+| Onde vai ser publicado | Regras das lojas mudam login, cobrança e pacote (skill `store-targets`) | App Store, Google Play, Microsoft Store, Mac App Store, download no desktop, web |
 | Restrições | Cortam opções antes de escolher | Orçamento zero, nuvem obrigatória (Azure, AWS), dados sensíveis, LGPD, on-premise |
 | Projeto novo ou existente | Muda a ordem (ver "Projeto existente") | Pasta vazia, repositório com código |
 
@@ -108,7 +113,7 @@ Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos.
 | # | Skill | Entra com | Entrega | Pule se |
 |---|---|---|---|---|
 | 0 | `product` | Resumo aprovado do passo 0 | Escopo do MVP (dentro, fora, depois), fluxo principal, regras de negócio, histórias com critérios de aceite e `BACKLOG.md` em ordem de construção | Site de conteúdo simples: basta a lista de páginas |
-| 1 | `stacks` | Contexto, resumo aprovado e escopo da fase 0 | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
+| 1 | `stacks` | Contexto, resumo aprovado, escopo da fase 0 e destinos do `docs/STORES.md` (`store-targets`) | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
 | 2 | `architecture` | Stack escolhida, porte | Árvore de pastas, padrão (feature-first, monólito modular, monorepo…), `ARCHITECTURE.md` | Nunca em projeto novo |
 | 3 | `data` | Regras de negócio e histórias da fase 0, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
 | 4 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto apontando para `BACKLOG.md` e regras, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |

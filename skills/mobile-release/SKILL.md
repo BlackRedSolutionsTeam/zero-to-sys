@@ -9,6 +9,7 @@ Guia para quem tem um app de celular pronto (ou quase) e precisa colocá-lo nas 
 
 ## Como usar esta skill
 
+0. **Projeto ainda no começo?** Aplique o [doc 10](docs/10-regras-que-mudam-o-projeto-desde-o-inicio.md) e a skill `store-targets` antes do código.
 1. **Abra as contas primeiro** ([doc 01](docs/01-contas-apple-developer-e-google-play.md)): D-U-N-S leva tempo e a conta pessoal da Google exige 12 testadores por 14 dias antes da produção.
 2. **Defina o identificador e a assinatura** ([doc 02](docs/02-identificadores-certificados-e-assinatura.md)); o identificador não muda depois.
 3. **Gere o build e envie** ([doc 03](docs/03-builds-e-envio-eas-submit-testflight-play.md)); teste no TestFlight e na trilha interna.
@@ -43,6 +44,7 @@ Guia para quem tem um app de celular pronto (ou quase) e precisa colocá-lo nas 
 | Atualização | [docs/07-atualizacao-sem-loja-eas-update-e-versionamento.md](docs/07-atualizacao-sem-loja-eas-update-e-versionamento.md) | EAS Update, runtimeVersion, versões |
 | Push | [docs/08-notificacoes-push-fcm-e-apns.md](docs/08-notificacoes-push-fcm-e-apns.md) | expo-notifications, FCM, APNs |
 | Pós-lançamento | [docs/09-pos-lancamento-crash-avaliacoes-e-versao-minima.md](docs/09-pos-lancamento-crash-avaliacoes-e-versao-minima.md) | Crash, avaliações, versão mínima |
+| Início do projeto | [docs/10-regras-que-mudam-o-projeto-desde-o-inicio.md](docs/10-regras-que-mudam-o-projeto-desde-o-inicio.md) | O que entra no primeiro sprint |
 
 ## Checklist
 
@@ -65,7 +67,7 @@ Guia para quem tem um app de celular pronto (ou quase) e precisa colocá-lo nas 
 - **Identificador é para sempre.** Confirme `bundleIdentifier` e `package` antes do primeiro envio.
 - **Nada de venda digital por fora sem checar a regra do país.** Brasil tem regras próprias da Apple desde 18/06/2026.
 - **Atualização remota não muda o app.** EAS Update corrige; mudança de comportamento volta para a revisão.
-- **Fronteiras.** Stack mobile é da `stacks`; pastas do app da `architecture`; telas por plataforma da `user-experience`; pagamentos, webhooks e push no servidor da `integrations`; política de privacidade da `legal`; LGPD da `security`; pipeline da `infra`.
+- **Fronteiras.** Stack mobile é da `stacks`; pastas do app da `architecture`; telas por plataforma da `user-experience`; desktop da `desktop-release`; destinos da `store-targets`; pagamentos, webhooks e push no servidor da `integrations`; política de privacidade da `legal`; LGPD da `security`; pipeline da `infra`.
 
 ## Quando a lista não cobre
 

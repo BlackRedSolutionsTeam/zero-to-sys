@@ -6,6 +6,7 @@ Um documento por tópico, da conta de desenvolvedor ao pós-lançamento. Preços
 
 | Prática | O que entrega | Doc |
 |---|---|---|
+| Início do projeto | Decisões que entram no primeiro sprint | [10-regras-que-mudam-o-projeto-desde-o-inicio.md](10-regras-que-mudam-o-projeto-desde-o-inicio.md) |
 | Contas | Apple Developer, Google Play, D-U-N-S, teste da conta pessoal | [01-contas-apple-developer-e-google-play.md](01-contas-apple-developer-e-google-play.md) |
 | Assinatura | Identificadores, certificados, EAS credentials, Fastlane | [02-identificadores-certificados-e-assinatura.md](02-identificadores-certificados-e-assinatura.md) |
 
@@ -33,6 +34,7 @@ Um documento por tópico, da conta de desenvolvedor ao pós-lançamento. Preços
 
 ## Por onde começar
 
+- **Projeto ainda no começo:** 10.
 - **App novo, sem contas:** 01 e 02, e já recrute os testadores da Google.
 - **Primeiro envio:** 03 → 04 → 05.
 - **App com venda ou assinatura:** 06 antes do 05.
