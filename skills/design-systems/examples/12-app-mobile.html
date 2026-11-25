@@ -1,0 +1,296 @@
+<!doctype html>
+<!--
+  Tipo: App mobile (abas inferiores, cabeçalho grande, cartões, listas com ações, folha inferior)
+  Direção visual: viva e tátil, fundo claro, azul-elétrico de marca, cantos bem arredondados, alvos de toque >= 44 px, áreas seguras; tema claro e escuro.
+  Marca fictícia: Ritmo (app de hábitos).
+  Doc correspondente: ../docs/12-app-mobile.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ritmo · App de hábitos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#e9ecf3; --bg:#f6f7fb; --surface:#fff; --surface-2:#eef0f7; --line:#e3e6ef;
+  --text:#11131a; --text-2:#4b5163; --text-3:#6a7186;
+  --brand:#2b4bff; --brand-press:#1f39d1; --brand-soft:#e6eaff; --on-brand:#fff;
+  --ok:#0f8a5f; --ok-soft:#dcf5ea; --warn:#c2410c; --warn-soft:#ffe9dc;
+  --font:"Plus Jakarta Sans",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r-sm:12px; --r-md:20px; --r-lg:28px; --r-pill:999px;
+  --shadow:0 1px 2px rgba(17,19,26,.05),0 6px 16px rgba(17,19,26,.06);
+  --shadow-sheet:0 -8px 32px rgba(17,19,26,.18);
+  --frame:#15171d; --safe-top:47px; --safe-bottom:34px; --tab:56px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --page:#0a0b10; --bg:#0f1117; --surface:#191c26; --surface-2:#222633; --line:#2a2f3d;
+  --text:#f2f4fa; --text-2:#b9bfd0; --text-3:#8f97ac;
+  --brand:#7b92ff; --brand-press:#9aabff; --brand-soft:#1d2550; --on-brand:#0b0e1d;
+  --ok:#4fd6a0; --ok-soft:#12372a; --warn:#ff9b6b; --warn-soft:#3b2417; --frame:#05060a;
+  --shadow:0 1px 2px rgba(0,0,0,.4);--shadow-sheet:0 -8px 32px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --page:#0a0b10; --bg:#0f1117; --surface:#191c26; --surface-2:#222633; --line:#2a2f3d;
+  --text:#f2f4fa; --text-2:#b9bfd0; --text-3:#8f97ac;
+  --brand:#7b92ff; --brand-press:#9aabff; --brand-soft:#1d2550; --on-brand:#0b0e1d;
+  --ok:#4fd6a0; --ok-soft:#12372a; --warn:#ff9b6b; --warn-soft:#3b2417; --frame:#05060a;
+  --shadow:0 1px 2px rgba(0,0,0,.4);--shadow-sheet:0 -8px 32px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--text);font:500 15px/1.4 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.top{max-width:1320px;margin:0 auto;padding:32px 24px 8px;display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.top h1{margin:0 0 4px;font-size:24px;font-weight:800;letter-spacing:-.02em}
+.top p{margin:0;color:var(--text-2);max-width:56ch}
+.theme{min-width:44px;height:44px;border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center}
+.stage{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;padding:24px 24px 56px}
+figure{margin:0;width:390px}
+figcaption{text-align:center;margin-top:16px;color:var(--text-3);font-size:14px}
+
+/* aparelho */
+.phone{width:390px;height:844px;border-radius:56px;background:var(--frame);padding:0;position:relative;box-shadow:0 0 0 10px var(--frame),0 30px 60px rgba(10,12,30,.28);overflow:hidden}
+.screen{position:absolute;inset:0;background:var(--bg);border-radius:56px;overflow:hidden;display:flex;flex-direction:column}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#000;border-radius:20px;z-index:30}
+.status{height:var(--safe-top);flex:none;display:flex;justify-content:space-between;align-items:flex-end;padding:0 32px 8px 36px;font-weight:700;font-size:15px}
+.status span:last-child{display:flex;gap:6px;align-items:center}
+.status svg{width:17px;height:17px}
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--text);opacity:.85;z-index:40}
+.scroll{flex:1;overflow:hidden;padding:0 20px;position:relative}
+.large{font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.025em;margin:8px 0 4px}
+.sub{color:var(--text-2);margin:0 0 20px}
+.navrow{display:flex;align-items:center;justify-content:space-between;height:48px}
+.round{width:44px;height:44px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--text)}
+.round:active,.card:active{transform:scale(.97)}
+
+/* abas */
+.tabbar{flex:none;height:calc(var(--tab) + var(--safe-bottom));padding:6px 12px var(--safe-bottom);background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--text-3);font-size:11px;font-weight:700;border-radius:var(--r-sm)}
+.tab svg{width:24px;height:24px}
+.tab[aria-current="page"]{color:var(--brand)}
+.tab:hover{color:var(--text)}
+
+/* cartões */
+.card{background:var(--surface);border-radius:var(--r-md);box-shadow:var(--shadow);padding:20px}
+.hero{background:var(--brand);color:var(--on-brand);display:flex;align-items:center;gap:20px;padding:20px 20px;border-radius:var(--r-lg);box-shadow:0 10px 24px rgba(43,75,255,.28)}
+:root[data-theme="dark"] .hero{box-shadow:none}
+.ring{--p:.6;width:84px;height:84px;position:relative;flex:none}
+.ring svg{width:84px;height:84px;transform:rotate(-90deg);stroke-width:9}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;font-weight:800}
+.hero h2{margin:0 0 2px;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.hero p{margin:0;font-size:14px;opacity:.92}
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:24px 0 8px}
+.sec h3{margin:0;font-size:18px;font-weight:800}
+.sec a,.sec button{color:var(--brand);font-weight:700;min-height:44px;display:flex;align-items:center}
+.list{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 12px 8px 8px;background:var(--surface);border-radius:var(--r-md);box-shadow:var(--shadow);position:relative}
+.row:hover{background:var(--surface-2)}
+.ico{width:48px;height:48px;border-radius:16px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.ico.g{background:var(--ok-soft);color:var(--ok)}.ico.o{background:var(--warn-soft);color:var(--warn)}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .t small{color:var(--text-3);font-size:13px;font-weight:500}
+.check{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);color:transparent}
+.check:hover{border-color:var(--brand)}
+.check[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:#fff}
+:root[data-theme="dark"] .check[aria-pressed="true"]{color:#05160f}
+.chip{display:inline-flex;align-items:center;gap:4px;min-height:32px;padding:0 12px;border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--shadow);font-weight:700;font-size:13px}
+.chip.on{background:var(--text);color:var(--bg)}
+.chips{display:flex;gap:8px;margin-bottom:16px}
+
+/* botão principal */
+.fab{position:absolute;right:20px;bottom:calc(var(--tab) + var(--safe-bottom) + 16px);height:56px;padding:0 22px 0 18px;border-radius:var(--r-pill);background:var(--brand);color:var(--on-brand);display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;box-shadow:0 10px 24px rgba(43,75,255,.4);z-index:5}
+.fab:hover{background:var(--brand-press)}.fab:active{transform:scale(.96)}
+.btn{width:100%;min-height:56px;border-radius:var(--r-pill);background:var(--brand);color:var(--on-brand);font-weight:800;font-size:17px}
+.btn:hover{background:var(--brand-press)}
+.btn.sec2{background:var(--surface-2);color:var(--text)}
+
+/* tela 2 */
+.swipe{display:flex;gap:0;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow)}
+.swipe .row{border-radius:0;box-shadow:none;flex:none;width:100%;transform:translateX(-168px);margin-right:-168px;margin-left:0}
+.swipe .row{width:calc(100%);}
+.swipe-wrap{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--warn)}
+.swipe-wrap .row{margin-right:132px;box-shadow:none;border-radius:var(--r-md) 0 0 var(--r-md)}
+.acts{position:absolute;right:0;top:0;bottom:0;display:flex}
+.acts button{width:66px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700}
+.acts .a1{background:var(--brand)}.acts .a2{background:#c2380c}
+.skel{height:64px;border-radius:var(--r-md);background:var(--surface);display:flex;align-items:center;gap:12px;padding:8px;overflow:hidden}
+.skel i,.skel s{display:block;background:linear-gradient(90deg,var(--surface-2) 25%,var(--line) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:sh 1.4s infinite linear;border-radius:12px}
+.skel i{width:48px;height:48px;border-radius:16px}.skel s{height:12px;width:60%;margin-bottom:8px}
+.skel div s+s{width:35%;margin:0}
+@keyframes sh{to{background-position:-200% 0}}
+.week{display:flex;justify-content:space-between;margin:8px 0 0}
+.week div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:var(--text-3);font-weight:700}
+.week span{width:36px;height:36px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;color:transparent}
+.week .d{background:var(--ok);color:#fff}.week .t{outline:2px solid var(--brand);outline-offset:2px}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.stat .card{padding:16px}.stat b{font-size:26px;font-weight:800;letter-spacing:-.02em;display:block}.stat small{color:var(--text-3)}
+
+/* folha inferior */
+.dim{position:absolute;inset:0;background:rgba(8,10,20,.45);z-index:20}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-radius:32px 32px 0 0;box-shadow:var(--shadow-sheet);padding:8px 20px calc(var(--safe-bottom) + 16px)}
+.grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sheet h3{margin:0 0 16px;font-size:22px;font-weight:800;letter-spacing:-.015em;display:flex;justify-content:space-between;align-items:center}
+.field{display:block;margin-bottom:16px}
+.field span{display:block;font-size:13px;font-weight:700;color:var(--text-2);margin-bottom:6px}
+.input{width:100%;min-height:52px;border-radius:var(--r-sm);border:2px solid var(--line);background:var(--bg);padding:0 16px;font:600 17px var(--font);color:var(--text)}
+.input:focus{outline:0;border-color:var(--brand)}
+.icons{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.icons button{min-height:52px;border-radius:var(--r-sm);background:var(--surface-2);display:grid;place-items:center}
+.icons button[aria-pressed="true"]{background:var(--brand-soft);color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
+.days{display:flex;gap:6px}
+.days button{flex:1;min-height:44px;border-radius:var(--r-sm);background:var(--surface-2);font-weight:700;font-size:14px}
+.days button[aria-pressed="true"]{background:var(--brand);color:var(--on-brand)}
+.sheet-wrap{display:none}
+.phone.open .sheet-wrap{display:block}
+
+@media (max-width:460px){figure{width:auto}.stage{padding:16px 0 40px;gap:24px}.phone{zoom:.88}.top{padding:20px 16px 0}}
+@media (max-width:380px){.phone{zoom:.8}}
+@media (prefers-reduced-motion:reduce){.skel i,.skel s{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-run" viewBox="0 0 24 24"><circle cx="14" cy="4.5" r="1.8"/><path d="m8 21 3-6 3 2 1 4M6 12l3-3 4 1 3 3 3 1M11 15l-1-5"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.2 6 11a6 6 0 0 1-12 0c0-4.800 6-11 6-11z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.500A2.500 2.500 0 0 1 6.500 2H20v17H6.500A2.500 2.500 0 0 0 4 21.500zM4 19.500V4.500M8 7h8"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.800A9 9 0 1 1 11.200 3a7 7 0 0 0 9.800 9.800z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1 4 6 5.500 6 11a6 6 0 0 1-12 0c0-2 1-3.500 2-4.500 0 2 1 3 2 3 0-4-1-6 2-9.500z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.500 6.500l4 4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-sig" viewBox="0 0 24 24"><path d="M3 20v-2M8 20v-6M13 20V9M18 20V4"/></symbol>
+    <symbol id="i-bat" viewBox="0 0 24 24"><rect x="2" y="7" width="17" height="10" rx="3"/><path d="M22 11v2"/></symbol>
+  </defs>
+</svg>
+
+<div class="top">
+  <div><h1>Ritmo</h1><p>App de hábitos. Três telas: início, lista com ações e uma folha inferior aberta. Toque em “Novo” para abrir a folha.</p></div>
+  <button class="theme" id="theme" aria-label="Alternar tema claro e escuro"><svg><use href="#i-moon"/></svg></button>
+</div>
+
+<div class="stage">
+
+<!-- TELA 1: INÍCIO -->
+<figure>
+<div class="phone"><div class="island"></div>
+<div class="screen">
+  <div class="status"><span>9:41</span><span><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+  <div class="scroll">
+    <div class="navrow"><span style="color:var(--text-3);font-weight:700">Terça, 24 de novembro</span><button class="round" aria-label="Notificações"><svg><use href="#i-bell"/></svg></button></div>
+    <h1 class="large">Oi, Marina</h1>
+    <p class="sub">Falta pouco para fechar o dia.</p>
+    <div class="hero">
+      <div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="36" stroke="rgba(255,255,255,.28)"/><circle cx="42" cy="42" r="36" stroke="currentColor" stroke-dasharray="226" stroke-dashoffset="90"/></svg><b>3/5</b></div>
+      <div><h2>Quase lá</h2><p>Mais 2 hábitos para completar o dia. Sua sequência é de 12 dias.</p></div>
+    </div>
+    <div class="sec"><h3>Hoje</h3><a href="#" onclick="return false">Ver tudo</a></div>
+    <div class="list" id="today">
+      <div class="row"><span class="ico"><svg><use href="#i-run"/></svg></span><div class="t"><b>Correr 20 minutos</b><small>07:00 · 12 dias seguidos</small></div><button class="check" aria-pressed="true" aria-label="Correr 20 minutos, concluído"><svg><use href="#i-check"/></svg></button></div>
+      <div class="row"><span class="ico g"><svg><use href="#i-drop"/></svg></span><div class="t"><b>Beber 2 litros de água</b><small>1,5 L de 2 L</small></div><button class="check" aria-pressed="true" aria-label="Beber água, concluído"><svg><use href="#i-check"/></svg></button></div>
+      <div class="row"><span class="ico o"><svg><use href="#i-book"/></svg></span><div class="t"><b>Ler 15 páginas</b><small>21:30 · 4 dias seguidos</small></div><button class="check" aria-pressed="false" aria-label="Ler 15 páginas, marcar como concluído"><svg><use href="#i-check"/></svg></button></div>
+      <div class="row"><span class="ico"><svg><use href="#i-moon"/></svg></span><div class="t"><b>Dormir antes das 23h</b><small>23:00 · 7 dias seguidos</small></div><button class="check" aria-pressed="false" aria-label="Dormir antes das 23h, marcar como concluído"><svg><use href="#i-check"/></svg></button></div>
+    </div>
+  </div>
+  <button class="fab open-sheet"><svg><use href="#i-plus"/></svg>Novo</button>
+  <nav class="tabbar" aria-label="Principal">
+    <button class="tab" aria-current="page"><svg><use href="#i-home"/></svg>Hoje</button>
+    <button class="tab"><svg><use href="#i-list"/></svg>Hábitos</button>
+    <button class="tab"><svg><use href="#i-chart"/></svg>Progresso</button>
+    <button class="tab"><svg><use href="#i-user"/></svg>Perfil</button>
+  </nav>
+  <div class="home-ind"></div>
+</div></div>
+<figcaption>Início: cabeçalho grande, cartão de progresso, lista com ação e botão principal</figcaption>
+</figure>
+
+<!-- TELA 2: LISTA -->
+<figure>
+<div class="phone"><div class="island"></div>
+<div class="screen">
+  <div class="status"><span>9:41</span><span><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+  <div class="scroll">
+    <div class="navrow"><span></span><button class="round" aria-label="Novo hábito"><svg><use href="#i-plus"/></svg></button></div>
+    <h1 class="large">Hábitos</h1>
+    <p class="sub">8 ativos · 1 pausado</p>
+    <div class="chips"><button class="chip on">Todos</button><button class="chip">Manhã</button><button class="chip">Noite</button><button class="chip">Pausados</button></div>
+    <div class="list">
+      <div class="swipe-wrap"><div class="acts"><button class="a1" aria-label="Editar"><svg style="width:22px;height:22px"><use href="#i-edit"/></svg></button><button class="a2" aria-label="Excluir"><svg style="width:22px;height:22px"><use href="#i-trash"/></svg></button></div>
+        <div class="row"><span class="ico"><svg><use href="#i-run"/></svg></span><div class="t"><b>Correr 20 minutos</b><small>Seg, qua, sex</small></div></div></div>
+      <div class="row"><span class="ico g"><svg><use href="#i-drop"/></svg></span><div class="t"><b>Beber 2 litros de água</b><small>Todos os dias</small></div><svg style="color:var(--text-3)"><use href="#i-flame"/></svg></div>
+      <div class="row"><span class="ico o"><svg><use href="#i-book"/></svg></span><div class="t"><b>Ler 15 páginas</b><small>Todos os dias</small></div></div>
+      <div class="skel" aria-label="Carregando"><i></i><div style="flex:1"><s></s><s></s></div></div>
+      <div class="skel" aria-hidden="true"><i></i><div style="flex:1"><s></s><s></s></div></div>
+    </div>
+    <div class="stat"><div class="card"><b>94%</b><small>Constância no mês</small></div><div class="card"><b>12</b><small>Maior sequência</small></div></div>
+  </div>
+  <nav class="tabbar" aria-label="Principal">
+    <button class="tab"><svg><use href="#i-home"/></svg>Hoje</button>
+    <button class="tab" aria-current="page"><svg><use href="#i-list"/></svg>Hábitos</button>
+    <button class="tab"><svg><use href="#i-chart"/></svg>Progresso</button>
+    <button class="tab"><svg><use href="#i-user"/></svg>Perfil</button>
+  </nav>
+  <div class="home-ind"></div>
+</div></div>
+<figcaption>Lista: filtros, ações reveladas ao deslizar e estado de carregamento</figcaption>
+</figure>
+
+<!-- TELA 3: FOLHA -->
+<figure>
+<div class="phone open" id="p3"><div class="island"></div>
+<div class="screen">
+  <div class="status"><span>9:41</span><span><svg><use href="#i-sig"/></svg><svg><use href="#i-bat"/></svg></span></div>
+  <div class="scroll">
+    <div class="navrow"><span style="color:var(--text-3);font-weight:700">Terça, 24 de novembro</span><button class="round" tabindex="-1"><svg><use href="#i-bell"/></svg></button></div>
+    <h1 class="large">Oi, Marina</h1>
+    <p class="sub">Falta pouco para fechar o dia.</p>
+    <div class="hero"><div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="36" stroke="rgba(255,255,255,.28)"/><circle cx="42" cy="42" r="36" stroke="currentColor" stroke-dasharray="226" stroke-dashoffset="90"/></svg><b>3/5</b></div><div><h2>Quase lá</h2><p>Mais 2 hábitos para completar o dia.</p></div></div>
+  </div>
+  <nav class="tabbar"><button class="tab" aria-current="page"><svg><use href="#i-home"/></svg>Hoje</button><button class="tab"><svg><use href="#i-list"/></svg>Hábitos</button><button class="tab"><svg><use href="#i-chart"/></svg>Progresso</button><button class="tab"><svg><use href="#i-user"/></svg>Perfil</button></nav>
+  <div class="sheet-wrap">
+    <div class="dim close-sheet"></div>
+    <div class="sheet" role="dialog" aria-label="Novo hábito">
+      <div class="grab"></div>
+      <h3>Novo hábito <button class="round close-sheet" aria-label="Fechar" style="box-shadow:none;background:var(--surface-2)"><svg><use href="#i-x"/></svg></button></h3>
+      <label class="field"><span>Nome</span><input class="input" value="Meditar 10 minutos"></label>
+      <div class="field"><span>Ícone</span><div class="icons"><button aria-pressed="true" aria-label="Corrida"><svg><use href="#i-run"/></svg></button><button aria-pressed="false" aria-label="Água"><svg><use href="#i-drop"/></svg></button><button aria-pressed="false" aria-label="Leitura"><svg><use href="#i-book"/></svg></button><button aria-pressed="false" aria-label="Sono"><svg><use href="#i-moon"/></svg></button><button aria-pressed="false" aria-label="Sequência"><svg><use href="#i-flame"/></svg></button></div></div>
+      <div class="field"><span>Repetir</span><div class="days"><button aria-pressed="true">S</button><button aria-pressed="true">T</button><button aria-pressed="true">Q</button><button aria-pressed="true">Q</button><button aria-pressed="true">S</button><button aria-pressed="false">S</button><button aria-pressed="false">D</button></div></div>
+      <button class="btn close-sheet">Criar hábito</button>
+    </div>
+  </div>
+  <div class="home-ind"></div>
+</div></div>
+<figcaption>Folha inferior: formulário curto, alça de arraste, fundo escurecido e um botão principal</figcaption>
+</figure>
+</div>
+
+<script>
+(function(){
+var r=document.documentElement,btn=document.getElementById("theme");
+function dark(){return r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches}
+function icon(){btn.firstElementChild.firstElementChild.setAttribute("href",dark()?"#i-sun":"#i-moon")}
+btn.onclick=function(){r.dataset.theme=dark()?"light":"dark";icon()};icon();
+var p3=document.getElementById("p3");
+document.querySelectorAll(".open-sheet").forEach(function(b){b.onclick=function(){p3.classList.add("open");p3.scrollIntoView({behavior:"smooth",block:"center"})}});
+document.querySelectorAll(".close-sheet").forEach(function(b){b.onclick=function(){p3.classList.remove("open")}});
+document.querySelectorAll(".check").forEach(function(c){c.onclick=function(){c.setAttribute("aria-pressed",c.getAttribute("aria-pressed")!=="true")}});
+document.querySelectorAll("[aria-pressed]:not(.check)").forEach(function(c){c.addEventListener("click",function(){
+  var g=c.parentElement;if(g.classList.contains("icons"))g.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+  c.setAttribute("aria-pressed",c.getAttribute("aria-pressed")!=="true"||g.classList.contains("icons"))})});
+})();
+</script>
+</body>
+</html>

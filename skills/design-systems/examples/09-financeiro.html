@@ -1,0 +1,285 @@
+<!doctype html>
+<!--
+  Tipo de sistema: Financeiro / conta digital para empresas (marca fictícia "Cedro", conta PJ)
+  Direção visual: sóbria e de confiança. Fundo claro levemente esverdeado, verde-escuro de marca,
+  números grandes com algarismos tabulares, muito espaço em branco, tema escuro.
+  Layout: navegação no topo + conteúdo centrado (máx. 1120 px).
+  Doc correspondente: ../docs/09-financeiro.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cedro Conta PJ</title>
+<style>
+:root{
+  --bg:#f3f6f4; --surface:#ffffff; --surface-2:#eaf0ec; --border:#d9e2dc;
+  --text:#14231c; --muted:#4f6258; --brand:#0f4a36; --brand-hover:#0a3a2a; --on-brand:#ffffff;
+  --in:#0b6b3a; --in-bg:#dff1e6; --out:#9b2c2c; --out-bg:#f8e3e1; --warn:#8a5a00; --warn-bg:#fbefd2;
+  --focus:#1a73e8; --chart-in:#0f4a36; --chart-out:#c4a35a;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r-sm:6px; --r:12px; --r-lg:16px; --shadow:0 1px 2px rgba(20,35,28,.06),0 4px 16px rgba(20,35,28,.05);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1511; --surface:#131e18; --surface-2:#1a2820; --border:#26372d;
+  --text:#e8f0eb; --muted:#9db0a4; --brand:#5fc995; --brand-hover:#7bd7a9; --on-brand:#08140e;
+  --in:#6fd69b; --in-bg:#17382a; --out:#ff9a94; --out-bg:#3b1f1f; --warn:#f0c46a; --warn-bg:#3a2e12;
+  --focus:#7ab2ff; --chart-in:#5fc995; --chart-out:#d9b866; --shadow:0 1px 2px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#0c1511; --surface:#131e18; --surface-2:#1a2820; --border:#26372d;
+  --text:#e8f0eb; --muted:#9db0a4; --brand:#5fc995; --brand-hover:#7bd7a9; --on-brand:#08140e;
+  --in:#6fd69b; --in-bg:#17382a; --out:#ff9a94; --out-bg:#3b1f1f; --warn:#f0c46a; --warn-bg:#3a2e12;
+  --focus:#7ab2ff; --chart-in:#5fc995; --chart-out:#d9b866; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font:400 15px/1.5 var(--font);font-variant-numeric:tabular-nums;min-height:100vh}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:var(--r-sm)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* Topo */
+.top{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.top-in{max-width:1120px;margin:0 auto;padding:0 var(--s5);height:64px;display:flex;align-items:center;gap:var(--s5)}
+.logo{display:flex;align-items:center;gap:var(--s2);font-weight:700;font-size:18px;letter-spacing:-.01em;color:var(--brand)}
+.logo b{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--brand);color:var(--on-brand)}
+.logo small{font-weight:500;color:var(--muted);font-size:13px}
+nav.main{display:flex;gap:var(--s1);margin-left:var(--s3)}
+nav.main a,.tabs button{display:flex;align-items:center;height:40px;padding:0 var(--s3);border-radius:var(--r-sm);color:var(--muted);text-decoration:none;font-weight:500;background:none;border:0}
+nav.main a:hover,.tabs button:hover{background:var(--surface-2);color:var(--text)}
+nav.main a[aria-current],.tabs button[aria-selected="true"]{color:var(--brand);background:var(--surface-2);font-weight:600}
+.top-r{margin-left:auto;display:flex;align-items:center;gap:var(--s2)}
+.ib{display:grid;place-items:center;width:40px;height:40px;border-radius:var(--r-sm);background:none;border:1px solid transparent;color:var(--muted)}
+.ib:hover{background:var(--surface-2);color:var(--text)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--surface-2);border:1px solid var(--border);display:grid;place-items:center;font-weight:600;font-size:13px;color:var(--brand)}
+
+/* Conteúdo */
+main{max-width:1120px;margin:0 auto;padding:var(--s6) var(--s5) var(--s7)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)}
+h1{font-size:14px;font-weight:600;color:var(--muted)}
+.tabs{display:flex;gap:var(--s1);margin-bottom:var(--s5);overflow-x:auto}.tabs button{white-space:nowrap}.card,.kpi{min-width:0}
+.tabs button{border:1px solid transparent}
+.balance{font-size:clamp(36px,7vw,56px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:var(--s1)}
+.balance small{font-size:.5em;color:var(--muted);font-weight:600;margin-right:var(--s2)}
+.acct{color:var(--muted);font-size:13px;margin-top:var(--s2)}
+.actions{display:flex;gap:var(--s2);flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:var(--s2);height:44px;padding:0 var(--s4);border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);font-weight:600}
+.btn:hover{background:var(--surface-2)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.pri:hover{background:var(--brand-hover)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--s5);box-shadow:var(--shadow)}
+.card h2{font-size:15px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5)}
+.c-4{grid-column:span 4}.c-8{grid-column:span 8}.c-12{grid-column:span 12}.c-6{grid-column:span 6}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s4)}
+.kpi{background:var(--surface-2);border-radius:var(--r);padding:var(--s4)}
+.kpi span{display:flex;align-items:center;gap:var(--s2);color:var(--muted);font-size:13px;font-weight:500}
+.kpi strong{display:block;font-size:clamp(17px,4.6vw,24px);letter-spacing:-.02em;margin-top:var(--s1)}
+.kpi.in svg{color:var(--in)}.kpi.out svg{color:var(--out)}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s4);gap:var(--s3)}
+.legend{display:flex;gap:var(--s4);font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-size:11px;font-family:var(--font)}
+.chart .grid-l{stroke:var(--border);stroke-width:1}
+
+/* Cartões */
+.bank{border-radius:var(--r);padding:var(--s4);color:#fff;background:#0f4a36;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+:root[data-theme="dark"] .bank{background:#1f6b4d}
+.bank::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;border:24px solid rgba(255,255,255,.08)}
+.bank .row{display:flex;justify-content:space-between;font-size:13px}
+.bank .pan{font-size:18px;letter-spacing:.08em}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
+.cards-list{display:grid;gap:var(--s3)}
+.limit{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:var(--s2) 0}
+.limit i{display:block;height:100%;background:var(--brand);width:42%}
+.sm{font-size:13px;color:var(--muted)}
+
+/* Transações */
+.search{display:flex;align-items:center;gap:var(--s2);height:40px;padding:0 var(--s3);border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg);min-width:220px}
+.search input{border:0;background:none;outline:0;flex:1;min-width:0}
+.search:focus-within{outline:3px solid var(--focus);outline-offset:2px}
+.day{display:flex;justify-content:space-between;padding:var(--s4) 0 var(--s2);font-size:13px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--border);text-transform:none}
+.tx{display:grid;grid-template-columns:40px 1fr auto;gap:var(--s3);align-items:center;padding:var(--s3) var(--s2);margin:0 calc(var(--s2)*-1);border-radius:var(--r-sm);width:calc(100% + var(--s4));background:none;border:0;text-align:left}
+.tx:hover{background:var(--surface-2)}
+.tx .ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--muted)}
+.tx.in .ic{background:var(--in-bg);color:var(--in)}
+.tx b{display:block;font-weight:600}
+.tx .meta{font-size:13px;color:var(--muted);display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap}
+.val{font-weight:700;text-align:right;white-space:nowrap}
+.val.in{color:var(--in)}
+.val.out{color:var(--out)}
+.val small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.st{font-size:12px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--warn-bg);color:var(--warn)}
+ul{list-style:none;padding:0}
+
+/* Estados extras */
+.skel{border-radius:8px;background:linear-gradient(90deg,var(--surface-2),var(--border),var(--surface-2));background-size:200% 100%;animation:sh 1.4s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+.skrow{display:grid;grid-template-columns:40px 1fr 80px;gap:var(--s3);align-items:center;padding:var(--s3) 0}
+.empty{text-align:center;padding:var(--s7) var(--s4)}
+.empty .ring{width:56px;height:56px;margin:0 auto var(--s4);border-radius:50%;background:var(--surface-2);display:grid;place-items:center;color:var(--brand)}
+.empty h3{font-size:18px}.empty p{color:var(--muted);max-width:360px;margin:var(--s2) auto var(--s4)}
+.err{display:flex;gap:var(--s3);align-items:center;background:var(--out-bg);color:var(--out);border-radius:var(--r);padding:var(--s4);margin-top:var(--s5)}
+.err .btn{margin-left:auto;color:var(--text)}
+[hidden]{display:none!important}
+
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}.c-4,.c-8,.c-6,.c-12{grid-column:auto}nav.main a span.t{display:none}}
+@media (max-width:640px){
+  main{padding:var(--s5) var(--s4) 96px}.top-in{padding:0 var(--s4);gap:var(--s2)}.logo small{display:none}
+  nav.main{position:fixed;bottom:0;left:0;right:0;margin:0;background:var(--surface);border-top:1px solid var(--border);justify-content:space-around;padding:var(--s2);z-index:20}
+  nav.main a{flex-direction:column;height:52px;font-size:11px;gap:2px;padding:0 var(--s2);justify-content:center}
+  nav.main a span.t{display:inline}
+  .actions{width:100%}.actions .btn{flex:1;justify-content:center;padding:0 var(--s2)}.legend{flex-wrap:wrap;gap:var(--s2) var(--s3)}
+  .card{padding:var(--s4)}.search{min-width:0;flex:1}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+<symbol id="list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+<symbol id="card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+<symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1M17 4a4 4 0 0 1 0 8M22 21v-1a6 6 0 0 0-4-5.6"/></symbol>
+<symbol id="bar" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17v-5M13 17V8M18 17v-9"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10 21a2 2 0 0 0 4 0"/></symbol>
+<symbol id="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="barcode" viewBox="0 0 24 24"><path d="M4 5v14M8 5v14M12 5v14M16 5v14M20 5v14"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="down" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+<symbol id="cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h3l3 12h11l2-8H6"/></symbol>
+<symbol id="zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+<symbol id="file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+<symbol id="pix" viewBox="0 0 24 24"><path d="M12 3l4 4-4 4-4-4zM3 12l4-4M21 12l-4-4M3 12l4 4 5 5 5-5 4-4"/></symbol>
+<symbol id="tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.5 2.5-2.4-.6-.6-2.4z"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+</defs></svg>
+
+<header class="top">
+  <div class="top-in">
+    <div class="logo"><b><svg class="i" style="width:16px;height:16px"><use href="#zap"/></svg></b>Cedro <small>Conta PJ</small></div>
+    <nav class="main" aria-label="Principal">
+      <a href="#" aria-current="page"><svg class="i"><use href="#home"/></svg><span class="t">&nbsp;Início</span></a>
+      <a href="#"><svg class="i"><use href="#list"/></svg><span class="t">&nbsp;Extrato</span></a>
+      <a href="#"><svg class="i"><use href="#card"/></svg><span class="t">&nbsp;Cartões</span></a>
+      <a href="#"><svg class="i"><use href="#users"/></svg><span class="t">&nbsp;Pagamentos</span></a>
+      <a href="#"><svg class="i"><use href="#bar"/></svg><span class="t">&nbsp;Relatórios</span></a>
+    </nav>
+    <div class="top-r">
+      <button class="ib" id="theme" aria-label="Alternar tema claro e escuro"><svg class="i"><use href="#moon"/></svg></button>
+      <button class="ib" aria-label="Notificações"><svg class="i"><use href="#bell"/></svg></button>
+      <div class="avatar" title="Padaria Bom Grão LTDA">BG</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="tabs" role="tablist" aria-label="Estados da tela">
+    <button role="tab" aria-selected="true" data-v="main">Visão geral</button>
+    <button role="tab" aria-selected="false" data-v="load">Carregando</button>
+    <button role="tab" aria-selected="false" data-v="empty">Sem movimentações</button>
+  </div>
+
+  <section id="main">
+    <div class="head">
+      <div>
+        <h1>Saldo disponível · Padaria Bom Grão LTDA</h1>
+        <div class="balance num"><small>R$</small>48.236,90</div>
+        <p class="acct">Ag. 0001 · Conta 48210-7 · atualizado às 09:42</p>
+      </div>
+      <div class="actions" aria-label="Ações rápidas">
+        <button class="btn pri"><svg class="i"><use href="#barcode"/></svg>Pagar</button>
+        <button class="btn"><svg class="i"><use href="#send"/></svg>Transferir</button>
+        <button class="btn"><svg class="i"><use href="#plus"/></svg>Cobrar</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card c-8" aria-labelledby="fx">
+        <div class="card-head"><h2 id="fx">Fluxo de caixa · novembro</h2>
+          <div class="legend"><span><i style="background:var(--chart-in)"></i>Entradas</span><span><i style="background:var(--chart-out)"></i>Saídas</span></div></div>
+        <svg class="chart" viewBox="0 0 640 230" role="img" aria-label="Gráfico de barras: entradas e saídas por semana em novembro. Semana 1: entradas 21 mil, saídas 14 mil. Semana 2: 26 mil e 18 mil. Semana 3: 19 mil e 22 mil. Semana 4: 24 mil e 12 mil.">
+          <g class="grid-l"><line x1="44" x2="636" y1="20" y2="20"/><line x1="44" x2="636" y1="70" y2="70"/><line x1="44" x2="636" y1="120" y2="120"/><line x1="44" x2="636" y1="170" y2="170"/><line x1="44" x2="636" y1="200" y2="200"/></g>
+          <text x="38" y="24" text-anchor="end">30 mil</text><text x="38" y="74" text-anchor="end">20 mil</text><text x="38" y="124" text-anchor="end">10 mil</text><text x="38" y="204" text-anchor="end">0</text>
+          <g fill="var(--chart-in)"><rect x="76" y="62" width="40" height="138" rx="4"/><rect x="236" y="28" width="40" height="172" rx="4"/><rect x="396" y="75" width="40" height="125" rx="4"/><rect x="556" y="42" width="40" height="158" rx="4"/></g>
+          <g fill="var(--chart-out)"><rect x="122" y="108" width="40" height="92" rx="4"/><rect x="282" y="82" width="40" height="118" rx="4"/><rect x="442" y="55" width="40" height="145" rx="4"/><rect x="602" y="120" width="30" height="80" rx="4"/></g>
+          <text x="119" y="220" text-anchor="middle">1 a 7</text><text x="279" y="220" text-anchor="middle">8 a 14</text><text x="439" y="220" text-anchor="middle">15 a 21</text><text x="596" y="220" text-anchor="middle">22 a 24</text>
+        </svg>
+        <div class="kpis">
+          <div class="kpi in"><span><svg class="i"><use href="#down"/></svg>Entradas no mês</span><strong class="num" style="color:var(--in)">+ R$ 89.420,00</strong></div>
+          <div class="kpi out"><span><svg class="i"><use href="#up"/></svg>Saídas no mês</span><strong class="num" style="color:var(--out)">− R$ 61.318,45</strong></div>
+        </div>
+      </section>
+
+      <section class="card c-4" aria-labelledby="cd">
+        <div class="card-head"><h2 id="cd">Cartões</h2><button class="ib" aria-label="Novo cartão"><svg class="i"><use href="#plus"/></svg></button></div>
+        <div class="cards-list">
+          <div class="bank"><div class="row"><span>Cedro Empresas</span><span>Virtual</span></div><div class="pan num">•••• •••• •••• 4417</div><div class="row"><span>MARCOS A. FERREIRA</span><span>09/29</span></div></div>
+          <div><div class="row sm" style="display:flex;justify-content:space-between"><span>Fatura atual</span><b class="num" style="color:var(--text)">R$ 6.842,10</b></div>
+            <div class="limit" role="img" aria-label="42% do limite usado"><i></i></div>
+            <p class="sm num">Limite de R$ 16.300,00 · vence dia 05/12</p></div>
+          <span class="chip"><svg class="i" style="width:14px;height:14px"><use href="#lock"/></svg>Cartão desbloqueado</span>
+        </div>
+      </section>
+
+      <section class="card c-12" aria-labelledby="tx">
+        <div class="card-head"><h2 id="tx">Últimas movimentações</h2>
+          <label class="search"><svg class="i"><use href="#search"/></svg><span class="sr">Buscar movimentação</span><input type="search" placeholder="Buscar por nome ou valor"></label></div>
+
+        <div class="day"><span>Hoje, 24 de novembro</span><span class="num">Saldo do dia + R$ 2.144,30</span></div>
+        <button class="tx in"><span class="ic"><svg class="i"><use href="#pix"/></svg></span><span><b>Pix recebido · Café do Largo ME</b><span class="meta">Vendas · 09:12</span></span><span class="val in num"><span class="sr">Entrada de </span>+ R$ 3.450,00<small>Entrada</small></span></button>
+        <button class="tx"><span class="ic"><svg class="i"><use href="#zap"/></svg></span><span><b>Enel Distribuição SP</b><span class="meta">Contas fixas · 08:40 <span class="st">Agendado</span></span></span><span class="val out num"><span class="sr">Saída de </span>− R$ 1.305,70<small>Saída</small></span></button>
+
+        <div class="day"><span>Ontem, 23 de novembro</span><span class="num">Saldo do dia − R$ 3.920,15</span></div>
+        <button class="tx"><span class="ic"><svg class="i"><use href="#cart"/></svg></span><span><b>Atacadão Farinhas e Grãos</b><span class="meta">Insumos · 16:05</span></span><span class="val out num"><span class="sr">Saída de </span>− R$ 4.812,15<small>Boleto</small></span></button>
+        <button class="tx in"><span class="ic"><svg class="i"><use href="#card"/></svg></span><span><b>Recebíveis de cartão · maquininha</b><span class="meta">Vendas · 10:00</span></span><span class="val in num"><span class="sr">Entrada de </span>+ R$ 892,00<small>Entrada</small></span></button>
+
+        <div class="day"><span>Sexta, 21 de novembro</span><span class="num">Saldo do dia − R$ 8.600,00</span></div>
+        <button class="tx"><span class="ic"><svg class="i"><use href="#users"/></svg></span><span><b>Folha de pagamento · 6 pessoas</b><span class="meta">Pessoal · 09:00</span></span><span class="val out num"><span class="sr">Saída de </span>− R$ 8.600,00<small>Transferência</small></span></button>
+        <button class="tx"><span class="ic"><svg class="i"><use href="#tool"/></svg></span><span><b>Forno Industrial Sul Ltda</b><span class="meta">Equipamentos · 14:22</span></span><span class="val out num"><span class="sr">Saída de </span>− R$ 2.190,00<small>Pix</small></span></button>
+      </section>
+    </div>
+  </section>
+
+  <section id="load" hidden aria-busy="true" aria-label="Carregando">
+    <div class="skel" style="height:14px;width:220px"></div>
+    <div class="skel" style="height:52px;width:320px;margin:12px 0 32px"></div>
+    <div class="card"><div class="skel" style="height:200px"></div></div>
+    <div class="card" style="margin-top:24px">
+      <div class="skrow"><div class="skel" style="height:40px;border-radius:50%"></div><div class="skel" style="height:16px"></div><div class="skel" style="height:16px"></div></div>
+      <div class="skrow"><div class="skel" style="height:40px;border-radius:50%"></div><div class="skel" style="height:16px"></div><div class="skel" style="height:16px"></div></div>
+      <div class="skrow"><div class="skel" style="height:40px;border-radius:50%"></div><div class="skel" style="height:16px"></div><div class="skel" style="height:16px"></div></div>
+    </div>
+    <div class="err" role="alert"><svg class="i"><use href="#alert"/></svg><span>Não foi possível atualizar o saldo. Os valores abaixo podem estar desatualizados.</span><button class="btn">Tentar de novo</button></div>
+  </section>
+
+  <section id="empty" hidden>
+    <div class="head"><div><h1>Saldo disponível · Studio Aurora Design ME</h1><div class="balance num"><small>R$</small>0,00</div></div>
+      <div class="actions"><button class="btn pri"><svg class="i"><use href="#plus"/></svg>Adicionar dinheiro</button></div></div>
+    <div class="card empty"><div class="ring"><svg class="i" style="width:26px;height:26px"><use href="#file"/></svg></div>
+      <h3>Nenhuma movimentação ainda</h3><p>Receba seu primeiro Pix ou gere uma cobrança. Tudo o que entrar e sair aparece aqui, agrupado por dia.</p>
+      <div class="actions" style="justify-content:center"><button class="btn pri">Gerar cobrança</button><button class="btn">Copiar chave Pix</button></div></div>
+  </section>
+</main>
+
+<script>
+const r=document.documentElement,b=document.getElementById('theme');
+b.onclick=()=>{const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'};
+document.querySelectorAll('.tabs button').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===t));
+  ['main','load','empty'].forEach(id=>document.getElementById(id).hidden=id!==t.dataset.v);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<!--
+  Tipo de sistema: Agendamento (clínica, salão, consultório). Marca fictícia "Estúdio Lírio".
+  Direção visual: clara, suave e amigável; neutros quentes, azul-lavanda de marca, cantos arredondados,
+  eventos em tons pastel com texto escuro. Agenda semanal em grade; no celular vira visão de dia.
+  Abas: Agenda (equipe), Visão do cliente (página pública), Estado vazio.
+  Doc correspondente: ../docs/10-agendamento.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estúdio Lírio Agenda</title>
+<style>
+:root{
+  --bg:#faf7f4; --surface:#ffffff; --surface-2:#f3eee9; --border:#e6ded6;
+  --text:#2b2630; --muted:#675f6c; --brand:#5b52b8; --brand-hover:#4a4199; --on-brand:#fff; --brand-soft:#e9e7fa;
+  --p1:#dcd9f7; --p2:#f9d9e3; --p3:#d4ebe0; --p4:#fbe6c4; --ev-text:#2b2630;
+  --d1:#5b52b8; --d2:#c2457a; --d3:#2f8a62; --d4:#b9791a;
+  --focus:#1a73e8; --now:#d6455d;
+  --font:"Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r-sm:10px; --r:16px; --r-lg:24px; --shadow:0 2px 6px rgba(43,38,48,.05),0 10px 30px rgba(43,38,48,.07);
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px; --row:56px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17141b; --surface:#201c26; --surface-2:#2a2531; --border:#383140; --text:#f1edf4; --muted:#b0a8b7;
+  --brand:#a9a2f2; --brand-hover:#bdb8f7; --on-brand:#17141b; --brand-soft:#312d4d;
+  --p1:#3a3665; --p2:#5a2f43; --p3:#27483a; --p4:#5a4420; --ev-text:#f6f2f8;
+  --d1:#a9a2f2; --d2:#f08ab4; --d3:#6fd0a0; --d4:#f0bd6a; --focus:#7ab2ff; --now:#ff7f93; --shadow:0 2px 8px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#17141b; --surface:#201c26; --surface-2:#2a2531; --border:#383140; --text:#f1edf4; --muted:#b0a8b7;
+  --brand:#a9a2f2; --brand-hover:#bdb8f7; --on-brand:#17141b; --brand-soft:#312d4d;
+  --p1:#3a3665; --p2:#5a2f43; --p3:#27483a; --p4:#5a4420; --ev-text:#f6f2f8;
+  --d1:#a9a2f2; --d2:#f08ab4; --d3:#6fd0a0; --d4:#f0bd6a; --focus:#7ab2ff; --now:#ff7f93; --shadow:0 2px 8px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:400 15px/1.5 var(--font);font-variant-numeric:tabular-nums;min-height:100vh}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+[hidden]{display:none!important}ul{list-style:none;padding:0}
+.top{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s5);background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:var(--s2);font-weight:800;font-size:18px;color:var(--brand)}
+.logo b{width:30px;height:30px;border-radius:50% 50% 50% 8px;background:var(--brand);display:grid;place-items:center;color:var(--on-brand)}
+.tabs{display:flex;gap:var(--s1);background:var(--surface-2);padding:4px;border-radius:99px;margin-left:var(--s3)}
+.tabs button{border:0;background:none;height:36px;padding:0 var(--s4);border-radius:99px;font-weight:700;color:var(--muted)}
+.tabs button:hover{color:var(--text)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--brand);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.top-r{margin-left:auto;display:flex;gap:var(--s2);align-items:center}
+.ib{width:40px;height:40px;border-radius:50%;border:0;background:none;display:grid;place-items:center;color:var(--muted)}
+.ib:hover{background:var(--surface-2);color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);height:44px;padding:0 var(--s5);border-radius:99px;border:1px solid var(--border);background:var(--surface);font-weight:700}
+.btn:hover{background:var(--surface-2)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}.btn.pri:hover{background:var(--brand-hover)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+.app{display:grid;grid-template-columns:272px minmax(0,1fr);gap:var(--s5);padding:var(--s5);max-width:1440px;margin:0 auto}
+aside{display:flex;flex-direction:column;gap:var(--s5)}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--s4)}
+.box h3{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:var(--s3);letter-spacing:.02em}
+.mini-h span:last-child{display:flex}
+.mini-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s2);font-weight:800}
+.mini{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:13px}
+.mini span.w{color:var(--muted);font-weight:700;font-size:11px;padding:4px 0}
+.mini button{aspect-ratio:1;border:0;background:none;border-radius:50%;font-size:13px}
+.mini button:hover{background:var(--surface-2)}
+.mini button.sel{background:var(--brand);color:var(--on-brand);font-weight:800}
+.mini button.out{color:var(--muted);opacity:.6}
+.f{display:flex;align-items:center;gap:var(--s3);padding:6px var(--s2);border-radius:var(--r-sm);cursor:pointer}
+.f:hover{background:var(--surface-2)}
+.f input{accent-color:var(--brand);width:18px;height:18px}
+.dot{width:10px;height:10px;border-radius:50%}
+.next li{display:flex;gap:var(--s3);padding:var(--s2) 0;border-top:1px solid var(--border)}
+.next li:first-child{border:0}
+.next time{font-weight:800;min-width:44px}
+.next small{display:block;color:var(--muted)}
+
+.cal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);min-width:0}
+.cal-h{display:flex;align-items:center;gap:var(--s3);padding:var(--s4) var(--s5);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.cal-h h1{font-size:20px;font-weight:800;margin-right:auto}
+.dayhead{display:grid;grid-template-columns:56px repeat(6,1fr);border-bottom:1px solid var(--border)}
+.dayhead button{border:0;background:none;padding:var(--s3) 0;text-align:center;color:var(--muted);font-weight:700;font-size:13px}
+.dayhead button b{display:grid;place-items:center;width:36px;height:36px;margin:2px auto 0;border-radius:50%;font-size:17px;color:var(--text)}
+.dayhead button.today b{background:var(--brand);color:var(--on-brand)}
+.dayhead button:hover b{background:var(--surface-2)}.dayhead button.today:hover b{background:var(--brand-hover)}
+.scroll{padding-top:10px;overflow-y:auto;max-height:640px}
+.body{display:grid;grid-template-columns:56px repeat(6,1fr);position:relative}
+.hours div{height:var(--row);font-size:12px;color:var(--muted);text-align:right;padding-right:var(--s2);transform:translateY(-9px)}
+.col{position:relative;border-left:1px solid var(--border);background-image:linear-gradient(var(--border) 1px,transparent 1px);background-size:100% var(--row)}
+.ev{position:absolute;left:3px;right:3px;border-radius:12px;padding:6px 8px;font-size:12px;line-height:1.3;color:var(--ev-text);border:0;text-align:left;overflow:hidden;border-left:4px solid}
+.ev:hover{filter:brightness(.97);box-shadow:var(--shadow)}
+.ev b{display:block;font-size:13px}
+.ev.p1{background:var(--p1);border-color:var(--d1)}.ev.p2{background:var(--p2);border-color:var(--d2)}
+.ev.p3{background:var(--p3);border-color:var(--d3)}.ev.p4{background:var(--p4);border-color:var(--d4)}
+.now{position:absolute;left:56px;right:0;height:2px;background:var(--now);z-index:2}
+.now::before{content:"";position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--now)}
+.daychips{display:none}
+
+/* Painel */
+.scrim{position:fixed;inset:0;background:rgba(20,15,25,.45);z-index:30}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--surface);z-index:31;display:flex;flex-direction:column;box-shadow:var(--shadow);border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.panel-h{display:flex;align-items:center;padding:var(--s4) var(--s5);gap:var(--s3);border-bottom:1px solid var(--border)}
+.panel-h h2{font-size:18px;font-weight:800;margin-right:auto}
+.steps{display:flex;gap:6px;padding:var(--s4) var(--s5) 0}
+.steps i{flex:1;height:6px;border-radius:99px;background:var(--surface-2)}.steps i.on{background:var(--brand)}
+.panel-b{padding:var(--s5);overflow:auto;flex:1}
+.panel-b h3{font-size:16px;margin-bottom:var(--s4)}
+.opt{display:flex;align-items:center;gap:var(--s3);width:100%;text-align:left;padding:var(--s3) var(--s4);border:1.5px solid var(--border);border-radius:var(--r);background:var(--surface);margin-bottom:var(--s2)}
+.opt:hover{background:var(--surface-2)}
+.opt[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.opt small{display:block;color:var(--muted)}.opt .r{margin-left:auto;font-weight:800;white-space:nowrap}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:var(--ev-text)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin-bottom:var(--s5)}
+.slot{height:44px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);font-weight:700}
+.slot:hover{border-color:var(--brand)}.slot[aria-pressed="true"]{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.slot:disabled{text-decoration:line-through;color:var(--muted);opacity:.55;cursor:not-allowed}
+.panel-f{padding:var(--s4) var(--s5);border-top:1px solid var(--border);display:flex;gap:var(--s2);justify-content:space-between}
+.sum{background:var(--surface-2);border-radius:var(--r);padding:var(--s4);display:grid;gap:var(--s2)}
+.sum div{display:flex;justify-content:space-between;gap:var(--s3)}.sum span{color:var(--muted)}
+.ok{width:56px;height:56px;border-radius:50%;background:var(--p3);color:var(--ev-text);display:grid;place-items:center;margin-bottom:var(--s4)}
+
+/* Cliente */
+.pub{max-width:560px;margin:0 auto;padding:var(--s6) var(--s4) var(--s7);text-align:center}
+.pub .hero{width:72px;height:72px;border-radius:50% 50% 50% 14px;background:var(--brand);color:var(--on-brand);margin:0 auto var(--s4);display:grid;place-items:center}
+.pub h1{font-size:28px;font-weight:800;letter-spacing:-.01em}
+.pub .sub{color:var(--muted);margin:var(--s2) 0 var(--s5)}
+.pub .box{text-align:left;padding:var(--s5);box-shadow:var(--shadow)}
+.pub .dates{display:flex;gap:var(--s2);overflow-x:auto;padding-bottom:var(--s2);margin-bottom:var(--s4)}
+.pub .dates button{flex:none;width:64px;padding:var(--s2) 0;border-radius:var(--r);border:1.5px solid var(--border);background:var(--surface);text-align:center;font-size:12px;color:var(--muted);font-weight:700}
+.pub .dates button b{display:block;font-size:20px;color:var(--text)}
+.pub .dates button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.pub .dates button[aria-pressed="true"] b{color:var(--on-brand)}
+.field{display:block;margin-bottom:var(--s3)}.field span{display:block;font-size:13px;font-weight:700;margin-bottom:4px}
+.field input{width:100%;height:46px;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:0 var(--s3);background:var(--surface)}
+.pub small{color:var(--muted);display:block;margin-top:var(--s4);text-align:center}
+
+/* Vazio / carregando */
+.empty{text-align:center;padding:var(--s7) var(--s4)}
+.empty .ring{width:64px;height:64px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;margin:0 auto var(--s4)}
+.empty p{color:var(--muted);max-width:380px;margin:var(--s2) auto var(--s5)}
+.skel{background:linear-gradient(90deg,var(--surface-2),var(--border),var(--surface-2));background-size:200% 100%;animation:sh 1.4s infinite;border-radius:12px}
+@keyframes sh{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+
+@media (max-width:1100px){.app{grid-template-columns:minmax(0,1fr)}aside{flex-direction:row;flex-wrap:wrap}aside .box{flex:1 1 240px}}
+@media (max-width:720px){
+  .app>aside{order:2}.mini-h{flex-wrap:nowrap}.mini button{aspect-ratio:auto;height:34px}.top .btn.pri{padding:0 var(--s3)}.top .btn.pri span{display:none}
+  .top{padding:var(--s3) var(--s4)}.tabs{order:3;width:100%;margin:0;overflow-x:auto}.tabs button{flex:1;padding:0 var(--s2)}
+  .app{padding:var(--s3)}
+  .dayhead{display:none}
+  .daychips{display:flex;gap:var(--s1);padding:var(--s2) var(--s3);border-bottom:1px solid var(--border)}
+  .daychips button{flex:1;border:0;background:none;border-radius:var(--r);padding:var(--s2) 0;font-size:12px;font-weight:700;color:var(--muted)}
+  .daychips button b{display:block;font-size:16px;color:var(--text)}
+  .daychips button[aria-pressed="true"]{background:var(--brand);color:var(--on-brand)}.daychips button[aria-pressed="true"] b{color:var(--on-brand)}
+  .body{grid-template-columns:48px 1fr}.col{display:none}.col.act{display:block}
+  .now{left:48px}.cal-h{padding:var(--s3) var(--s4)}.cal-h h1{font-size:17px;flex-basis:100%}
+  .panel{border-radius:0}.slots{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="flower" viewBox="0 0 24 24"><path d="M12 3c2 3 2 6 0 9-2-3-2-6 0-9zM12 12c3-2 6-2 9 0-3 2-6 2-9 0zM12 12c2 3 2 6 0 9-2-3-2-6 0-9zM12 12c-3 2-6 2-9 0 3-2 6-2 9 0z"/></symbol>
+<symbol id="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+<symbol id="r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+<symbol id="cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+</defs></svg>
+
+<header class="top">
+  <div class="logo"><b><svg class="i"><use href="#flower"/></svg></b>Estúdio Lírio</div>
+  <div class="tabs" role="tablist" aria-label="Visões">
+    <button role="tab" aria-selected="true" data-v="agenda">Agenda</button>
+    <button role="tab" aria-selected="false" data-v="cliente">Visão do cliente</button>
+    <button role="tab" aria-selected="false" data-v="vazio">Dia sem horários</button>
+  </div>
+  <div class="top-r">
+    <button class="ib" id="theme" aria-label="Alternar tema claro e escuro"><svg class="i"><use href="#moon"/></svg></button>
+    <button class="btn pri" data-open><svg class="i"><use href="#plus"/></svg><span>Novo agendamento</span></button>
+  </div>
+</header>
+
+<section id="agenda" class="app">
+  <aside>
+    <div class="box" aria-label="Mini calendário">
+      <div class="mini-h"><span>Novembro 2026</span><span><button class="ib" style="width:32px;height:32px" aria-label="Mês anterior"><svg class="i"><use href="#l"/></svg></button><button class="ib" style="width:32px;height:32px" aria-label="Próximo mês"><svg class="i"><use href="#r"/></svg></button></span></div>
+      <div class="mini" id="mini"></div>
+    </div>
+    <div class="box"><h3>PROFISSIONAIS</h3>
+      <label class="f"><input type="checkbox" checked data-p="p1"><span class="dot" style="background:var(--d1)"></span>Dra. Helena Duarte</label>
+      <label class="f"><input type="checkbox" checked data-p="p2"><span class="dot" style="background:var(--d2)"></span>Camila Rocha</label>
+      <label class="f"><input type="checkbox" checked data-p="p3"><span class="dot" style="background:var(--d3)"></span>Rafael Teixeira</label>
+      <label class="f"><input type="checkbox" checked data-p="p4"><span class="dot" style="background:var(--d4)"></span>Juliana Prado</label>
+    </div>
+    <div class="box next"><h3>PRÓXIMOS ATENDIMENTOS</h3>
+      <ul>
+        <li><time>10:00</time><span><b>Marina Albuquerque</b><small>Limpeza de pele · Camila</small></span></li>
+        <li><time>11:30</time><span><b>Paulo Vasconcelos</b><small>Consulta de retorno · Dra. Helena</small></span></li>
+        <li><time>14:00</time><span><b>Letícia Ramos</b><small>Massagem relaxante · Rafael</small></span></li>
+      </ul></div>
+  </aside>
+
+  <div class="cal">
+    <div class="cal-h"><h1>23 a 28 de novembro de 2026</h1>
+      <button class="btn">Hoje</button>
+      <button class="ib" aria-label="Semana anterior"><svg class="i"><use href="#l"/></svg></button>
+      <button class="ib" aria-label="Próxima semana"><svg class="i"><use href="#r"/></svg></button></div>
+    <div class="daychips" id="chips" role="group" aria-label="Escolher dia"></div>
+    <div class="dayhead" id="dh"></div>
+    <div class="scroll"><div class="body" id="body"></div></div>
+  </div>
+</section>
+
+<section id="cliente" hidden>
+  <div class="pub">
+    <div class="hero"><svg class="i" style="width:36px;height:36px"><use href="#flower"/></svg></div>
+    <h1>Marque seu horário</h1>
+    <p class="sub">Estúdio Lírio · Rua das Acácias, 214, Pinheiros, São Paulo</p>
+    <div class="box">
+      <h3 style="font-size:16px;color:var(--text);letter-spacing:0">1. Escolha o serviço</h3>
+      <button class="opt" aria-pressed="true"><span><b>Limpeza de pele</b><small>60 min</small></span><span class="r">R$ 180,00</span></button>
+      <button class="opt" aria-pressed="false"><span><b>Massagem relaxante</b><small>50 min</small></span><span class="r">R$ 160,00</span></button>
+      <h3 style="font-size:16px;color:var(--text);letter-spacing:0;margin:var(--s5) 0 var(--s3)">2. Escolha o dia</h3>
+      <div class="dates" id="pd"></div>
+      <div class="slots" id="ps"></div>
+      <h3 style="font-size:16px;color:var(--text);letter-spacing:0;margin-bottom:var(--s3)">3. Seus dados</h3>
+      <label class="field"><span>Nome completo</span><input autocomplete="name" placeholder="Ex.: Ana Beatriz Souza"></label>
+      <label class="field"><span>WhatsApp</span><input autocomplete="tel" inputmode="tel" placeholder="(11) 98888-0000"></label>
+      <button class="btn pri" style="width:100%;margin-top:var(--s2)">Confirmar quinta, 26/11 às 14:00</button>
+      <small>Você recebe a confirmação no WhatsApp. Cancelamento grátis até 24 h antes.</small>
+    </div>
+  </div>
+</section>
+
+<section id="vazio" hidden class="app" style="grid-template-columns:1fr">
+  <div class="cal">
+    <div class="cal-h"><h1>Domingo, 29 de novembro</h1></div>
+    <div class="empty"><div class="ring"><svg class="i" style="width:28px;height:28px"><use href="#cal"/></svg></div>
+      <h2>Nenhum atendimento neste dia</h2><p>O estúdio não abre aos domingos. Escolha outro dia ou libere este horário na configuração da agenda.</p>
+      <button class="btn pri" data-open>Novo agendamento</button></div>
+    <div style="padding:0 var(--s5) var(--s5);display:grid;gap:var(--s2)"><span class="sr">Carregando</span><div class="skel" style="height:56px"></div><div class="skel" style="height:56px;width:80%"></div></div>
+  </div>
+</section>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pt" hidden>
+  <div class="panel-h"><h2 id="pt">Novo agendamento</h2><button class="ib" id="close" aria-label="Fechar painel"><svg class="i"><use href="#x"/></svg></button></div>
+  <div class="steps" id="steps"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="panel-b" id="pb"></div>
+  <div class="panel-f"><button class="btn" id="back">Voltar</button><button class="btn pri" id="next">Continuar</button></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+// tema
+$('#theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'};
+// abas
+$$('.tabs button').forEach(t=>t.onclick=()=>{$$('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===t));['agenda','cliente','vazio'].forEach(id=>$('#'+id).hidden=id!==t.dataset.v)});
+// mini calendário
+const mini=$('#mini');'DSTQQSS'.split('').forEach(w=>mini.insertAdjacentHTML('beforeend',`<span class="w">${w}</span>`));
+for(let d=-0;d<35;d++){const n=d-0+1-0; const day=new Date(2026,10,1+d-0-0); const dn=new Date(2026,10,1).getDay(); const dt=new Date(2026,10,1-dn+d);
+ const sel=dt.getMonth()===10&&dt.getDate()>=23&&dt.getDate()<=28; mini.insertAdjacentHTML('beforeend',`<button class="${dt.getMonth()!==10?'out':''} ${dt.getDate()===24&&dt.getMonth()===10?'sel':''}" aria-label="${dt.getDate()} de ${['outubro','novembro','dezembro'][dt.getMonth()-9]}">${dt.getDate()}</button>`)}
+// grade
+const days=['Seg','Ter','Qua','Qui','Sex','Sáb'],dates=[23,24,25,26,27,28],H0=8,H1=19,ROW=56;
+$('#dh').innerHTML='<div></div>'+days.map((d,i)=>`<button class="${i===1?'today':''}">${d}<b>${dates[i]}</b></button>`).join('');
+$('#chips').innerHTML=days.map((d,i)=>`<button aria-pressed="${i===1}" data-d="${i}">${d}<b>${dates[i]}</b></button>`).join('');
+const E=[[0,9,1,'p1','Consulta inicial','Bruno Medeiros'],[0,10.5,1,'p2','Design de sobrancelha','Aline Costa'],[0,14,1.5,'p3','Massagem','Cláudia Lopes'],
+[1,9,.75,'p4','Manicure','Renata Dias'],[1,10,1,'p2','Limpeza de pele','Marina Albuquerque'],[1,11.5,1,'p1','Retorno','Paulo Vasconcelos'],[1,14,1,'p3','Massagem relaxante','Letícia Ramos'],[1,16,1.5,'p4','Pedicure e esmaltação','Sônia Prates'],
+[2,8.5,1,'p1','Consulta','Gabriel Nunes'],[2,10,1,'p3','Drenagem linfática','Fernanda Lima'],[2,13,1,'p2','Peeling','Tatiane Alves'],[2,15,1,'p1','Avaliação','Otávio Bastos'],
+[3,9,1.5,'p3','Massagem modeladora','Vanessa Cruz'],[3,11,1,'p2','Limpeza de pele','Carolina Melo'],[3,14,1,'p1','Retorno','Henrique Sales'],[3,15.5,1,'p4','Manicure','Beatriz Faria'],
+[4,9.5,1,'p2','Design de sobrancelha','Isabela Rocha'],[4,11,1,'p1','Consulta','Lucas Pimentel'],[4,13.5,2,'p4','Spa dos pés','Marta Guedes'],[4,16.5,1,'p3','Massagem','Daniel Souza'],
+[5,9,1,'p1','Consulta','Rita Amaral'],[5,10.5,1.5,'p2','Limpeza de pele','Patrícia Lemos'],[5,12.5,1,'p4','Manicure','Elisa Barros']];
+const hrs=[];for(let h=H0;h<H1;h++)hrs.push(`<div>${String(h).padStart(2,'0')}:00</div>`);
+let html=`<div class="hours">${hrs.join('')}</div>`;
+days.forEach((d,i)=>{html+=`<div class="col ${i===1?'act':''}" data-d="${i}" style="height:${(H1-H0)*ROW}px">`+E.filter(e=>e[0]===i).map(e=>{
+ const top=(e[1]-H0)*ROW,h=e[2]*ROW-2,hh=Math.floor(e[1]),mm=Math.round((e[1]-hh)*60);
+ return `<button class="ev ${e[3]}" data-p="${e[3]}" style="top:${top}px;height:${h}px"><b>${e[5]}</b>${e[4]} · ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}</button>`}).join('')+'</div>'});
+html+=`<div class="now" style="top:${(10.4-H0)*ROW}px" aria-hidden="true"></div>`;
+$('#body').innerHTML=html;
+$$('.daychips button').forEach(b=>b.onclick=()=>{$$('.daychips button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.col').forEach(c=>c.classList.toggle('act',c.dataset.d===b.dataset.d))});
+$$('[data-p]').forEach(c=>{if(c.type==='checkbox')c.onchange=()=>$$('.ev.'+c.dataset.p).forEach(e=>e.hidden=!c.checked)});
+// página do cliente
+$('#pd').innerHTML=[['Qua',25],['Qui',26],['Sex',27],['Sáb',28],['Seg',30]].map((d,i)=>`<button aria-pressed="${i===1}">${d[0]}<b>${d[1]}</b></button>`).join('');
+const sl=['09:00','10:30','11:30','14:00','15:00','16:30'];
+$('#ps').innerHTML=sl.map((s,i)=>`<button class="slot" aria-pressed="${s==='14:00'}" ${i===1?'disabled':''}>${s}</button>`).join('');
+$$('#pd button').forEach(b=>b.onclick=()=>{$$('#pd button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+$$('#ps .slot').forEach(b=>b.onclick=()=>{$$('#ps .slot').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+$$('.pub .opt').forEach(b=>b.onclick=()=>{$$('.pub .opt').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+// painel: serviço > profissional > horário > confirmação
+const S=[['Limpeza de pele','60 min','R$ 180,00'],['Massagem relaxante','50 min','R$ 160,00'],['Consulta de retorno','30 min','R$ 220,00'],['Manicure','45 min','R$ 70,00']];
+const P=[['Camila Rocha','p2','CR'],['Rafael Teixeira','p3','RT'],['Dra. Helena Duarte','p1','HD'],['Juliana Prado','p4','JP']];
+const T=['09:00','10:30','11:30','14:00','15:00','16:30'];
+let step=0,pick={s:0,p:0,t:'14:00'};
+function draw(){
+ $$('#steps i').forEach((e,i)=>e.classList.toggle('on',i<=step));
+ $('#back').style.visibility=step&&step<3?'visible':'hidden';
+ $('#next').textContent=step===2?'Confirmar agendamento':step===3?'Concluir':'Continuar';
+ let h='';
+ if(step===0)h='<h3>Qual serviço?</h3>'+S.map((s,i)=>`<button class="opt" data-s="${i}" aria-pressed="${i===pick.s}"><span><b>${s[0]}</b><small>${s[1]}</small></span><span class="r">${s[2]}</span></button>`).join('');
+ if(step===1)h='<h3>Com quem?</h3>'+P.map((p,i)=>`<button class="opt" data-p="${i}" aria-pressed="${i===pick.p}"><span class="av" style="background:var(--${p[1]})">${p[2]}</span><span><b>${p[0]}</b><small>Próximo horário: amanhã, 09:00</small></span></button>`).join('');
+ if(step===2)h='<h3>Quinta, 26 de novembro</h3><div class="slots">'+T.map((t,i)=>`<button class="slot" data-t="${t}" aria-pressed="${t===pick.t}" ${i===1?'disabled':''}>${t}</button>`).join('')+'</div><label class="field"><span>Cliente</span><input placeholder="Buscar ou cadastrar cliente" value="Marina Albuquerque"></label>';
+ if(step===3)h=`<div class="ok"><svg class="i" style="width:28px;height:28px"><use href="#check"/></svg></div><h3>Agendamento confirmado</h3><div class="sum"><div><span>Serviço</span><b>${S[pick.s][0]}</b></div><div><span>Profissional</span><b>${P[pick.p][0]}</b></div><div><span>Quando</span><b>Qui, 26/11 às ${pick.t}</b></div><div><span>Valor</span><b>${S[pick.s][2]}</b></div></div><p class="sub" style="color:var(--muted);margin-top:16px">Mensagem de confirmação enviada por WhatsApp.</p>`;
+ $('#pb').innerHTML=h;
+ $$('#pb [data-s]').forEach(b=>b.onclick=()=>{pick.s=+b.dataset.s;draw()});
+ $$('#pb [data-p]').forEach(b=>b.onclick=()=>{pick.p=+b.dataset.p;draw()});
+ $$('#pb [data-t]').forEach(b=>b.onclick=()=>{pick.t=b.dataset.t;draw()});
+}
+let opener;
+function open_(){opener=document.activeElement;step=0;draw();$('#scrim').hidden=$('#panel').hidden=false;$('#close').focus()}
+function close_(){$('#scrim').hidden=$('#panel').hidden=true;opener&&opener.focus()}
+$$('[data-open]').forEach(b=>b.onclick=open_);$('#close').onclick=$('#scrim').onclick=close_;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#panel').hidden)close_()});
+$('#back').onclick=()=>{step--;draw()};
+$('#next').onclick=()=>{if(step===3)close_();else{step++;draw()}};
+</script>
+</body>
+</html>

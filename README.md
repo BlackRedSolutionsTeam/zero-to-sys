@@ -1,0 +1,101 @@
+# zero-to-sys
+
+Conjunto de skills para o Claude Code que guiam a criação de um sistema do zero até a produção. Cada pasta é uma skill independente: um guia de decisão (`SKILL.md`) e um documento por ferramenta ou prática (`docs/`), explicando quando usar, para que tipo de projeto, quando é bom, quando é ruim e por quê.
+
+## Skill principal
+
+A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal `zero-to-sys`. Ela descobre o contexto do projeto (tipo, interface, o que o time sabe, porte, restrições, novo ou existente) e dispara as outras skills na ordem certa, pulando as que não se aplicam. Chame com `/zero-to-sys` ou peça "cria um sistema do zero".
+
+## Skills
+
+| Pasta | Skill | O que responde | Documentos |
+|---|---|---|---|
+| [stacks/](skills/stacks/) | `stacks` | Qual stack usar em cada tipo de projeto e em qual área cada uma funciona melhor | 12 |
+| [architecture/](skills/architecture/) | `architecture` | Como organizar pastas e arquivos para ser fácil achar e manter, pela documentação oficial de cada stack | 13 |
+| [coding/](skills/coding/) | `coding` | Como escrever código simples, bem organizado e bem modularizado | 12 |
+| [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 13 |
+| [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 12 |
+| [design/](skills/design/) | `design` | Quais UI kits e ícones gratuitos usar para um visual profissional | 7 |
+| [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 12 |
+| [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
+| [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |
+
+## Por onde começar
+
+A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa ordem sozinha e ajusta por tipo de projeto:
+
+1. **[stacks/](skills/stacks/SKILL.md):** escolha a stack pelo tipo de projeto.
+2. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
+3. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
+4. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
+5. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
+6. **[infra/](skills/infra/SKILL.md):** leve para produção.
+
+## Instalação
+
+O repositório é um plugin do Claude Code: as skills e o agente entram juntos, com um comando, e se atualizam pelo próprio Claude Code.
+
+```text
+/plugin marketplace add BlackRedSolutionsTeam/zero-to-sys
+/plugin install zero-to-sys@zero-to-sys
+```
+
+Depois de instalar, reinicie o Claude Code. As skills aparecem com o prefixo do plugin (`/zero-to-sys:stacks`, `/zero-to-sys:infra`…), e o agente aparece como `zero-to-sys`.
+
+### Sem o sistema de plugins
+
+Quem prefere copiar só algumas peças pode linkar as pastas direto:
+
+```bash
+git clone https://github.com/BlackRedSolutionsTeam/zero-to-sys ~/zero-to-sys
+
+# Skills (todas ou só as que quiser)
+for s in ~/zero-to-sys/skills/*/; do ln -s "$s" ~/.claude/skills/; done
+
+# Agente orquestrador
+mkdir -p ~/.claude/agents
+ln -s ~/zero-to-sys/agents/zero-to-sys.md ~/.claude/agents/
+```
+
+Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele.
+
+## Agente orquestrador
+
+O [agents/zero-to-sys.md](agents/zero-to-sys.md) é um subagente que recebe qualquer tarefa delegada, decide quais skills ela precisa, em que ordem, e dispara cada uma passando o contexto adiante. Chame com "usa o agente zero-to-sys para…" ou `@zero-to-sys`. O Claude também delega a ele sozinho quando a tarefa toca mais de uma área.
+
+## Como usar
+
+O Claude carrega cada skill sozinho quando o pedido bate com o tema dela. Também dá para chamar direto, por exemplo `/zero-to-sys`, `/stacks`, `/infra` ou `/architecture`. Exemplos:
+
+- "Qual stack eu uso para um SaaS pequeno com painel admin?"
+- "Organiza as pastas deste projeto Next.js."
+- "Onde eu hospedo esse MVP gastando pouco?"
+- "Como faço o Claude gastar menos tokens nesta base grande?"
+
+## Estrutura
+
+```
+zero-to-sys/
+├── .claude-plugin/
+│   ├── plugin.json        manifesto do plugin (nome, versão, descrição)
+│   └── marketplace.json   permite instalar direto do GitHub
+├── agents/
+│   └── zero-to-sys.md     agente orquestrador
+├── skills/
+│   ├── zero-to-sys/       skill principal: ordem das fases
+│   └── <skill>/           uma pasta por área
+│       ├── SKILL.md       guia de decisão e regras de uso, lido pelo Claude
+│       ├── README.md      apresentação e manutenção da skill
+│       └── docs/
+│           ├── README.md  índice, "Qual escolher" e o que saiu da lista
+│           └── NN-nome.md um documento por ferramenta ou prática
+└── README.md
+```
+
+## Como manter
+
+- **Nova skill:** crie `skills/<nome>/` no mesmo formato, acrescente uma linha na tabela de skills, na skill `zero-to-sys` e no agente.
+- **Nova versão:** suba o `version` do `.claude-plugin/plugin.json`; quem instalou recebe a atualização pelo `/plugin`.
+
+- **Adicionar ou remover um item:** siga o "Como manter" do `README.md` da skill e atualize a contagem na tabela acima.
+- **Revisar dados:** preços, licenças, versões e comandos foram verificados em 2026-11-24. Cada documento tem a data em "Verificado em" e cita a fonte oficial de cada dado; confira na fonte antes de tomar uma decisão que dependa deles.

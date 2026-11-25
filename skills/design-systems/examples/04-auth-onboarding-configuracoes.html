@@ -1,0 +1,463 @@
+<!doctype html>
+<!--
+  Tipo de sistema: Telas de borda — login, onboarding em passos e configurações
+  Direção visual: clara, arejada e acolhedora, neutros levemente quentes, marca laranja-coral, tipografia maior.
+  Marca fictícia: Caju (organização de trabalho em equipe).
+  Doc correspondente: ../docs/04-auth-onboarding-configuracoes.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caju — Entrar, começar e configurar</title>
+<style>
+:root{
+  --bg:#fbf8f4; --surface:#ffffff; --sunk:#f4eee6; --border:#e9dfd3; --border-strong:#d3c5b4;
+  --text:#2a2118; --muted:#6b5f51; --brand:#c2410c; --brand-hover:#a8370a; --on-brand:#ffffff; --brand-soft:#fdebdf;
+  --panel:#f9d9c3; --panel-ink:#4a1d09;
+  --ok:#17673a; --ok-bg:#e2f3e8; --err:#b42318; --err-bg:#fde8e6;
+  --shadow:0 1px 2px rgba(42,33,24,.06),0 8px 24px rgba(42,33,24,.06);
+  --r:12px; --r-lg:20px; --r-pill:999px;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a1613; --surface:#241f1b; --sunk:#2d2722; --border:#3d352e; --border-strong:#53493f;
+    --text:#f4ede5; --muted:#b8ab9c; --brand:#ff8a5c; --brand-hover:#ffa07a; --on-brand:#2a1006; --brand-soft:#3b2216;
+    --panel:#3a2417; --panel-ink:#ffe3d3; --ok:#7fdca0; --ok-bg:#16301f; --err:#ff8f84; --err-bg:#3d1a17;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1a1613; --surface:#241f1b; --sunk:#2d2722; --border:#3d352e; --border-strong:#53493f;
+  --text:#f4ede5; --muted:#b8ab9c; --brand:#ff8a5c; --brand-hover:#ffa07a; --on-brand:#2a1006; --brand-soft:#3b2216;
+  --panel:#3a2417; --panel-ink:#ffe3d3; --ok:#7fdca0; --ok-bg:#16301f; --err:#ff8f84; --err-bg:#3d1a17;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+:root{color-scheme:light dark}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:17px/26px var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--brand);font-weight:600;text-underline-offset:3px}
+a:hover{color:var(--brand-hover)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:6px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+h1,h2,h3{margin:0;letter-spacing:-.02em;font-weight:700}
+h1{font-size:36px;line-height:44px}
+h2{font-size:24px;line-height:32px}
+h3{font-size:18px;line-height:26px}
+p{margin:0}
+.muted{color:var(--muted)}
+
+/* barra de abas da demonstração */
+.demo{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;padding:10px 24px}
+.demo .lbl{font-size:14px;color:var(--muted);margin-right:4px}
+.dtabs{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:var(--r-pill);overflow-x:auto}
+.dtab{border:0;background:none;height:36px;padding:0 16px;border-radius:var(--r-pill);font-weight:600;font-size:15px;color:var(--muted);white-space:nowrap}
+.dtab:hover{color:var(--text)}
+.dtab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.sp{flex:1}
+.icon-btn{width:44px;height:44px;border:0;background:none;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.icon-btn:hover{background:var(--sunk);color:var(--text)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--r-pill);border:1px solid var(--border-strong);background:var(--surface);font-weight:600;white-space:nowrap;text-decoration:none;color:var(--text)}
+.btn:hover{background:var(--sunk);color:var(--text)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand-hover);color:var(--on-brand)}
+.btn.block{width:100%}
+.btn.sm{height:40px;padding:0 16px;font-size:15px}
+.btn.danger{border-color:var(--err);color:var(--err);background:transparent}
+.btn.danger:hover{background:var(--err-bg);color:var(--err)}
+.btn.ghost{border-color:transparent;background:none}
+
+.field{width:100%;height:52px;border:1px solid var(--border-strong);border-radius:var(--r);background:var(--surface);padding:0 16px}
+.field:hover{border-color:var(--muted)}
+.field::placeholder{color:var(--muted)}
+.f{margin-bottom:20px}
+.f>label,.lab{display:block;font-weight:600;margin-bottom:8px;font-size:16px}
+.hint{font-size:14px;line-height:20px;color:var(--muted);margin-top:6px}
+.f.bad .field{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
+.msg{display:none;color:var(--err);font-size:14px;line-height:20px;margin-top:6px;gap:6px;align-items:center}
+.f.bad .msg{display:flex}
+.pw{position:relative}
+.pw .field{padding-right:56px}
+.pw button{position:absolute;right:4px;top:4px;width:44px;height:44px;border:0;background:none;border-radius:var(--r);color:var(--muted)}
+.pw button:hover{color:var(--text);background:var(--sunk)}
+.chk{display:flex;gap:12px;align-items:center;font-size:16px}
+.chk input{width:22px;height:22px;accent-color:var(--brand);margin:0}
+
+.view{display:none}.view.on{display:block}
+
+/* ===== LOGIN ===== */
+.login{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:calc(100vh - 61px)}
+.l-form{display:flex;flex-direction:column;padding:32px 48px}
+.mark{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.02em}
+.mark .logo{width:36px;height:36px;border-radius:12px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center}
+.l-box{width:100%;max-width:400px;margin:auto}
+.l-box h1{margin-bottom:8px}
+.l-box .lead{color:var(--muted);margin-bottom:32px}
+.or{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:14px;margin:24px 0}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--border)}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px;flex-wrap:wrap}
+.l-foot{text-align:center;margin-top:32px;color:var(--muted)}
+.legal{font-size:14px;color:var(--muted);text-align:center}
+.l-brand{background:var(--panel);color:var(--panel-ink);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.l-brand h2{font-size:32px;line-height:40px;max-width:420px;position:relative}
+.l-brand .art{position:relative;margin:24px 0;max-width:460px}
+.l-brand blockquote{margin:0;position:relative;font-size:17px}
+.l-brand .by{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:15px}
+.l-brand .by b{display:block}
+.av{width:44px;height:44px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-weight:700;flex:none}
+.blob{position:absolute;border-radius:50%;background:var(--brand);opacity:.14}
+
+/* ===== ONBOARDING ===== */
+.ob{max-width:720px;margin:0 auto;padding:32px 24px 64px}
+.ob-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.steps{display:flex;gap:8px;list-style:none;margin:0 0 8px;padding:0}
+.steps li{flex:1;height:6px;border-radius:3px;background:var(--border)}
+.steps li.done,.steps li.cur{background:var(--brand)}
+.step-meta{display:flex;justify-content:space-between;font-size:15px;color:var(--muted);margin-bottom:32px}
+.step-meta b{color:var(--text)}
+.ob-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:40px}
+.ob-card h1{margin-bottom:8px}
+.ob-card .lead{color:var(--muted);margin-bottom:32px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;border:0}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1.5px solid var(--border-strong);border-radius:var(--r);background:var(--surface);height:100%}
+.opt .ico{width:40px;height:40px;border-radius:10px;background:var(--sunk);display:grid;place-items:center;flex:none;color:var(--brand)}
+.opt b{display:block;line-height:22px}
+.opt small{font-size:14px;line-height:20px;color:var(--muted)}
+.opt:hover span{border-color:var(--muted)}
+.opt input:checked+span{border-color:var(--brand);background:var(--brand-soft);box-shadow:0 0 0 1px var(--brand)}
+.opt input:focus-visible+span{outline:3px solid var(--brand);outline-offset:2px}
+.ob-actions{display:flex;justify-content:space-between;align-items:center;margin-top:32px;gap:12px;flex-wrap:wrap}
+.done-ill{width:72px;height:72px;border-radius:50%;background:var(--ok-bg);color:var(--ok);display:grid;place-items:center;margin-bottom:24px}
+.done-ill .ic{width:36px;height:36px}
+.invite{display:flex;gap:8px;margin-bottom:12px}
+.todo{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:8px}
+.todo li{display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:var(--r);background:var(--sunk)}
+.todo .ic{color:var(--ok)}
+
+/* ===== CONFIGURAÇÕES ===== */
+.set{display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;max-width:1040px;margin:0 auto;padding:40px 24px 80px}
+.snav{position:sticky;top:85px;align-self:start}
+.snav h2{font-size:20px;margin-bottom:16px;padding:0 12px}
+.snav a{display:flex;align-items:center;gap:12px;height:44px;padding:0 12px;border-radius:var(--r);text-decoration:none;color:var(--muted);font-weight:600;font-size:16px}
+.snav a:hover{background:var(--sunk);color:var(--text)}
+.snav a[aria-current="true"]{background:var(--brand-soft);color:var(--brand)}
+.sbody{min-width:0}
+.sbody>.pg-h{margin-bottom:32px}
+.sbody>.pg-h p{color:var(--muted);margin-top:4px}
+.block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:24px;scroll-margin-top:88px;box-shadow:var(--shadow)}
+.block>header{padding:24px 32px 0}
+.block>header p{color:var(--muted);font-size:16px;margin-top:2px}
+.block .in{padding:24px 32px}
+.block>footer{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:16px 32px;border-top:1px solid var(--border);background:var(--sunk);border-radius:0 0 var(--r-lg) var(--r-lg);flex-wrap:wrap}
+.block>footer .note{margin-right:auto;font-size:14px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.avrow{display:flex;gap:20px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.avrow .av{width:72px;height:72px;font-size:24px}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:16px 0;border-top:1px solid var(--border)}
+.sw:first-child{border-top:0;padding-top:0}
+.sw:last-child{padding-bottom:0}
+.sw b{display:block;font-weight:600}
+.sw span.d{font-size:15px;line-height:22px;color:var(--muted)}
+.tg{position:relative;width:52px;height:30px;flex:none}
+.tg input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+.tg i{position:absolute;inset:0;border-radius:15px;background:var(--border-strong);transition:.15s}
+.tg i::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:.15s}
+.tg input:checked+i{background:var(--brand)}
+.tg input:checked+i::after{transform:translateX(22px)}
+.tg input:focus-visible+i{outline:3px solid var(--brand);outline-offset:2px}
+.danger-zone{border-color:var(--err);box-shadow:none}
+.danger-zone h2{color:var(--err)}
+.danger-zone .in{display:grid;gap:0}
+.dz{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:16px 0;border-top:1px solid var(--border);flex-wrap:wrap}
+.dz:first-child{border-top:0;padding-top:0}
+.dz b{display:block}
+.dz span.d{font-size:15px;line-height:22px;color:var(--muted)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,24px);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:var(--r-pill);opacity:0;transition:.2s;z-index:30;pointer-events:none;display:flex;gap:8px;align-items:center;font-size:16px}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+dialog{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);color:var(--text);padding:32px;max-width:440px;width:calc(100% - 32px);box-shadow:0 24px 64px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(42,33,24,.5)}
+dialog h3{margin-bottom:8px}
+dialog .acts{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}
+
+@media (max-width:1023px){
+  .l-form{padding:32px}.l-brand{padding:40px 32px}
+  .set{gap:32px;grid-template-columns:200px minmax(0,1fr)}
+}
+@media (max-width:767px){
+  body{font-size:16px;line-height:24px}
+  h1{font-size:30px;line-height:38px}
+  .dtab{padding:0 10px;font-size:14px}.demo{padding:8px 12px}.demo .lbl{display:none}
+  .login{grid-template-columns:1fr}
+  .l-brand{order:-1;padding:24px 20px;min-height:0}
+  .l-brand .art,.l-brand blockquote,.l-brand .blob{display:none}
+  .l-brand h2{font-size:20px;line-height:28px}
+  .l-form{padding:24px 20px 40px}
+  .ob{padding:24px 16px 48px}.ob-card{padding:24px 20px}
+  .opts{grid-template-columns:1fr}
+  .set{display:block;padding:16px 16px 64px}
+  .snav{position:static;margin-bottom:24px}
+  .snav h2{display:none}
+  .snav nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+  .snav a{white-space:nowrap;border:1px solid var(--border);border-radius:var(--r-pill);height:40px}
+  .snav a .ic{display:none}
+  .block>header,.block .in{padding-left:20px;padding-right:20px}.block>footer{padding:16px 20px}
+  .grid2{grid-template-columns:1fr}
+  .invite{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.5 5-7"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M9.9 4.2A9.8 9.8 0 0 1 12 4c6.5 0 10 8 10 8a17 17 0 0 1-2.2 3.2M6.6 6.6A16 16 0 0 0 2 12s3.5 8 10 8a9.7 9.7 0 0 0 5.4-1.6M2 2l20 20M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1zM12 15l-3-3a22 22 0 0 1 2-4 12.9 12.9 0 0 1 11-6c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-g" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+</svg>
+
+<div class="demo">
+  <span class="lbl">Telas de borda:</span>
+  <div class="dtabs" role="tablist" aria-label="Telas">
+    <button class="dtab" role="tab" aria-selected="true" data-t="login">Login</button>
+    <button class="dtab" role="tab" aria-selected="false" data-t="ob">Onboarding</button>
+    <button class="dtab" role="tab" aria-selected="false" data-t="set">Configurações</button>
+  </div>
+  <span class="sp"></span>
+  <button class="icon-btn" id="theme" aria-label="Alternar tema claro e escuro"><svg class="ic"><use href="#i-sun"/></svg></button>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<section class="view on" id="v-login" aria-label="Login">
+  <div class="login">
+    <div class="l-form">
+      <div class="mark"><span class="logo"><svg class="ic"><use href="#i-leaf"/></svg></span>Caju</div>
+      <div class="l-box">
+        <h1>Que bom ver você de novo</h1>
+        <p class="lead">Entre para continuar de onde parou.</p>
+        <form id="lf" novalidate>
+          <div class="f" id="fe"><label for="em">E-mail</label><input class="field" id="em" type="email" autocomplete="email" placeholder="voce@empresa.com.br"><div class="msg"><svg class="ic" style="width:16px;height:16px"><use href="#i-alert"/></svg><span>Digite um e-mail válido, como voce@empresa.com.br.</span></div></div>
+          <div class="f" id="fp"><label for="pw">Senha</label><div class="pw"><input class="field" id="pw" type="password" autocomplete="current-password" placeholder="Sua senha"><button type="button" id="eye" aria-label="Mostrar senha"><svg class="ic"><use href="#i-eye"/></svg></button></div><div class="msg"><svg class="ic" style="width:16px;height:16px"><use href="#i-alert"/></svg><span>Informe sua senha.</span></div></div>
+          <div class="row-between"><label class="chk"><input type="checkbox" checked>Manter conectado</label><a href="#">Esqueci a senha</a></div>
+          <button class="btn primary block" type="submit">Entrar</button>
+        </form>
+        <div class="or">ou</div>
+        <button class="btn block" type="button"><svg class="ic"><use href="#i-g"/></svg>Continuar com Google</button>
+        <p class="l-foot">Ainda não tem conta? <a href="#">Criar conta grátis</a></p>
+      </div>
+      <p class="legal">Ao entrar, você concorda com os <a href="#">Termos</a> e a <a href="#">Política de Privacidade</a>.</p>
+    </div>
+    <aside class="l-brand" aria-label="Sobre o Caju">
+      <span class="blob" style="width:360px;height:360px;right:-120px;top:-100px"></span>
+      <span class="blob" style="width:220px;height:220px;left:-80px;bottom:60px"></span>
+      <h2>Cada tarefa no lugar certo, cada pessoa na mesma página.</h2>
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 460 220" width="100%" role="img" aria-label="Ilustração de cartões de tarefas">
+          <g fill="none">
+            <rect x="20" y="30" width="250" height="84" rx="16" style="fill:var(--surface)"/>
+            <rect x="40" y="52" width="24" height="24" rx="12" style="stroke:var(--brand);stroke-width:2.5"/>
+            <path d="m47 64 4 4 7-8" style="stroke:var(--brand);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"/>
+            <rect x="80" y="54" width="130" height="10" rx="5" style="fill:var(--border-strong)"/>
+            <rect x="80" y="74" width="80" height="8" rx="4" style="fill:var(--border)"/>
+            <rect x="190" y="130" width="250" height="84" rx="16" style="fill:var(--surface)"/>
+            <rect x="210" y="152" width="24" height="24" rx="12" style="stroke:var(--border-strong);stroke-width:2.5"/>
+            <rect x="250" y="154" width="140" height="10" rx="5" style="fill:var(--border-strong)"/>
+            <rect x="250" y="174" width="96" height="8" rx="4" style="fill:var(--border)"/>
+            <rect x="372" y="20" width="68" height="28" rx="14" style="fill:var(--brand)"/>
+            <rect x="386" y="30" width="40" height="8" rx="4" style="fill:var(--on-brand);opacity:.85"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <blockquote>“Depois do Caju, nossa reunião de segunda caiu de uma hora para quinze minutos. Todo mundo já chega sabendo o que está em andamento.”</blockquote>
+        <div class="by"><span class="av">LA</span><div><b>Luiza Andrade</b>Coordenadora de operações, Padaria Trigal</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== ONBOARDING ===== -->
+<section class="view" id="v-ob" aria-label="Onboarding">
+  <div class="ob">
+    <div class="ob-top"><div class="mark"><span class="logo"><svg class="ic"><use href="#i-leaf"/></svg></span>Caju</div><a href="#" id="skip">Pular por agora</a></div>
+    <ol class="steps" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+    <div class="step-meta"><span>Passo <b id="sn">2</b> de 4</span><span id="sname">Sua equipe</span></div>
+
+    <div class="ob-card" aria-live="polite">
+      <div data-s="1" hidden>
+        <h1>Vamos começar pelo seu nome</h1><p class="lead">É assim que sua equipe vai ver você.</p>
+        <div class="f"><label for="n1">Nome completo</label><input class="field" id="n1" value="Rafaela Duarte"></div>
+        <div class="f" style="margin:0"><label for="n2">Cargo</label><input class="field" id="n2" placeholder="Ex.: Gerente de projetos"></div>
+      </div>
+      <div data-s="2">
+        <h1>Como sua equipe trabalha?</h1><p class="lead">Escolha o que mais se parece com vocês. Dá para mudar depois.</p>
+        <fieldset class="opts" style="min-width:0"><legend class="sr">Tipo de equipe</legend>
+          <label class="opt"><input type="radio" name="t" checked><span><i class="ico"><svg class="ic"><use href="#i-brief"/></svg></i><div><b>Operações</b><small>Rotinas, escalas e checklists do dia a dia</small></div></span></label>
+          <label class="opt"><input type="radio" name="t"><span><i class="ico"><svg class="ic"><use href="#i-rocket"/></svg></i><div><b>Projetos</b><small>Entregas com prazo e várias etapas</small></div></span></label>
+          <label class="opt"><input type="radio" name="t"><span><i class="ico"><svg class="ic"><use href="#i-chat"/></svg></i><div><b>Atendimento</b><small>Pedidos e solicitações de clientes</small></div></span></label>
+          <label class="opt"><input type="radio" name="t"><span><i class="ico"><svg class="ic"><use href="#i-cal"/></svg></i><div><b>Conteúdo</b><small>Calendário de publicações e revisões</small></div></span></label>
+        </fieldset>
+      </div>
+      <div data-s="3" hidden>
+        <h1>Quem vai trabalhar com você?</h1><p class="lead">Convide por e-mail. Eles recebem um link para entrar.</p>
+        <div class="invite"><input class="field" aria-label="E-mail do colega" placeholder="colega@empresa.com.br"><button class="btn sm" type="button" style="height:52px">Adicionar</button></div>
+        <ul class="todo"><li><svg class="ic"><use href="#i-check"/></svg>tiago.moura@trigal.com.br<span class="muted" style="margin-left:auto;font-size:14px">Convite pendente</span></li></ul>
+        <p class="hint" style="margin-top:16px">Você pode convidar mais gente depois, em Configurações.</p>
+      </div>
+      <div data-s="4" hidden>
+        <div class="done-ill"><svg class="ic"><use href="#i-check"/></svg></div>
+        <h1>Tudo pronto, Rafaela</h1><p class="lead">Montamos seu espaço de Operações. Comece por aqui:</p>
+        <ul class="todo" style="margin:0"><li><svg class="ic"><use href="#i-check"/></svg>Criar sua primeira lista de tarefas</li><li><svg class="ic"><use href="#i-check"/></svg>Definir um responsável e um prazo</li><li><svg class="ic"><use href="#i-check"/></svg>Acompanhar o andamento no painel</li></ul>
+      </div>
+      <div class="ob-actions"><button class="btn ghost" id="back"><svg class="ic"><use href="#i-left"/></svg>Voltar</button><button class="btn primary" id="next">Continuar<svg class="ic"><use href="#i-right"/></svg></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONFIGURAÇÕES ===== -->
+<section class="view" id="v-set" aria-label="Configurações">
+  <div class="set">
+    <aside class="snav"><h2>Configurações</h2>
+      <nav aria-label="Seções">
+        <a href="#s-perfil" aria-current="true"><svg class="ic"><use href="#i-user"/></svg>Perfil</a>
+        <a href="#s-notif"><svg class="ic"><use href="#i-bell"/></svg>Notificações</a>
+        <a href="#s-equipe"><svg class="ic"><use href="#i-users"/></svg>Equipe</a>
+        <a href="#s-plano"><svg class="ic"><use href="#i-card"/></svg>Plano e cobrança</a>
+        <a href="#s-seg"><svg class="ic"><use href="#i-lock"/></svg>Segurança</a>
+      </nav>
+    </aside>
+    <div class="sbody">
+      <div class="pg-h"><h1>Seu perfil</h1><p>Como você aparece para a equipe e como o Caju avisa você.</p></div>
+
+      <section class="block" id="s-perfil">
+        <header><h2>Informações pessoais</h2><p>Estes dados ficam visíveis para quem trabalha com você.</p></header>
+        <form class="in" id="pf" novalidate>
+          <div class="avrow"><span class="av">RD</span><div><button class="btn sm" type="button">Trocar foto</button><p class="hint">JPG ou PNG, até 2 MB.</p></div></div>
+          <div class="grid2">
+            <div class="f"><label for="pn">Nome completo</label><input class="field" id="pn" value="Rafaela Duarte"></div>
+            <div class="f"><label for="pc">Cargo</label><input class="field" id="pc" value="Gerente de projetos"></div>
+          </div>
+          <div class="f" id="pe" style="margin-bottom:0"><label for="pm">E-mail</label><input class="field" id="pm" type="email" value="rafaela@trigal.com"><div class="msg"><svg class="ic" style="width:16px;height:16px"><use href="#i-alert"/></svg><span>Esse e-mail parece incompleto. Confira se tem o @ e o domínio.</span></div><p class="hint">Usamos este e-mail para entrar e receber avisos.</p></div>
+        </form>
+        <footer><span class="note">Última alteração em 18 de novembro de 2026</span><button class="btn ghost sm" type="button" id="cancel">Descartar</button><button class="btn primary sm" type="button" id="save">Salvar alterações</button></footer>
+      </section>
+
+      <section class="block" id="s-notif">
+        <header><h2>Notificações</h2><p>Escolha o que merece interromper seu dia.</p></header>
+        <div class="in">
+          <div class="sw"><div><b>Tarefas atribuídas a mim</b><span class="d">Aviso na hora em que alguém passar uma tarefa para você.</span></div><label class="tg"><input type="checkbox" checked aria-label="Tarefas atribuídas a mim"><i></i></label></div>
+          <div class="sw"><div><b>Prazos de hoje</b><span class="d">Resumo às 08:30 com o que vence no dia.</span></div><label class="tg"><input type="checkbox" checked aria-label="Prazos de hoje"><i></i></label></div>
+          <div class="sw"><div><b>Resumo semanal por e-mail</b><span class="d">Toda segunda, o andamento da semana anterior.</span></div><label class="tg"><input type="checkbox" aria-label="Resumo semanal por e-mail"><i></i></label></div>
+        </div>
+      </section>
+
+      <section class="block" id="s-equipe">
+        <header><h2>Equipe</h2><p>Padaria Trigal · 6 pessoas</p></header>
+        <div class="in"><div class="f" style="margin:0"><label for="tn">Nome do espaço de trabalho</label><input class="field" id="tn" value="Padaria Trigal"></div></div>
+      </section>
+
+      <section class="block" id="s-plano">
+        <header><h2>Plano e cobrança</h2><p>Plano Time, R$ 29,00 por pessoa ao mês.</p></header>
+        <div class="in"><p class="muted">Próxima cobrança de R$ 174,00 em 05 de dezembro de 2026, no cartão final 4421.</p></div>
+        <footer><button class="btn sm" type="button">Ver faturas</button><button class="btn sm" type="button">Trocar cartão</button></footer>
+      </section>
+
+      <section class="block danger-zone" id="s-seg" aria-labelledby="dzh">
+        <header><h2 id="dzh">Zona de perigo</h2><p>Ações que não podem ser desfeitas. Leia antes de continuar.</p></header>
+        <div class="in">
+          <div class="dz"><div><b>Sair de todos os dispositivos</b><span class="d">Você precisará entrar de novo em cada um deles.</span></div><button class="btn sm danger" type="button">Encerrar sessões</button></div>
+          <div class="dz"><div><b>Excluir minha conta</b><span class="d">Apaga seu perfil e suas tarefas pessoais. Tarefas da equipe continuam com os colegas.</span></div><button class="btn sm danger" type="button" id="del">Excluir conta</button></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<dialog id="dlg" aria-labelledby="dgt">
+  <h3 id="dgt">Excluir sua conta?</h3>
+  <p class="muted">Essa ação é permanente. Para confirmar, digite <b style="color:var(--text)">EXCLUIR</b> abaixo.</p>
+  <div class="f" style="margin:16px 0 0"><label class="sr" for="cf">Confirmação</label><input class="field" id="cf" placeholder="EXCLUIR" autocomplete="off"></div>
+  <div class="acts"><button class="btn sm" id="dno" type="button">Cancelar</button><button class="btn sm danger" id="dyes" type="button" disabled style="opacity:.5">Excluir conta</button></div>
+</dialog>
+<div class="toast" id="toast" role="status"><svg class="ic"><use href="#i-check"/></svg><span id="tm"></span></div>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+  var root=document.documentElement;
+  $("#theme").onclick=function(){
+    var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme",dark?"light":"dark");
+  };
+  // abas
+  function tab(t){
+    $$(".dtab").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});
+    $$(".view").forEach(function(v){v.classList.toggle("on",v.id==="v-"+t)});
+    scrollTo(0,0);
+  }
+  $$(".dtab").forEach(function(b){b.onclick=function(){tab(b.dataset.t)}});
+  var h=location.hash.replace("#","");if(["login","ob","set"].indexOf(h)>-1)tab(h);
+  // login
+  $("#eye").onclick=function(){var p=$("#pw"),s=p.type==="password";p.type=s?"text":"password";this.setAttribute("aria-label",s?"Ocultar senha":"Mostrar senha");$("use",this).setAttribute("href",s?"#i-eyeoff":"#i-eye")};
+  $("#lf").onsubmit=function(e){
+    e.preventDefault();
+    var okE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("#em").value),okP=$("#pw").value.length>0;
+    $("#fe").classList.toggle("bad",!okE);$("#fp").classList.toggle("bad",!okP);
+    $("#em").setAttribute("aria-invalid",!okE);$("#pw").setAttribute("aria-invalid",!okP);
+    if(!okE)$("#em").focus();else if(!okP)$("#pw").focus();else toast("Login de demonstração: tudo certo.");
+  };
+  // onboarding
+  var step=2,names=["Seu perfil","Sua equipe","Convites","Pronto"];
+  function render(){
+    $$("[data-s]").forEach(function(d){d.hidden=+d.dataset.s!==step});
+    $$(".steps li").forEach(function(l,i){l.className=i+1<step?"done":i+1===step?"cur":""});
+    $("#sn").textContent=step;$("#sname").textContent=names[step-1];
+    $("#back").style.visibility=step===1?"hidden":"visible";
+    $("#next").firstChild.textContent=step===4?"Ir para o painel":step===3?"Concluir":"Continuar";
+  }
+  $("#next").onclick=function(){if(step<4){step++;render()}else toast("Bem-vinda ao Caju!")};
+  $("#back").onclick=function(){if(step>1){step--;render()}};
+  $("#skip").onclick=function(e){e.preventDefault();step=4;render()};
+  render();
+  // configurações
+  $$(".snav a").forEach(function(a){a.addEventListener("click",function(){$$(".snav a").forEach(function(x){x.removeAttribute("aria-current")});a.setAttribute("aria-current","true")})});
+  $("#save").onclick=function(){
+    var ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("#pm").value);
+    $("#pe").classList.toggle("bad",!ok);$("#pm").setAttribute("aria-invalid",!ok);
+    if(ok)toast("Alterações salvas.");else $("#pm").focus();
+  };
+  $("#cancel").onclick=function(){$("#pm").value="rafaela@trigal.com";$("#pe").classList.remove("bad")};
+  var d=$("#dlg");
+  $("#del").onclick=function(){$("#cf").value="";$("#dyes").disabled=true;$("#dyes").style.opacity=.5;d.showModal?d.showModal():d.setAttribute("open","")};
+  $("#dno").onclick=function(){d.close?d.close():d.removeAttribute("open")};
+  $("#cf").oninput=function(){var ok=this.value==="EXCLUIR";$("#dyes").disabled=!ok;$("#dyes").style.opacity=ok?1:.5};
+  $("#dyes").onclick=function(){$("#dno").onclick();toast("Demonstração: nada foi excluído.")};
+  var tt;function toast(m){$("#tm").textContent=m;$("#toast").classList.add("on");clearTimeout(tt);tt=setTimeout(function(){$("#toast").classList.remove("on")},2600)}
+})();
+</script>
+</body>
+</html>

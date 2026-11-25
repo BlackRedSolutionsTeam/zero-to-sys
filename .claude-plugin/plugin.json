@@ -1,0 +1,21 @@
+{
+  "name": "zero-to-sys",
+  "version": "1.0.0",
+  "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: stack, arquitetura, IA, índice de código, código, UX, layouts, UI kit e infra.",
+  "author": {
+    "name": "BlackRed Solutions",
+    "url": "https://github.com/BlackRedSolutionsTeam"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "agents",
+    "architecture",
+    "stack",
+    "design-system",
+    "infra",
+    "pt-br"
+  ],
+  "repository": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",
+  "homepage": "https://github.com/BlackRedSolutionsTeam/zero-to-sys"
+}

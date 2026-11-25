@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ponte Atendimento — Caixa de entrada</title>
+<!--
+  Tipo de sistema: caixa de entrada / atendimento (chat) em três colunas
+  Direção visual: clara e limpa, neutros frios, marca verde-azulada, balões bem resolvidos,
+  avatares com iniciais. Tema escuro por prefers-color-scheme e por [data-theme].
+  No celular as colunas viram pilha: lista, conversa, contexto. Marca fictícia: Ponte Atendimento.
+  Doc correspondente: ../docs/08-inbox-chat.md
+-->
+<style>
+:root{
+  --bg:#f4f6f8; --surface:#fff; --surface-2:#f1f4f7; --hover:#eaeff3; --sel:#e6f4f1;
+  --border:#e2e7ec; --border-strong:#cbd3dc;
+  --text:#18212b; --muted:#566371; --faint:#7a8794;
+  --brand:#0d7f73; --brand-hover:#0a6a60; --on-brand:#fff; --brand-bg:#e0f3f0;
+  --in-bg:#eef1f5; --in-text:#18212b; --out-bg:#0d7f73; --out-text:#fff;
+  --note-bg:#fff6dc; --note-border:#ecd48a; --note-text:#5c4300;
+  --danger:#b3261e; --focus:#0d7f73; --shadow:0 8px 28px rgba(24,33,43,.18);
+  --g-bg:#e1f4e8;--g:#1d6b42;--b-bg:#e3eefc;--b:#1f5aa6;--a-bg:#faedd2;--a:#85570a;--r-bg:#fbe4e2;--r:#a32219;
+  --c1:#6b5bd6;--c2:#0d7f73;--c3:#c25b2e;--c4:#2a6fb8;--c5:#a8408a;--c6:#7a7d1f;
+  --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1418; --surface:#151b21; --surface-2:#1b232b; --hover:#212b34; --sel:#14302d;
+  --border:#242e38; --border-strong:#34414e; --text:#e6ebf0; --muted:#9aa7b4; --faint:#74828f;
+  --brand:#2fb5a5; --brand-hover:#4cc6b7; --on-brand:#06201d; --brand-bg:#12332f;
+  --in-bg:#202a33; --in-text:#e6ebf0; --out-bg:#1d7f74; --out-text:#fff;
+  --note-bg:#2e2710; --note-border:#6b5a22; --note-text:#f1dc9b; --danger:#f08a84; --focus:#4cc6b7; --shadow:0 8px 28px rgba(0,0,0,.5);
+  --g-bg:#17352a;--g:#7bd3a0;--b-bg:#17304d;--b:#8ebdf2;--a-bg:#3a2e12;--a:#e6bb68;--r-bg:#40201e;--r:#f2a09a;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1418; --surface:#151b21; --surface-2:#1b232b; --hover:#212b34; --sel:#14302d;
+  --border:#242e38; --border-strong:#34414e; --text:#e6ebf0; --muted:#9aa7b4; --faint:#74828f;
+  --brand:#2fb5a5; --brand-hover:#4cc6b7; --on-brand:#06201d; --brand-bg:#12332f;
+  --in-bg:#202a33; --in-text:#e6ebf0; --out-bg:#1d7f74; --out-text:#fff;
+  --note-bg:#2e2710; --note-border:#6b5a22; --note-text:#f1dc9b; --danger:#f08a84; --focus:#4cc6b7; --shadow:0 8px 28px rgba(0,0,0,.5);
+  --g-bg:#17352a;--g:#7bd3a0;--b-bg:#17304d;--b:#8ebdf2;--a-bg:#3a2e12;--a:#e6bb68;--r-bg:#40201e;--r:#f2a09a;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font:400 14px/20px var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+ul{list-style:none;padding:0}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.i{width:18px;height:18px;flex:none}
+.app{display:grid;grid-template-columns:340px minmax(0,1fr) 320px;height:100vh;height:100dvh;background:var(--surface)}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0;background:var(--surface)}
+.list{border-right:1px solid var(--border)}
+.ctx{border-left:1px solid var(--border)}
+.ph{display:flex;align-items:center;gap:8px;height:56px;padding:0 16px;border-bottom:1px solid var(--border);flex:none}
+.ph h1,.ph h2{font-size:16px;line-height:24px;font-weight:600}
+.ph .sub{color:var(--muted);font-size:12px;line-height:16px}
+.grow{flex:1;min-width:0}
+.ib{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;color:var(--muted);flex:none}
+.ib:hover{background:var(--hover);color:var(--text)}
+.back{display:none}
+.search{margin:12px 16px 8px;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;background:var(--surface-2);border:1px solid transparent;border-radius:8px;color:var(--faint)}
+.search:focus-within{border-color:var(--focus);background:var(--surface)}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text);font:inherit}
+.fl{display:flex;gap:4px;padding:0 16px 8px;border-bottom:1px solid var(--border)}
+.f{padding:4px 12px;border-radius:999px;color:var(--muted);font-weight:500;font-size:13px}
+.f:hover{background:var(--hover);color:var(--text)}
+.f[aria-pressed="true"]{background:var(--brand-bg);color:var(--brand)}
+.f small{font-variant-numeric:tabular-nums;margin-left:4px}
+.convs{overflow-y:auto;flex:1;min-height:0}
+.conv{display:flex;gap:12px;width:100%;padding:12px 16px;border-bottom:1px solid var(--border);border-left:3px solid transparent}
+.conv:hover{background:var(--hover)}
+.conv.active{background:var(--sel);border-left-color:var(--brand)}
+.cb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.r1,.r3,.r4{display:flex;align-items:center;gap:8px}
+.nm{font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unread .nm,.unread .sb{font-weight:600}
+time{color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+.sb{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pre{flex:1;min-width:0;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{min-width:20px;height:20px;border-radius:10px;background:var(--brand);color:var(--on-brand);font-size:11px;font-weight:600;display:grid;place-items:center;padding:0 6px;font-variant-numeric:tabular-nums}
+.r4{margin-top:4px}
+.ch{color:var(--faint);font-size:12px}
+.tg{display:inline-block;padding:0 8px;border-radius:4px;font-size:12px;line-height:20px;font-weight:500}
+.tg.grn{background:var(--g-bg);color:var(--g)}.tg.blu{background:var(--b-bg);color:var(--b)}
+.tg.amb{background:var(--a-bg);color:var(--a)}.tg.red{background:var(--r-bg);color:var(--r)}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px;flex:none}
+.av.c1{background:var(--c1)}.av.c2{background:var(--c2)}.av.c3{background:var(--c3)}.av.c4{background:var(--c4)}.av.c5{background:var(--c5)}.av.c6{background:var(--c6)}
+.av.sm{width:28px;height:28px;font-size:11px}.av.xl{width:64px;height:64px;font-size:22px}
+.states{display:flex;gap:8px;padding:8px 16px;border-top:1px solid var(--border);color:var(--faint);font-size:12px;align-items:center;flex-wrap:wrap}
+.states button{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.states button[aria-pressed="true"]{color:var(--brand);font-weight:600}
+.alt{display:none;padding:32px 24px;flex-direction:column;align-items:center;text-align:center;gap:8px;color:var(--muted);flex:1}
+.alt .i{width:32px;height:32px;color:var(--faint)}.alt strong{color:var(--text)}
+.list[data-state="empty"] .convs,.list[data-state="error"] .convs,.list[data-state="loading"] .convs{display:none}
+.list[data-state="empty"] .alt.e,.list[data-state="error"] .alt.x{display:flex}
+.list[data-state="error"] .alt.x .i{color:var(--danger)}
+.sk{display:none;padding:0}
+.list[data-state="loading"] .sk{display:block}
+.skr{display:flex;gap:12px;padding:12px 16px}
+.skc{width:40px;height:40px;border-radius:50%}
+.skl{height:10px;border-radius:5px;margin-bottom:10px}
+.sh{background:linear-gradient(90deg,var(--surface-2) 25%,var(--hover) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:sh 1.4s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:8px;border:1px solid var(--border-strong);font-weight:500;justify-content:center}
+.btn:hover{background:var(--hover)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.pri:hover{background:var(--brand-hover)}
+/* chat */
+.chat{background:var(--bg)}
+.chat .ph{background:var(--surface)}
+.msgs{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:4px}
+.msgs>*{flex-shrink:0}
+.day{align-self:center;color:var(--muted);font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:0 12px;margin:8px 0}
+.m{max-width:min(72%,520px);display:flex;flex-direction:column;gap:4px}
+.m.in{align-self:flex-start}.m.out{align-self:flex-end;align-items:flex-end}
+.bub{padding:8px 12px;border-radius:16px;overflow-wrap:anywhere}
+.in .bub{background:var(--in-bg);color:var(--in-text);border-bottom-left-radius:4px;border:1px solid var(--border)}
+.out .bub{background:var(--out-bg);color:var(--out-text);border-bottom-right-radius:4px}
+.in .bub{background:var(--surface);}
+.meta{font-size:12px;color:var(--faint);display:flex;gap:4px;align-items:center;font-variant-numeric:tabular-nums;margin-bottom:8px}
+.meta .i{width:14px;height:14px;color:var(--brand)}
+.grp{display:flex;gap:8px;align-items:flex-end}
+.grp.out{align-self:flex-end;flex-direction:row-reverse}
+.att{display:flex;align-items:center;gap:12px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--text)}
+.att:hover{border-color:var(--border-strong)}
+.att .ft{width:36px;height:36px;border-radius:8px;background:var(--r-bg);color:var(--r);display:grid;place-items:center}
+.att small{display:block;color:var(--muted);font-size:12px;line-height:16px}
+.img{width:220px;height:140px;border-radius:12px;border:1px solid var(--border);background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,var(--hover) 12px 24px);display:grid;place-items:center;color:var(--faint);font-size:12px}
+.sys{align-self:center;color:var(--muted);font-size:12px;display:flex;gap:8px;align-items:center;margin:4px 0}
+.note{align-self:flex-end;max-width:min(72%,520px);background:var(--note-bg);border:1px solid var(--note-border);color:var(--note-text);border-radius:12px;padding:8px 12px;font-size:13px}
+.note b{display:block;font-size:12px}
+.typing{display:flex;gap:4px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:bl 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.comp{background:var(--surface);border-top:1px solid var(--border);padding:12px 16px 16px;flex:none}
+.cbox{border:1px solid var(--border-strong);border-radius:12px;background:var(--surface)}
+.cbox:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px var(--brand-bg)}
+.ct{display:flex;gap:4px;padding:8px 8px 0 12px}
+.ct button{padding:4px 12px;border-radius:6px;color:var(--muted);font-weight:500;font-size:13px}
+.ct button[aria-pressed="true"]{background:var(--brand-bg);color:var(--brand)}
+.ct button.n[aria-pressed="true"]{background:var(--note-bg);color:var(--note-text)}
+.cbox textarea{display:block;width:100%;border:0;outline:0;resize:none;background:none;color:var(--text);font:inherit;padding:8px 12px;min-height:56px}
+.cact{display:flex;align-items:center;gap:4px;padding:4px 8px 8px}
+.cact .hintk{color:var(--faint);font-size:12px;margin-right:8px}
+kbd{font:500 11px/16px var(--font);padding:0 6px;border:1px solid var(--border-strong);border-radius:4px;background:var(--surface-2);color:var(--muted)}
+/* context */
+.cbody{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:24px}
+.prof{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.prof h3{font-size:16px;line-height:24px;font-weight:600;margin-top:8px}
+.prof p{color:var(--muted)}
+.sec h4{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.kv{display:grid;grid-template-columns:20px 1fr;gap:8px 12px;align-items:start}
+.kv .i{width:16px;height:16px;color:var(--faint);margin-top:2px}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.hist li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.hist li:last-child{border:0}
+.hist small{display:block;color:var(--muted);font-size:12px;line-height:16px}
+.hist .nn{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.st{display:inline-flex;align-items:center;gap:8px;padding:0 12px;height:28px;border-radius:999px;background:var(--a-bg);color:var(--a);font-weight:500;font-size:13px}
+.st::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* tablet: contexto vira painel sobreposto */
+.cbtn{display:none}
+@media (max-width:1180px){
+  .app{grid-template-columns:320px minmax(0,1fr)}
+  .cbtn{display:grid}
+  .ctx{position:fixed;top:0;right:0;bottom:0;width:min(340px,100%);box-shadow:var(--shadow);transform:translateX(100%);visibility:hidden;transition:transform .18s}
+  .app[data-pane="ctx"] .ctx{transform:none;visibility:visible}
+  .ctx .back{display:grid}
+}
+/* celular: pilha */
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .list,.chat{display:none;border:0}
+  .app[data-pane="list"] .list,.app[data-pane="chat"] .chat{display:flex}
+  .app[data-pane="ctx"] .chat{display:none}
+  .app[data-pane="ctx"] .ctx{width:100%;box-shadow:none}
+  .back{display:grid}
+  .ph{padding:0 8px 0 4px}.list .ph{padding-left:16px}
+  .m,.note{max-width:86%}
+  .cact .hintk{display:none}
+  .img{width:100%;max-width:220px}
+}
+@media (prefers-reduced-motion:reduce){.ctx{transition:none}.sh,.typing i{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></symbol><symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.4 11-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.8 1.8 0 0 1-2.6-2.6l7.8-7.8"/></symbol><symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol><symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-checks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 7 17l-5-5M22 10l-7.5 7.5L13 16"/></symbol><symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol><symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol><symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol><symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol><symbol id="i-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5z"/><path d="M15 3v6h6"/></symbol><symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/></symbol><symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol><symbol id="i-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol><symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol></svg>
+<div class="app" id="app" data-pane="list">
+  <section class="pane list" id="list" data-state="ok" aria-label="Conversas">
+    <header class="ph"><h1>Caixa de entrada</h1><span class="grow"></span>
+      <button class="ib" id="theme" aria-label="Alternar tema claro e escuro"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg></button></header>
+    <label class="search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span class="sr">Buscar conversas</span><input type="search" placeholder="Buscar por nome, pedido ou texto"></label>
+    <div class="fl" role="group" aria-label="Filtros"><button class="f" aria-pressed="true">Todas<small>24</small></button><button class="f" aria-pressed="false">Minhas<small>9</small></button><button class="f" aria-pressed="false">Não lidas<small>6</small></button></div>
+    <ul class="convs"><li><button class="conv active unread" data-c="1" aria-current="true">
+<span class="av c1">HP</span>
+<span class="cb"><span class="r1"><span class="nm">Helena Prado</span><time>09:41</time></span>
+<span class="sb">Pedido #48213 não chegou</span>
+<span class="r3"><span class="pre">Oi, já faz 9 dias e o rastreio não atualiza…</span><span class="badge" aria-label="2 não lidas">2</span></span>
+<span class="r4"><span class="tg amb">Atrasado</span><span class="ch">WhatsApp</span></span></span></button></li><li><button class="conv" data-c="2" >
+<span class="av c2">OM</span>
+<span class="cb"><span class="r1"><span class="nm">Otávio Mendes</span><time>09:12</time></span>
+<span class="sb">Segunda via do boleto</span>
+<span class="r3"><span class="pre">Consegui, muito obrigado pela ajuda!</span></span>
+<span class="r4"><span class="tg blu">Financeiro</span><span class="ch">E-mail</span></span></span></button></li><li><button class="conv unread" data-c="3" >
+<span class="av c3">LD</span>
+<span class="cb"><span class="r1"><span class="nm">Larissa Duarte</span><time>Ontem</time></span>
+<span class="sb">Troca de produto</span>
+<span class="r3"><span class="pre">Posso trocar pelo tamanho M? Anexei a foto.</span><span class="badge" aria-label="1 não lidas">1</span></span>
+<span class="r4"><span class="tg grn">Troca</span><span class="ch">Chat</span></span></span></button></li><li><button class="conv unread" data-c="4" >
+<span class="av c4">CV</span>
+<span class="cb"><span class="r1"><span class="nm">Cooperativa Vale Verde</span><time>Ontem</time></span>
+<span class="sb">Nota fiscal com CNPJ errado</span>
+<span class="r3"><span class="pre">Precisamos da NF corrigida até sexta.</span><span class="badge" aria-label="3 não lidas">3</span></span>
+<span class="r4"><span class="tg red">Urgente</span><span class="ch">E-mail</span></span></span></button></li><li><button class="conv" data-c="5" >
+<span class="av c5">GN</span>
+<span class="cb"><span class="r1"><span class="nm">Gustavo Nogueira</span><time>Ter</time></span>
+<span class="sb">Dúvida sobre garantia</span>
+<span class="r3"><span class="pre">A garantia cobre o motor também?</span></span>
+<span class="r4"><span class="tg blu">Dúvida</span><span class="ch">Chat</span></span></span></button></li><li><button class="conv" data-c="6" >
+<span class="av c6">PA</span>
+<span class="cb"><span class="r1"><span class="nm">Priscila Andrade</span><time>Ter</time></span>
+<span class="sb">Cancelamento de assinatura</span>
+<span class="r3"><span class="pre">Quero cancelar, mas antes queria entender a multa.</span></span>
+<span class="r4"><span class="tg amb">Cancelamento</span><span class="ch">WhatsApp</span></span></span></button></li><li><button class="conv" data-c="1" >
+<span class="av c1">MT</span>
+<span class="cb"><span class="r1"><span class="nm">Marcelo Teixeira</span><time>Seg</time></span>
+<span class="sb">Acesso à conta</span>
+<span class="r3"><span class="pre">Já redefini a senha e deu certo.</span></span>
+<span class="r4"><span class="tg grn">Acesso</span><span class="ch">Chat</span></span></span></button></li></ul>
+    <div class="sk" aria-busy="true"><div class="skr"><div class="skc sh"></div><div style="flex:1"><div class="skl sh" style="width:50%"></div><div class="skl sh" style="width:90%"></div><div class="skl sh" style="width:30%"></div></div></div><div class="skr"><div class="skc sh"></div><div style="flex:1"><div class="skl sh" style="width:40%"></div><div class="skl sh" style="width:80%"></div><div class="skl sh" style="width:35%"></div></div></div><div class="skr"><div class="skc sh"></div><div style="flex:1"><div class="skl sh" style="width:60%"></div><div class="skl sh" style="width:70%"></div><div class="skl sh" style="width:25%"></div></div></div></div>
+    <div class="alt e"><svg class="i" aria-hidden="true"><use href="#i-inbox"/></svg><strong>Tudo em dia</strong><span>Nenhuma conversa aberta com esses filtros.</span></div>
+    <div class="alt x" role="alert"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg><strong>Não foi possível carregar as conversas</strong><span>Verifique a conexão e tente de novo.</span><button class="btn pri" data-st="ok">Tentar de novo</button></div>
+    <div class="states">Ver estado:<button data-st="ok" aria-pressed="true">normal</button><button data-st="loading" aria-pressed="false">carregando</button><button data-st="empty" aria-pressed="false">vazio</button><button data-st="error" aria-pressed="false">erro</button></div>
+  </section>
+
+  <section class="pane chat" aria-label="Conversa com Helena Prado">
+    <header class="ph"><button class="ib back" data-go="list" aria-label="Voltar para a lista"><svg class="i" aria-hidden="true"><use href="#i-back"/></svg></button>
+      <span class="av c1 sm">HP</span>
+      <div class="grow"><h2>Helena Prado</h2><div class="sub">WhatsApp · Atribuída a você · Primeira resposta em 4 min</div></div>
+            <button class="ib cbtn" data-go="ctx" aria-label="Ver dados do contato"><svg class="i" aria-hidden="true"><use href="#i-info"/></svg></button>
+      <button class="btn pri" style="height:32px"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Resolver</button></header>
+    <div class="msgs" tabindex="0">
+      <div class="day">Hoje, 24 de novembro</div>
+      <div class="grp"><span class="av c1 sm">HP</span><div class="m in"><div class="bub">Oi, bom dia! Fiz o pedido #48213 no dia 15 e o rastreio parou em “Em trânsito” faz 9 dias.</div></div></div>
+      <div class="grp"><span class="av sm" style="visibility:hidden"></span><div class="m in"><div class="bub">Segue o print da tela de acompanhamento.</div><div class="img" role="img" aria-label="Captura de tela do rastreio">rastreio-pedido-48213.png</div><div class="meta">09:38</div></div></div>
+      <div class="m out"><div class="bub">Bom dia, Helena! Sou o Caio, da Ponte. Já localizei o seu pedido e estou conferindo com a transportadora.</div><div class="meta">09:40 · Caio Ribeiro <svg class="i" aria-hidden="true"><use href="#i-checks"/></svg></div></div>
+      <div class="note"><b>Nota interna · Caio, 09:41</b>Transportadora informou falha de leitura no centro de Campinas. Pedir reenvio se não sair até 16h.</div>
+      <div class="sys"><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg>Caio adicionou a etiqueta “Atrasado”</div>
+      <div class="m out"><div class="bub">Enviei a ocorrência para eles. Posso também gerar um novo envio sem custo. Prefere aguardar até hoje à tarde ou reenviar agora?</div><div class="meta">09:44 · Caio Ribeiro <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div></div>
+      <div class="m in"><div class="att"><span class="ft"><svg class="i" aria-hidden="true"><use href="#i-file"/></svg></span><span><strong>comprovante-compra.pdf</strong><small>PDF · 184 KB</small></span></div><div class="bub">Segue o comprovante. Prefiro o reenvio, preciso do produto até sexta.</div><div class="meta">09:46</div></div>
+      <div class="grp"><span class="av c1 sm">HP</span><div class="typing" aria-label="Helena está digitando"><i></i><i></i><i></i></div></div>
+    </div>
+    <div class="comp">
+      <div class="cbox">
+        <div class="ct" role="group" aria-label="Tipo de mensagem"><button aria-pressed="true" data-mode="r">Responder</button><button class="n" aria-pressed="false" data-mode="n">Nota interna</button></div>
+        <label class="sr" for="ta">Mensagem</label>
+        <textarea id="ta" placeholder="Escreva para Helena. Digite / para respostas rápidas."></textarea>
+        <div class="cact">
+          <button class="ib" aria-label="Anexar arquivo"><svg class="i" aria-hidden="true"><use href="#i-clip"/></svg></button>
+          <button class="ib" aria-label="Respostas rápidas"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg></button>
+          <button class="ib" aria-label="Emoji"><svg class="i" aria-hidden="true"><use href="#i-smile"/></svg></button>
+          <span class="grow"></span><span class="hintk"><kbd>Enter</kbd> envia</span>
+          <button class="btn pri" style="height:32px"><svg class="i" aria-hidden="true"><use href="#i-send"/></svg>Enviar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="pane ctx" aria-label="Contexto do contato">
+    <header class="ph"><button class="ib back" data-go="chat" aria-label="Voltar para a conversa"><svg class="i" aria-hidden="true"><use href="#i-back"/></svg></button><h2 class="grow">Contato</h2></header>
+    <div class="cbody">
+      <div class="prof"><span class="av c1 xl">HP</span><h3>Helena Prado</h3><p>Cliente desde mar 2023</p><span class="st">Aguardando resposta</span></div>
+      <div class="sec"><h4>Dados</h4><div class="kv"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span>helena.prado@email.com.br</span><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span>(19) 99812-4406</span><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg><span>Campinas, SP</span><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><span>Responsável: Caio Ribeiro</span></div></div>
+      <div class="sec"><h4>Etiquetas</h4><div class="tags"><span class="tg amb">Atrasado</span><span class="tg blu">Cliente recorrente</span><span class="tg grn">Prioridade média</span></div></div>
+      <div class="sec"><h4>Histórico</h4><ul class="hist">
+        <li><span>Pedido #48213<small>Em trânsito, R$ 389,90</small></span><span class="nn">15 nov</span></li>
+        <li><span>Troca de tamanho<small>Resolvida por Marcela</small></span><span class="nn">02 set</span></li>
+        <li><span>Pedido #41877<small>Entregue, R$ 154,00</small></span><span class="nn">28 jun</span></li>
+        <li><span>Dúvida sobre nota fiscal<small>Resolvida por Caio</small></span><span class="nn">11 abr</span></li></ul></div>
+      <div class="sec"><h4>Nota do contato</h4><p style="color:var(--muted)">Prefere atendimento por WhatsApp, até as 18h.</p></div>
+    </div>
+  </aside>
+</div>
+<script>
+(function(){
+  var r=document.documentElement,app=document.getElementById("app"),list=document.getElementById("list");
+  try{var s=localStorage.getItem("ponte-theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
+  var ms=document.querySelector(".msgs");ms.scrollTop=ms.scrollHeight;addEventListener("load",function(){ms.scrollTop=ms.scrollHeight});
+  document.getElementById("theme").onclick=function(){
+    var cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    var n=cur==="dark"?"light":"dark";r.setAttribute("data-theme",n);try{localStorage.setItem("ponte-theme",n)}catch(e){}
+  };
+  document.querySelectorAll(".conv").forEach(function(c){c.onclick=function(){
+  document.querySelectorAll(".conv").forEach(function(x){x.classList.toggle("active",x===c)}); c.classList.remove("unread");
+    c.querySelectorAll(".badge").forEach(function(b){b.remove()});app.dataset.pane="chat";ms.scrollTop=ms.scrollHeight;
+  }});
+  document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){app.dataset.pane=b.dataset.go;ms.scrollTop=ms.scrollHeight}});
+  document.querySelectorAll(".f").forEach(function(b){b.onclick=function(){document.querySelectorAll(".f").forEach(function(x){x.setAttribute("aria-pressed",x===b)})}});
+  document.querySelectorAll("[data-st]").forEach(function(b){b.onclick=function(){
+    list.dataset.state=b.dataset.st;
+    document.querySelectorAll(".states button").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===b.dataset.st)});
+  }});
+  var ta=document.getElementById("ta");
+  document.querySelectorAll("[data-mode]").forEach(function(b){b.onclick=function(){
+    document.querySelectorAll("[data-mode]").forEach(function(x){x.setAttribute("aria-pressed",x===b)});
+    ta.placeholder=b.dataset.mode==="n"?"Nota interna: só a equipe vê.":"Escreva para Helena. Digite / para respostas rápidas.";
+  }});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&app.dataset.pane==="ctx")app.dataset.pane="chat"});
+})();
+</script>
+</body>
+</html>

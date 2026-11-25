@@ -1,0 +1,332 @@
+<!doctype html>
+<!--
+  Tipo: Documentação / central de ajuda (três colunas: navegação, conteúdo, índice)
+  Direção visual: tipográfica e calma, muito branco, texto quase preto, azul-cobalto só em links e destaques, mono no código; tema claro e escuro.
+  Marca fictícia: Sinal (API de envio de mensagens).
+  Doc correspondente: ../docs/11-documentacao.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinal · Documentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff; --bg-2:#f7f8fa; --border:#e6e8ec; --border-2:#d3d7de;
+  --text:#14161a; --text-2:#444b57; --text-3:#646c79;
+  --brand:#1f4fd8; --brand-hover:#173fae; --brand-soft:#eaf0fe; --on-brand:#fff;
+  --code-bg:#f5f6f8; --code-text:#1c2330; --tok-k:#1f4fd8; --tok-s:#0b7a56; --tok-c:#6b7480; --tok-n:#a14b00;
+  --warn-bg:#fff7e6; --warn-bar:#b97700; --info-bg:#eaf0fe;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r-sm:4px; --r-md:8px; --shadow:0 12px 32px rgba(20,22,26,.16);
+  --head:56px; --nav:268px; --toc:216px; --read:720px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1116; --bg-2:#151a22; --border:#242b36; --border-2:#333c4a;
+  --text:#eceff4; --text-2:#b4bcc9; --text-3:#8e98a8;
+  --brand:#7fa2ff; --brand-hover:#a3bcff; --brand-soft:#17233f; --on-brand:#0e1116;
+  --code-bg:#151a22; --code-text:#dde3ee; --tok-k:#8fb0ff; --tok-s:#5fd3a4; --tok-c:#8e98a8; --tok-n:#f0b070;
+  --warn-bg:#2a2210; --warn-bar:#e0a63a; --info-bg:#17233f; --shadow:0 12px 32px rgba(0,0,0,.5);
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1116; --bg-2:#151a22; --border:#242b36; --border-2:#333c4a;
+  --text:#eceff4; --text-2:#b4bcc9; --text-3:#8e98a8;
+  --brand:#7fa2ff; --brand-hover:#a3bcff; --brand-soft:#17233f; --on-brand:#0e1116;
+  --code-bg:#151a22; --code-text:#dde3ee; --tok-k:#8fb0ff; --tok-s:#5fd3a4; --tok-c:#8e98a8; --tok-n:#f0b070;
+  --warn-bg:#2a2210; --warn-bar:#e0a63a; --info-bg:#17233f; --shadow:0 12px 32px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--head) + 24px)}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.7 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:var(--r-sm)}
+button{font:inherit;color:inherit}
+svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+kbd{font:500 12px/1 var(--mono);border:1px solid var(--border-2);border-bottom-width:2px;border-radius:var(--r-sm);padding:3px 6px;color:var(--text-2);background:var(--bg)}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--bg);padding:8px;z-index:50}
+
+header{position:sticky;top:0;z-index:20;height:var(--head);display:flex;align-items:center;gap:16px;padding:0 24px;background:var(--bg);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:var(--text);letter-spacing:-.01em}
+.logo:hover{text-decoration:none}
+.logo i{width:24px;height:24px;border-radius:7px;background:var(--brand);display:grid;place-items:center;color:var(--on-brand)}
+.logo i svg{width:14px;height:14px;stroke-width:2.5}
+.logo small{font-weight:500;color:var(--text-3);font-size:14px;padding-left:10px;border-left:1px solid var(--border);margin-left:2px}
+.hnav{display:flex;gap:4px;margin-left:12px}
+.hnav a{color:var(--text-2);font-size:14px;font-weight:500;padding:8px 10px;border-radius:var(--r-md)}
+.hnav a:hover{background:var(--bg-2);text-decoration:none;color:var(--text)}
+.hnav a[aria-current]{color:var(--text)}
+.spacer{flex:1}
+.search{display:flex;align-items:center;gap:8px;min-height:40px;width:300px;padding:0 10px;border:1px solid var(--border-2);border-radius:var(--r-md);background:var(--bg);color:var(--text-3);cursor:pointer;font-size:14px}
+.search:hover{border-color:var(--text-3)}
+.search span{flex:1;text-align:left}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border:0;background:none;border-radius:var(--r-md);cursor:pointer;color:var(--text-2)}
+.icon-btn:hover{background:var(--bg-2);color:var(--text)}
+.menu-btn{display:none}
+.sun{display:none}
+:root[data-theme="dark"] .sun{display:block}:root[data-theme="dark"] .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sun{display:block}:root:not([data-theme="light"]) .moon{display:none}}
+
+.layout{display:grid;grid-template-columns:var(--nav) minmax(0,1fr) var(--toc);max-width:1360px;margin:0 auto}
+nav.side{position:sticky;top:var(--head);height:calc(100vh - var(--head));overflow:auto;padding:24px 16px 48px 24px;border-right:1px solid var(--border);font-size:14px}
+.side h3{margin:20px 0 6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);padding-left:10px}
+.side h3:first-child{margin-top:0}
+.side ul{list-style:none;margin:0;padding:0}
+.side a{display:flex;align-items:center;min-height:32px;padding:4px 10px;border-radius:var(--r-md);color:var(--text-2);line-height:1.4}
+.side a:hover{background:var(--bg-2);color:var(--text);text-decoration:none}
+.side a[aria-current="page"]{background:var(--brand-soft);color:var(--brand);font-weight:600}
+.side ul ul{margin:2px 0 4px 17px;padding-left:8px;border-left:1px solid var(--border)}
+.side details>summary{list-style:none;display:flex;align-items:center;gap:6px;min-height:32px;padding:4px 10px;border-radius:var(--r-md);color:var(--text-2);cursor:pointer}
+.side details>summary::-webkit-details-marker{display:none}
+.side summary:hover{background:var(--bg-2);color:var(--text)}
+.side summary svg{width:14px;height:14px;transition:transform .15s}
+.side details[open]>summary svg{transform:rotate(90deg)}
+.method{font:600 10px/1 var(--mono);color:var(--tok-s);margin-left:auto;padding-left:8px}
+
+main{padding:40px 56px 64px;min-width:0}
+article{max-width:var(--read);margin:0 auto}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px;color:var(--text-3);margin-bottom:12px}
+.crumbs svg{width:14px;height:14px}
+.crumbs a{color:var(--text-3)}
+h1{font-size:40px;line-height:1.15;letter-spacing:-.025em;margin:0 0 12px;font-weight:700}
+.lead{font-size:19px;line-height:1.6;color:var(--text-2);margin:0 0 24px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-3);padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom: 8px}
+h2{font-size:26px;line-height:1.3;letter-spacing:-.015em;margin:48px 0 12px;font-weight:650}
+h3{font-size:19px;margin:32px 0 8px;font-weight:600}
+h2 .anchor,h3 .anchor{opacity:0;margin-left:8px;color:var(--text-3);font-weight:400}
+h2:hover .anchor,h3:hover .anchor,.anchor:focus{opacity:1}
+p{margin:0 0 16px;color:var(--text-2)}
+article strong{color:var(--text)}
+code{font:500 .875em var(--mono);background:var(--code-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:1px 5px;color:var(--code-text)}
+.codeblock{margin:20px 0;border:1px solid var(--border);border-radius:var(--r-md);background:var(--code-bg);overflow:hidden}
+.codehead{display:flex;align-items:center;justify-content:space-between;min-height:40px;padding:0 6px 0 16px;border-bottom:1px solid var(--border);font:500 12px var(--mono);color:var(--text-3)}
+.tabs{display:flex;gap:2px}
+.tabs button{min-height:32px;border:0;background:none;padding:0 10px;border-radius:var(--r-sm);font:500 12px var(--mono);color:var(--text-3);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--brand);background:var(--brand-soft)}
+.tabs button:hover{color:var(--text)}
+.copy{display:flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border:0;background:none;border-radius:var(--r-sm);cursor:pointer;color:var(--text-3);font:500 12px var(--font)}
+.copy:hover{background:var(--bg);color:var(--text)}
+.copy svg{width:14px;height:14px}
+pre code{background:none;border:0;padding:0;font-size:inherit;font-weight:400}
+pre{margin:0;padding:16px;overflow-x:auto;font:400 13.5px/1.7 var(--mono);color:var(--code-text);tab-size:2}
+pre[hidden]{display:none}
+.k{color:var(--tok-k)}.s{color:var(--tok-s)}.c{color:var(--tok-c);font-style:italic}.n{color:var(--tok-n)}
+.callout{display:flex;gap:12px;margin:24px 0;padding:14px 16px;border-radius:var(--r-md);background:var(--info-bg);border-left:3px solid var(--brand)}
+.callout.warn{background:var(--warn-bg);border-left-color:var(--warn-bar)}
+.callout svg{margin-top:3px;color:var(--brand)}.callout.warn svg{color:var(--warn-bar)}
+.callout p{margin:0;font-size:15px;line-height:1.6;color:var(--text)}
+.tablewrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--r-md)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{text-align:left;font-weight:600;font-size:13px;color:var(--text-2);background:var(--bg-2);padding:10px 16px;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text-2);line-height:1.55}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+ol.steps{list-style:none;counter-reset:s;margin:20px 0;padding:0}
+ol.steps>li{counter-increment:s;position:relative;padding:0 0 24px 48px}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;border:1px solid var(--border-2);display:grid;place-items:center;font:600 13px var(--font);color:var(--text)}
+ol.steps>li::after{content:"";position:absolute;left:14.5px;top:36px;bottom:6px;width:1px;background:var(--border)}
+ol.steps>li:last-child::after{display:none}
+ol.steps h3{margin:3px 0 6px;font-size:17px}
+.feedback{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:14px;color:var(--text-3)}
+.feedback div{display:flex;gap:8px;align-items:center}
+.btn{min-height:36px;padding:0 14px;border:1px solid var(--border-2);background:var(--bg);border-radius:var(--r-md);cursor:pointer;font-size:14px;font-weight:500}
+.btn:hover{background:var(--bg-2)}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.pager a{display:block;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-md);color:var(--text)}
+.pager a:hover{border-color:var(--brand);text-decoration:none}
+.pager small{display:block;font-size:13px;color:var(--text-3)}
+.pager b{color:var(--brand);font-weight:600}
+.pager a:last-child{text-align:right}
+footer{max-width:var(--read);margin:48px auto 0;font-size:13px;color:var(--text-3)}
+
+aside.toc{position:sticky;top:var(--head);height:calc(100vh - var(--head));overflow:auto;padding:40px 24px 24px 8px;font-size:13.5px}
+.toc h4{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--border)}
+.toc a{display:block;padding:5px 0 5px 14px;margin-left:-1px;border-left:2px solid transparent;color:var(--text-3);line-height:1.4}
+.toc a:hover{color:var(--text);text-decoration:none}
+.toc a.on{color:var(--brand);border-left-color:var(--brand);font-weight:500}
+.toc a.sub{padding-left:26px}
+
+dialog{border:1px solid var(--border);border-radius:12px;padding:0;width:min(560px,calc(100vw - 32px));background:var(--bg);color:var(--text);box-shadow:var(--shadow);margin-top:12vh}
+dialog::backdrop{background:rgba(10,12,16,.45)}
+.sbox{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--border)}
+.sbox input{flex:1;height:52px;border:0;background:none;font:inherit;font-size:16px;color:var(--text);outline:0}
+.results{list-style:none;margin:0;padding:8px;max-height:50vh;overflow:auto}
+.results a{display:block;padding:10px 12px;border-radius:var(--r-md);color:var(--text)}
+.results a:hover,.results a:focus{background:var(--brand-soft);text-decoration:none}
+.results small{display:block;color:var(--text-3);font-size:13px}
+.empty{padding:28px 16px;text-align:center;color:var(--text-3);font-size:14px}
+.scrim{display:none}
+
+@media (max-width:1180px){.layout{grid-template-columns:var(--nav) minmax(0,1fr)}aside.toc{display:none}main{padding:40px 40px 64px}}
+@media (max-width:860px){
+  header{padding:0 12px;gap:8px}
+  .menu-btn{display:grid}.hnav,.logo small,.search span,.search kbd{display:none}
+  .search{width:40px;padding:0;justify-content:center;border-color:transparent}
+  .layout{display:block}
+  nav.side{position:fixed;z-index:30;top:0;left:0;bottom:0;height:auto;width:min(300px,86vw);background:var(--bg);transform:translateX(-100%);transition:transform .2s;padding-top:16px}
+  body.open nav.side{transform:none;box-shadow:var(--shadow)}
+  body.open .scrim{display:block;position:fixed;inset:0;z-index:25;background:rgba(10,12,16,.45)}
+  main{padding:28px 16px 48px}
+  h1{font-size:30px}.lead{font-size:17px}h2{font-size:22px}
+  .pager{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header>
+  <button class="icon-btn menu-btn" id="menu" aria-label="Abrir navegação"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="logo" href="#"><i><svg viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg></i>Sinal<small>Docs</small></a>
+  <div class="hnav"><a href="#" aria-current="page">Guias</a><a href="#">Referência da API</a><a href="#">SDKs</a><a href="#">Changelog</a></div>
+  <div class="spacer"></div>
+  <button class="search" id="open-search" aria-label="Buscar na documentação"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar na documentação</span><kbd>Ctrl K</kbd></button>
+  <button class="icon-btn" id="theme" aria-label="Alternar tema"><svg class="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<div class="scrim" id="scrim"></div>
+<div class="layout">
+<nav class="side" aria-label="Navegação da documentação">
+  <h3>Primeiros passos</h3>
+  <ul>
+    <li><a href="#">Introdução</a></li>
+    <li><a href="#" aria-current="page">Enviar sua primeira mensagem</a></li>
+    <li><a href="#">Chaves de API</a></li>
+    <li><a href="#">Ambiente de testes</a></li>
+  </ul>
+  <h3>Enviando mensagens</h3>
+  <ul>
+    <li><details open><summary><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>Canais</summary>
+      <ul><li><a href="#">SMS</a></li><li><a href="#">WhatsApp</a></li><li><a href="#">E-mail</a></li></ul></details></li>
+    <li><details><summary><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>Modelos</summary>
+      <ul><li><a href="#">Criar um modelo</a></li><li><a href="#">Variáveis</a></li></ul></details></li>
+    <li><a href="#">Envio agendado</a></li>
+  </ul>
+  <h3>Eventos e webhooks</h3>
+  <ul>
+    <li><a href="#">Status de entrega</a></li>
+    <li><a href="#">Validar assinatura</a></li>
+    <li><a href="#">Tentativas e reenvio</a></li>
+  </ul>
+  <h3>Referência</h3>
+  <ul>
+    <li><a href="#">Autenticação</a></li>
+    <li><a href="#">Erros e códigos</a></li>
+    <li><a href="#">Limites de uso</a></li>
+    <li><a href="#">POST /v1/mensagens <span class="method">POST</span></a></li>
+  </ul>
+</nav>
+
+<main id="conteudo">
+<article>
+  <div class="crumbs"><a href="#">Guias</a><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg><a href="#">Primeiros passos</a></div>
+  <h1>Enviar sua primeira mensagem</h1>
+  <p class="lead">Faça uma chamada à API do Sinal e receba o status de entrega no seu servidor, em menos de dez minutos.</p>
+  <div class="meta"><span>Leitura: 6 min</span><span>Atualizado em 18 de novembro de 2026</span><span>API v1</span></div>
+
+  <h2 id="antes">Antes de começar<a class="anchor" href="#antes" aria-label="Link para esta seção">#</a></h2>
+  <p>Você precisa de uma conta no Sinal e de uma <strong>chave de API</strong> do ambiente de testes. Mensagens enviadas com chaves de teste não chegam ao destinatário e não geram cobrança.</p>
+  <div class="callout warn"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20zM12 10v4M12 17.5v.01"/></svg><p><strong>Guarde a chave no servidor.</strong> Nunca coloque <code>SINAL_API_KEY</code> em código de navegador ou de app. Se ela vazar, revogue em Painel &rsaquo; Chaves de API.</p></div>
+
+  <h2 id="passos">Passo a passo<a class="anchor" href="#passos" aria-label="Link para esta seção">#</a></h2>
+  <ol class="steps">
+    <li><h3>Instale o SDK</h3><p>Use o pacote oficial para Node.js 18 ou superior.</p>
+      <div class="codeblock"><div class="codehead"><span>terminal</span><button class="copy" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copiar</span></button></div>
+<pre><code>npm install @sinal/node</code></pre></div></li>
+    <li><h3>Configure a chave</h3><p>Defina a variável de ambiente antes de iniciar a aplicação.</p>
+      <div class="codeblock"><div class="codehead"><span>.env</span><button class="copy" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copiar</span></button></div>
+<pre><code>SINAL_API_KEY=sk_teste_51Nq0aXb7VdE2mH</code></pre></div></li>
+    <li><h3>Envie a mensagem</h3><p>Informe o canal, o destinatário em formato E.164 e o texto.</p>
+      <div class="codeblock"><div class="codehead"><div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="0">Node.js</button><button role="tab" aria-selected="false" data-t="1">cURL</button></div><button class="copy" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copiar</span></button></div>
+<pre data-p="0"><code><span class="k">import</span> { Sinal } <span class="k">from</span> <span class="s">"@sinal/node"</span>;
+
+<span class="k">const</span> sinal = <span class="k">new</span> Sinal(process.env.SINAL_API_KEY);
+
+<span class="k">const</span> mensagem = <span class="k">await</span> sinal.mensagens.criar({
+  canal: <span class="s">"sms"</span>,
+  para: <span class="s">"+5511987654321"</span>,
+  texto: <span class="s">"Seu pedido #4821 saiu para entrega."</span>,
+  referencia: <span class="s">"pedido-4821"</span>, <span class="c">// ajuda a conciliar depois</span>
+});
+
+console.log(mensagem.id, mensagem.status); <span class="c">// msg_8fK2… "na_fila"</span></code></pre>
+<pre data-p="1" hidden><code>curl https://api.sinal.dev/v1/mensagens \
+  -H <span class="s">"Authorization: Bearer $SINAL_API_KEY"</span> \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{
+    "canal": "sms",
+    "para": "+5511987654321",
+    "texto": "Seu pedido #4821 saiu para entrega."
+  }'</span></code></pre></div></li>
+    <li><h3>Confirme a resposta</h3><p>Uma resposta <code>202 Accepted</code> significa que a mensagem entrou na fila. O status final chega por webhook.</p></li>
+  </ol>
+
+  <h2 id="parametros">Parâmetros da requisição<a class="anchor" href="#parametros" aria-label="Link para esta seção">#</a></h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Campo</th><th>Tipo</th><th>Obrigatório</th><th>Descrição</th></tr></thead>
+    <tbody>
+      <tr><td><code>canal</code></td><td>string</td><td>Sim</td><td><code>sms</code>, <code>whatsapp</code> ou <code>email</code>.</td></tr>
+      <tr><td><code>para</code></td><td>string</td><td>Sim</td><td>Número em E.164 (por exemplo <code>+5511987654321</code>) ou e-mail.</td></tr>
+      <tr><td><code>texto</code></td><td>string</td><td>Sim</td><td>Até 1.600 caracteres. SMS longos são divididos em partes.</td></tr>
+      <tr><td><code>referencia</code></td><td>string</td><td>Não</td><td>Seu identificador interno. Volta igual nos webhooks.</td></tr>
+      <tr><td><code>agendar_para</code></td><td>string</td><td>Não</td><td>Data ISO 8601 até 30 dias à frente.</td></tr>
+    </tbody></table></div>
+
+  <h2 id="status">Entender o status<a class="anchor" href="#status" aria-label="Link para esta seção">#</a></h2>
+  <p>Cada mensagem passa por <code>na_fila</code>, <code>enviada</code> e <code>entregue</code>. Se a operadora recusar, o status final é <code>falhou</code> e o campo <code>motivo</code> explica o que houve.</p>
+  <h3 id="erros">Erros comuns<a class="anchor" href="#erros" aria-label="Link para esta seção">#</a></h3>
+  <p>Se a chamada falhar, confira o código HTTP antes de tentar de novo. Erros <code>4xx</code> não se resolvem repetindo a requisição.</p>
+  <div class="callout"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg><p>Use o cabeçalho <code>Idempotency-Key</code> em reenvios. Assim, uma falha de rede não gera duas mensagens para o mesmo cliente.</p></div>
+
+  <div class="feedback"><span>Esta página ajudou?</span><div><button class="btn" type="button">Sim</button><button class="btn" type="button">Não</button><a href="#">Editar no GitHub</a></div></div>
+  <div class="pager">
+    <a href="#"><small>Anterior</small><b>&larr; Introdução</b></a>
+    <a href="#"><small>Próximo</small><b>Chaves de API &rarr;</b></a>
+  </div>
+</article>
+<footer>&copy; 2026 Sinal Tecnologia Ltda. · <a href="#">Status do serviço</a> · <a href="#">Privacidade</a></footer>
+</main>
+
+<aside class="toc" aria-label="Nesta página"><h4>Nesta página</h4>
+  <ul><li><a href="#antes">Antes de começar</a></li><li><a href="#passos">Passo a passo</a></li><li><a href="#parametros">Parâmetros da requisição</a></li><li><a href="#status">Entender o status</a></li><li><a class="sub" href="#erros">Erros comuns</a></li></ul>
+</aside>
+</div>
+
+<dialog id="dlg" aria-label="Buscar">
+  <div class="sbox"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Buscar na documentação" autocomplete="off"><kbd>Esc</kbd></div>
+  <ul class="results" id="res"></ul>
+</dialog>
+
+<script>
+(function(){
+var r=document.documentElement,b=document.body;if(/Mac|iPhone|iPad/.test(navigator.platform)){document.querySelector(".search kbd").textContent="\u2318 K"}
+function dark(){return r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches}
+document.getElementById("theme").onclick=function(){r.dataset.theme=dark()?"light":"dark"};
+document.getElementById("menu").onclick=function(){b.classList.add("open")};
+document.getElementById("scrim").onclick=function(){b.classList.remove("open")};
+document.querySelectorAll(".copy").forEach(function(btn){btn.onclick=function(){
+  var cb=btn.closest(".codeblock"),pre=cb.querySelector("pre:not([hidden])");
+  var done=function(){var s=btn.querySelector("span");s.textContent="Copiado";setTimeout(function(){s.textContent="Copiar"},1600)};
+  try{navigator.clipboard.writeText(pre.innerText).then(done,done)}catch(e){done()}}});
+document.querySelectorAll(".tabs button").forEach(function(t){t.onclick=function(){
+  var cb=t.closest(".codeblock");cb.querySelectorAll(".tabs button").forEach(function(x){x.setAttribute("aria-selected",x===t)});
+  cb.querySelectorAll("pre").forEach(function(p){p.hidden=p.dataset.p!==t.dataset.t})}});
+var dlg=document.getElementById("dlg"),q=document.getElementById("q"),res=document.getElementById("res");
+var idx=[["Enviar sua primeira mensagem","Primeiros passos","#"],["Chaves de API","Primeiros passos","#"],["Validar assinatura do webhook","Eventos e webhooks","#"],["Tentativas e reenvio","Eventos e webhooks","#"],["Limites de uso","Referência","#"],["Erros e códigos","Referência","#"],["Envio agendado","Enviando mensagens","#"],["WhatsApp: modelos aprovados","Canais","#"]];
+function render(){var t=q.value.trim().toLowerCase();var m=idx.filter(function(i){return i[0].toLowerCase().indexOf(t)>-1});
+  res.innerHTML=m.length?m.map(function(i){return '<li><a href="'+i[2]+'">'+i[0]+'<small>'+i[1]+'</small></a></li>'}).join(""):'<li class="empty">Nada encontrado para “'+t.replace(/[<&]/g,"")+'”. Tente outro termo.</li>'}
+function open(){if(!dlg.open)dlg.showModal();q.value="";render();q.focus()}
+document.getElementById("open-search").onclick=open;q.oninput=render;
+dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+addEventListener("keydown",function(e){if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();open()}});
+var links=[].slice.call(document.querySelectorAll(".toc a"));
+var secs=links.map(function(a){return document.querySelector(a.getAttribute("href"))});
+function spy(){var y=scrollY+120,c=0;secs.forEach(function(s,i){if(s.offsetTop<=y)c=i});links.forEach(function(a,i){a.classList.toggle("on",i===c)})}
+addEventListener("scroll",spy,{passive:true});spy();
+})();
+</script>
+</body>
+</html>

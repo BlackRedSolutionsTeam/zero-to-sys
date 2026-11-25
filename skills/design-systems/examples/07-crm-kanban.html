@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipa CRM — Funil de vendas</title>
+<!--
+  Tipo de sistema: CRM / gestão de tarefas em quadro (kanban)
+  Direção visual: escura por padrão, quase preta com neutros azulados, bordas de 1 px,
+  marca violeta discreta, etiquetas de baixa saturação, cara de ferramenta de teclado.
+  Tema claro por prefers-color-scheme e por [data-theme]. Marca fictícia: Pipa CRM.
+  Doc correspondente: ../docs/07-crm-kanban.md
+-->
+<style>
+:root{
+  --bg:#0b0d12; --surface:#11141b; --surface-2:#171b24; --hover:#1d222d;
+  --border:#232936; --border-strong:#2f3747;
+  --text:#e7eaf0; --muted:#9aa3b5; --faint:#6f7a8f;
+  --brand:#8b7cf6; --brand-bg:rgba(139,124,246,.14); --on-brand:#0b0d12;
+  --danger:#f08a8a; --focus:#a99eff; --shadow:0 12px 32px rgba(0,0,0,.5);
+  --t-blue-bg:rgba(96,165,250,.14); --t-blue:#8ebdf7;
+  --t-green-bg:rgba(74,190,130,.14); --t-green:#78d1a0;
+  --t-amber-bg:rgba(230,170,70,.14); --t-amber:#e5b867;
+  --t-violet-bg:rgba(160,140,250,.16); --t-violet:#b7aafb;
+  --t-teal-bg:rgba(60,190,190,.14); --t-teal:#6fd0cf;
+  --r-s:4px; --r-m:8px; --r-l:12px;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#f5f6f9; --surface:#fff; --surface-2:#f0f2f6; --hover:#e8ebf1;
+  --border:#e1e5ec; --border-strong:#cdd3de;
+  --text:#161a23; --muted:#555f73; --faint:#7b8599;
+  --brand:#5b49d6; --brand-bg:rgba(91,73,214,.1); --on-brand:#fff;
+  --danger:#b3261e; --focus:#5b49d6; --shadow:0 12px 32px rgba(20,28,50,.16);
+  --t-blue-bg:#e3eefc; --t-blue:#1f5aa6; --t-green-bg:#e0f3e8; --t-green:#1d6b42;
+  --t-amber-bg:#faedd2; --t-amber:#8a5a0a; --t-violet-bg:#ece8fd; --t-violet:#4a3bb8; --t-teal-bg:#d9f2f1; --t-teal:#16706e;
+}}
+:root[data-theme="light"]{
+  --bg:#f5f6f9; --surface:#fff; --surface-2:#f0f2f6; --hover:#e8ebf1;
+  --border:#e1e5ec; --border-strong:#cdd3de;
+  --text:#161a23; --muted:#555f73; --faint:#7b8599;
+  --brand:#5b49d6; --brand-bg:rgba(91,73,214,.1); --on-brand:#fff;
+  --danger:#b3261e; --focus:#5b49d6; --shadow:0 12px 32px rgba(20,28,50,.16);
+  --t-blue-bg:#e3eefc; --t-blue:#1f5aa6; --t-green-bg:#e0f3e8; --t-green:#1d6b42;
+  --t-amber-bg:#faedd2; --t-amber:#8a5a0a; --t-violet-bg:#ece8fd; --t-violet:#4a3bb8; --t-teal-bg:#d9f2f1; --t-teal:#16706e;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font:400 13px/20px var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+ul{list-style:none;padding:0}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r-s)}
+.i{width:16px;height:16px;flex:none}
+.app{display:grid;grid-template-columns:56px 1fr;height:100vh;height:100dvh}
+/* sidebar */
+.side{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px}
+.logo{width:32px;height:32px;border-radius:var(--r-m);background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-weight:700;font-size:15px;margin-bottom:12px}
+.nav{width:36px;height:36px;border-radius:var(--r-m);display:grid;place-items:center;color:var(--muted);position:relative}
+.nav:hover{background:var(--hover);color:var(--text)}
+.nav[aria-current]{background:var(--brand-bg);color:var(--brand)}
+.nav .i{width:18px;height:18px}
+.sp{flex:1}
+/* main */
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.top{display:flex;align-items:center;gap:12px;padding:0 16px;height:56px;border-bottom:1px solid var(--border);flex:none}
+.top h1{font-size:15px;line-height:24px;font-weight:600;white-space:nowrap}
+.top .meta{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tabs{display:flex;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-m);padding:2px;margin-left:8px}
+.tab{padding:4px 12px;border-radius:6px;color:var(--muted);font-weight:500}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{background:var(--hover);color:var(--text);box-shadow:0 0 0 1px var(--border-strong)}
+.grow{flex:1}
+.btn{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:var(--r-m);border:1px solid var(--border-strong);color:var(--text);font-weight:500;white-space:nowrap}
+.btn:hover{background:var(--hover)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.pri:hover{filter:brightness(1.08)}
+kbd{font:500 11px/16px var(--font);padding:0 6px;border:1px solid var(--border-strong);border-bottom-width:2px;border-radius:var(--r-s);color:var(--muted);background:var(--surface-2)}
+.btn.pri kbd{color:inherit;background:rgba(0,0,0,.15);border-color:rgba(255,255,255,.3)}
+.ib{width:28px;height:28px;display:grid;place-items:center;border-radius:var(--r-s);color:var(--muted)}
+.ib:hover{background:var(--hover);color:var(--text)}
+.bar{display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--border);flex:none;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;height:32px;padding:0 8px 0 12px;border:1px solid var(--border);border-radius:var(--r-m);background:var(--surface);color:var(--faint);min-width:220px}
+.search:focus-within{border-color:var(--focus)}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text);font:inherit}
+.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border:1px dashed var(--border-strong);border-radius:999px;color:var(--muted)}
+.chip:hover{background:var(--hover);color:var(--text)}
+.chip[aria-pressed="true"]{border-style:solid;background:var(--brand-bg);color:var(--brand);border-color:transparent}
+.view{flex:1;min-height:0;display:none}
+.view.on{display:block}
+/* board */
+.board{display:flex;gap:12px;padding:16px;overflow-x:auto;height:100%;align-items:flex-start}
+.col{flex:0 0 280px;max-height:100%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l)}
+.col-h{display:flex;align-items:center;gap:8px;padding:12px 8px 8px 12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.col-h h2{font-size:13px;font-weight:600}
+.cnt{color:var(--muted);font-variant-numeric:tabular-nums}
+.sum{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+.cards{padding:4px 8px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;min-height:0}
+.card{width:100%;display:flex;flex-direction:column;gap:8px;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-m)}
+.card:hover{border-color:var(--border-strong);background:var(--hover)}
+.card[aria-expanded="true"]{border-color:var(--brand)}
+.card-co{font-weight:600;font-size:13px}
+.card-desc{color:var(--muted);font-size:12px;line-height:16px}
+.card-foot{display:flex;align-items:center;gap:8px}
+.val{font-weight:600;font-variant-numeric:tabular-nums}
+.due{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:12px;margin-left:auto;font-variant-numeric:tabular-nums}
+.due .i{width:12px;height:12px}
+.late{color:var(--danger)}
+.av{width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:600;flex:none}
+.av.sm{width:20px;height:20px;font-size:9px}
+.av.lg{width:32px;height:32px;font-size:12px}
+.tag{display:inline-block;padding:0 8px;border-radius:var(--r-s);font-size:11px;line-height:18px;font-weight:500}
+.t-blue{background:var(--t-blue-bg);color:var(--t-blue)}.t-green{background:var(--t-green-bg);color:var(--t-green)}
+.t-amber{background:var(--t-amber-bg);color:var(--t-amber)}.t-violet{background:var(--t-violet-bg);color:var(--t-violet)}
+.t-teal{background:var(--t-teal-bg);color:var(--t-teal)}
+.add{display:flex;align-items:center;gap:8px;margin:4px 8px 8px;padding:8px;color:var(--faint);border-radius:var(--r-m)}
+.add:hover{background:var(--hover);color:var(--text)}
+/* list */
+.tw{overflow:auto;height:100%;padding:16px}
+table{width:100%;border-collapse:collapse;min-width:640px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);overflow:hidden}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:8px 16px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+td{padding:8px 16px;border-bottom:1px solid var(--border);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--hover)}
+td.num{font-variant-numeric:tabular-nums;font-weight:600}
+td.strong{font-weight:600}
+.own{display:inline-flex;align-items:center;gap:8px}
+/* states */
+.states{padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;overflow:auto;height:100%;align-content:start}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-l);padding:16px;display:flex;flex-direction:column;gap:12px}
+.panel h3{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.empty{text-align:center;padding:32px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;border:1px dashed var(--border-strong);border-radius:var(--r-m)}
+.empty .i{width:24px;height:24px;color:var(--faint)}
+.empty p{color:var(--muted);max-width:30ch}
+.sk{height:84px;border-radius:var(--r-m);background:linear-gradient(90deg,var(--surface-2) 25%,var(--hover) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:sh 1.4s infinite linear}
+@keyframes sh{to{background-position:-200% 0}}
+.err{display:flex;gap:12px;padding:12px;border:1px solid var(--danger);border-radius:var(--r-m);color:var(--danger)}
+.err p{color:var(--text)}
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .15s}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);border-left:1px solid var(--border-strong);box-shadow:var(--shadow);transform:translateX(100%);transition:transform .18s ease;display:flex;flex-direction:column;visibility:hidden}
+body.open .scrim{opacity:1;pointer-events:auto}
+body.open .drawer{transform:none;visibility:visible}
+.dh{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.dh .tag{margin-right:auto}
+.db{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:16px}
+.db h2{font-size:18px;line-height:28px;font-weight:600}
+.big{font-size:24px;line-height:32px;font-weight:600;font-variant-numeric:tabular-nums}
+.props{display:grid;grid-template-columns:96px 1fr;gap:8px 16px;align-items:center}
+.props dt{color:var(--muted)}.props dd{margin:0;display:flex;align-items:center;gap:8px}
+.steps{display:flex;gap:4px}
+.steps span{flex:1;height:4px;border-radius:2px;background:var(--border-strong)}
+.steps span.f{background:var(--brand)}
+.sec{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.tl{display:flex;flex-direction:column;gap:12px;border-left:1px solid var(--border-strong);margin-left:7px;padding-left:16px}
+.tl li{position:relative}
+.tl li::before{content:"";position:absolute;left:-20px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--border-strong);box-shadow:0 0 0 3px var(--surface)}
+.tl small{color:var(--faint);display:block;font-variant-numeric:tabular-nums}
+.note{width:100%;min-height:72px;resize:vertical;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-m);padding:8px 12px;color:var(--text);font:inherit}
+.note:focus{outline:0;border-color:var(--focus)}
+.df{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border)}
+.df .btn{flex:1;justify-content:center}
+.hint{display:flex;gap:16px;color:var(--faint);font-size:12px;padding:0 16px 8px;flex-wrap:wrap}
+.hint span{display:inline-flex;gap:4px;align-items:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:1100px){.top .meta{display:none}}
+@media (max-width:720px){
+  .app{grid-template-columns:1fr;grid-template-rows:1fr 56px}
+  .side{order:2;flex-direction:row;justify-content:space-around;padding:0 8px;border-right:0;border-top:1px solid var(--border)}
+  .logo,.sp,.nav.x{display:none}
+  .top{padding:0 12px;gap:8px}
+  .top h1{font-size:14px}
+  .btn .lbl,.btn kbd{display:none}
+  .btn.pri{width:32px;padding:0;justify-content:center}
+  .tabs{margin-left:0}
+  .bar{padding:8px 12px}.search{min-width:0;flex:1 1 100%}
+  .board{padding:12px;scroll-snap-type:x mandatory}.col{flex-basis:84vw;scroll-snap-align:start}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){.drawer,.scrim{transition:none}.sk{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol><symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol><symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></symbol><symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></symbol><symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></symbol><symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol><symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol><symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol><symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></symbol><symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol><symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></symbol><symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol><symbol id="i-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol></svg>
+<div class="app">
+  <nav class="side" aria-label="Principal">
+    <div class="logo" aria-hidden="true">P</div>
+    <a class="nav" href="#" aria-current="page" aria-label="Funil" title="Funil"><svg class="i " aria-hidden="true"><use href="#i-grid"/></svg></a>
+    <a class="nav" href="#" aria-label="Contatos" title="Contatos"><svg class="i " aria-hidden="true"><use href="#i-users"/></svg></a>
+    <a class="nav x" href="#" aria-label="Empresas" title="Empresas"><svg class="i " aria-hidden="true"><use href="#i-building"/></svg></a>
+    <a class="nav x" href="#" aria-label="Relatórios" title="Relatórios"><svg class="i " aria-hidden="true"><use href="#i-chart"/></svg></a>
+    <a class="nav" href="#" aria-label="Caixa de entrada" title="Caixa de entrada"><svg class="i " aria-hidden="true"><use href="#i-inbox"/></svg></a>
+    <span class="sp"></span>
+    <button class="nav" id="theme" aria-label="Alternar tema claro e escuro" title="Alternar tema"><svg class="i " aria-hidden="true"><use href="#i-sun"/></svg></button>
+    <a class="nav x" href="#" aria-label="Configurações" title="Configurações"><svg class="i " aria-hidden="true"><use href="#i-gear"/></svg></a>
+  </nav>
+  <main class="main">
+    <header class="top">
+      <h1>Funil de vendas</h1>
+      <span class="meta">12 negócios · R$ 1.024.300</span>
+      <div class="tabs" role="tablist" aria-label="Visão">
+        <button class="tab" role="tab" aria-selected="true" data-view="board">Quadro</button>
+        <button class="tab" role="tab" aria-selected="false" data-view="list">Lista</button>
+        <button class="tab" role="tab" aria-selected="false" data-view="states">Estados</button>
+      </div>
+      <span class="grow"></span>
+      <button class="btn pri" aria-label="Novo negócio"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg><span class="lbl">Novo negócio</span><kbd>N</kbd></button>
+    </header>
+    <div class="bar">
+      <label class="search"><svg class="i " aria-hidden="true"><use href="#i-search"/></svg><span class="sr">Buscar negócios</span><input type="search" placeholder="Buscar negócio ou empresa"><kbd>/</kbd></label>
+      <button class="chip" aria-pressed="false"><svg class="i " aria-hidden="true"><use href="#i-filter"/></svg>Responsável</button>
+      <button class="chip" aria-pressed="true">Meus negócios</button>
+      <button class="chip" aria-pressed="false">Fecha em 7 dias</button>
+      <button class="chip" aria-pressed="false">Etiqueta</button>
+    </div>
+    <div class="view on" id="v-board"><div class="board" tabindex="0" aria-label="Quadro de etapas"><section class="col" aria-label="Prospecção"><header class="col-h"><span class="dot"></span><h2>Prospecção</h2><span class="cnt">3</span><span class="sum">R$ 172.500</span><button class="ib" aria-label="Adicionar em Prospecção"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg></button></header><ul class="cards"><li><button class="card" data-co="Atlas Logística" data-desc="Plano Enterprise, 120 licenças" data-val="R$ 84.000" data-stage="Prospecção" data-owner="Marina Cavalcanti" data-ini="MC" data-color="#7c6cf0" data-due="28 nov">
+<span class="card-top"><span class="card-co">Atlas Logística</span></span>
+<span class="card-desc">Plano Enterprise, 120 licenças</span>
+<span class="card-lab"><span class="tag t-blue">Outbound</span></span>
+<span class="card-foot"><span class="val">R$ 84.000</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>28 nov</span><span class="av" style="--c:#7c6cf0" title="Marina Cavalcanti">MC</span></span></button></li><li><button class="card" data-co="Grupo Vilela" data-desc="Piloto com 3 filiais" data-val="R$ 36.500" data-stage="Prospecção" data-owner="Rafael Souza" data-ini="RS" data-color="#2f9e8f" data-due="02 dez">
+<span class="card-top"><span class="card-co">Grupo Vilela</span></span>
+<span class="card-desc">Piloto com 3 filiais</span>
+<span class="card-lab"><span class="tag t-green">Indicação</span></span>
+<span class="card-foot"><span class="val">R$ 36.500</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>02 dez</span><span class="av" style="--c:#2f9e8f" title="Rafael Souza">RS</span></span></button></li><li><button class="card" data-co="Cerrado Agro" data-desc="Integração com ERP" data-val="R$ 52.000" data-stage="Prospecção" data-owner="Beatriz Tavares" data-ini="BT" data-color="#c27a3a" data-due="05 dez">
+<span class="card-top"><span class="card-co">Cerrado Agro</span></span>
+<span class="card-desc">Integração com ERP</span>
+<span class="card-lab"><span class="tag t-amber">Inbound</span></span>
+<span class="card-foot"><span class="val">R$ 52.000</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>05 dez</span><span class="av" style="--c:#c27a3a" title="Beatriz Tavares">BT</span></span></button></li></ul><button class="add"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio</button></section><section class="col" aria-label="Qualificação"><header class="col-h"><span class="dot"></span><h2>Qualificação</h2><span class="cnt">3</span><span class="sum">R$ 165.600</span><button class="ib" aria-label="Adicionar em Qualificação"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg></button></header><ul class="cards"><li><button class="card" data-co="Nova Era Saúde" data-desc="Plano Business, 60 licenças" data-val="R$ 61.800" data-stage="Qualificação" data-owner="Lucas Ferraz" data-ini="LF" data-color="#4c8bd6" data-due="26 nov">
+<span class="card-top"><span class="card-co">Nova Era Saúde</span></span>
+<span class="card-desc">Plano Business, 60 licenças</span>
+<span class="card-lab"><span class="tag t-amber">Inbound</span></span>
+<span class="card-foot"><span class="val">R$ 61.800</span><span class="due late"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>26 nov</span><span class="av" style="--c:#4c8bd6" title="Lucas Ferraz">LF</span></span></button></li><li><button class="card" data-co="Tecnorte Sistemas" data-desc="Migração de outra ferramenta" data-val="R$ 94.000" data-stage="Qualificação" data-owner="Marina Cavalcanti" data-ini="MC" data-color="#7c6cf0" data-due="30 nov">
+<span class="card-top"><span class="card-co">Tecnorte Sistemas</span></span>
+<span class="card-desc">Migração de outra ferramenta</span>
+<span class="card-lab"><span class="tag t-violet">Enterprise</span></span>
+<span class="card-foot"><span class="val">R$ 94.000</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>30 nov</span><span class="av" style="--c:#7c6cf0" title="Marina Cavalcanti">MC</span></span></button></li><li><button class="card" data-co="Padaria Central S.A." data-desc="Plano Starter" data-val="R$ 9.800" data-stage="Qualificação" data-owner="Rafael Souza" data-ini="RS" data-color="#2f9e8f" data-due="03 dez">
+<span class="card-top"><span class="card-co">Padaria Central S.A.</span></span>
+<span class="card-desc">Plano Starter</span>
+<span class="card-lab"><span class="tag t-blue">Outbound</span></span>
+<span class="card-foot"><span class="val">R$ 9.800</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>03 dez</span><span class="av" style="--c:#2f9e8f" title="Rafael Souza">RS</span></span></button></li></ul><button class="add"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio</button></section><section class="col" aria-label="Proposta enviada"><header class="col-h"><span class="dot"></span><h2>Proposta enviada</h2><span class="cnt">2</span><span class="sum">R$ 241.400</span><button class="ib" aria-label="Adicionar em Proposta enviada"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg></button></header><ul class="cards"><li><button class="card" data-co="Rodovia Seguros" data-desc="Plano Enterprise, 200 licenças" data-val="R$ 168.000" data-stage="Proposta enviada" data-owner="Beatriz Tavares" data-ini="BT" data-color="#c27a3a" data-due="27 nov">
+<span class="card-top"><span class="card-co">Rodovia Seguros</span></span>
+<span class="card-desc">Plano Enterprise, 200 licenças</span>
+<span class="card-lab"><span class="tag t-violet">Enterprise</span></span>
+<span class="card-foot"><span class="val">R$ 168.000</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>27 nov</span><span class="av" style="--c:#c27a3a" title="Beatriz Tavares">BT</span></span></button></li><li><button class="card" data-co="Metalúrgica Pinheiro" data-desc="Renovação com expansão" data-val="R$ 73.400" data-stage="Proposta enviada" data-owner="Lucas Ferraz" data-ini="LF" data-color="#4c8bd6" data-due="01 dez">
+<span class="card-top"><span class="card-co">Metalúrgica Pinheiro</span></span>
+<span class="card-desc">Renovação com expansão</span>
+<span class="card-lab"><span class="tag t-teal">Renovação</span></span>
+<span class="card-foot"><span class="val">R$ 73.400</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>01 dez</span><span class="av" style="--c:#4c8bd6" title="Lucas Ferraz">LF</span></span></button></li></ul><button class="add"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio</button></section><section class="col" aria-label="Negociação"><header class="col-h"><span class="dot"></span><h2>Negociação</h2><span class="cnt">2</span><span class="sum">R$ 293.200</span><button class="ib" aria-label="Adicionar em Negociação"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg></button></header><ul class="cards"><li><button class="card" data-co="Banco Sertão Digital" data-desc="Contrato anual, 3 módulos" data-val="R$ 245.000" data-stage="Negociação" data-owner="Marina Cavalcanti" data-ini="MC" data-color="#7c6cf0" data-due="25 nov">
+<span class="card-top"><span class="card-co">Banco Sertão Digital</span></span>
+<span class="card-desc">Contrato anual, 3 módulos</span>
+<span class="card-lab"><span class="tag t-violet">Enterprise</span></span>
+<span class="card-foot"><span class="val">R$ 245.000</span><span class="due late"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>25 nov</span><span class="av" style="--c:#7c6cf0" title="Marina Cavalcanti">MC</span></span></button></li><li><button class="card" data-co="Instituto Horizonte" data-desc="Desconto por volume" data-val="R$ 48.200" data-stage="Negociação" data-owner="Rafael Souza" data-ini="RS" data-color="#2f9e8f" data-due="29 nov">
+<span class="card-top"><span class="card-co">Instituto Horizonte</span></span>
+<span class="card-desc">Desconto por volume</span>
+<span class="card-lab"><span class="tag t-green">Indicação</span></span>
+<span class="card-foot"><span class="val">R$ 48.200</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>29 nov</span><span class="av" style="--c:#2f9e8f" title="Rafael Souza">RS</span></span></button></li></ul><button class="add"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio</button></section><section class="col" aria-label="Ganho"><header class="col-h"><span class="dot"></span><h2>Ganho</h2><span class="cnt">2</span><span class="sum">R$ 151.600</span><button class="ib" aria-label="Adicionar em Ganho"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg></button></header><ul class="cards"><li><button class="card" data-co="Farmácia Bem Viver" data-desc="Plano Business, 40 licenças" data-val="R$ 39.600" data-stage="Ganho" data-owner="Beatriz Tavares" data-ini="BT" data-color="#c27a3a" data-due="18 nov">
+<span class="card-top"><span class="card-co">Farmácia Bem Viver</span></span>
+<span class="card-desc">Plano Business, 40 licenças</span>
+<span class="card-lab"><span class="tag t-amber">Inbound</span></span>
+<span class="card-foot"><span class="val">R$ 39.600</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>18 nov</span><span class="av" style="--c:#c27a3a" title="Beatriz Tavares">BT</span></span></button></li><li><button class="card" data-co="Construtora Alvorada" data-desc="Plano Enterprise, 90 licenças" data-val="R$ 112.000" data-stage="Ganho" data-owner="Lucas Ferraz" data-ini="LF" data-color="#4c8bd6" data-due="14 nov">
+<span class="card-top"><span class="card-co">Construtora Alvorada</span></span>
+<span class="card-desc">Plano Enterprise, 90 licenças</span>
+<span class="card-lab"><span class="tag t-green">Indicação</span></span>
+<span class="card-foot"><span class="val">R$ 112.000</span><span class="due"><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg>14 nov</span><span class="av" style="--c:#4c8bd6" title="Lucas Ferraz">LF</span></span></button></li></ul><button class="add"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio</button></section></div></div>
+    <div class="view" id="v-list"><div class="tw"><table><thead><tr><th>Negócio</th><th>Etapa</th><th>Etiqueta</th><th>Valor</th><th>Responsável</th><th>Prazo</th></tr></thead><tbody><tr tabindex="0"><td class="strong">Atlas Logística</td><td>Prospecção</td><td><span class="tag t-blue">Outbound</span></td><td class="num">R$ 84.000</td><td><span class="own"><span class="av sm" style="--c:#7c6cf0">MC</span>Marina Cavalcanti</span></td><td class="">28 nov</td></tr><tr tabindex="0"><td class="strong">Grupo Vilela</td><td>Prospecção</td><td><span class="tag t-green">Indicação</span></td><td class="num">R$ 36.500</td><td><span class="own"><span class="av sm" style="--c:#2f9e8f">RS</span>Rafael Souza</span></td><td class="">02 dez</td></tr><tr tabindex="0"><td class="strong">Cerrado Agro</td><td>Prospecção</td><td><span class="tag t-amber">Inbound</span></td><td class="num">R$ 52.000</td><td><span class="own"><span class="av sm" style="--c:#c27a3a">BT</span>Beatriz Tavares</span></td><td class="">05 dez</td></tr><tr tabindex="0"><td class="strong">Nova Era Saúde</td><td>Qualificação</td><td><span class="tag t-amber">Inbound</span></td><td class="num">R$ 61.800</td><td><span class="own"><span class="av sm" style="--c:#4c8bd6">LF</span>Lucas Ferraz</span></td><td class="late">26 nov</td></tr><tr tabindex="0"><td class="strong">Tecnorte Sistemas</td><td>Qualificação</td><td><span class="tag t-violet">Enterprise</span></td><td class="num">R$ 94.000</td><td><span class="own"><span class="av sm" style="--c:#7c6cf0">MC</span>Marina Cavalcanti</span></td><td class="">30 nov</td></tr><tr tabindex="0"><td class="strong">Padaria Central S.A.</td><td>Qualificação</td><td><span class="tag t-blue">Outbound</span></td><td class="num">R$ 9.800</td><td><span class="own"><span class="av sm" style="--c:#2f9e8f">RS</span>Rafael Souza</span></td><td class="">03 dez</td></tr><tr tabindex="0"><td class="strong">Rodovia Seguros</td><td>Proposta enviada</td><td><span class="tag t-violet">Enterprise</span></td><td class="num">R$ 168.000</td><td><span class="own"><span class="av sm" style="--c:#c27a3a">BT</span>Beatriz Tavares</span></td><td class="">27 nov</td></tr><tr tabindex="0"><td class="strong">Metalúrgica Pinheiro</td><td>Proposta enviada</td><td><span class="tag t-teal">Renovação</span></td><td class="num">R$ 73.400</td><td><span class="own"><span class="av sm" style="--c:#4c8bd6">LF</span>Lucas Ferraz</span></td><td class="">01 dez</td></tr><tr tabindex="0"><td class="strong">Banco Sertão Digital</td><td>Negociação</td><td><span class="tag t-violet">Enterprise</span></td><td class="num">R$ 245.000</td><td><span class="own"><span class="av sm" style="--c:#7c6cf0">MC</span>Marina Cavalcanti</span></td><td class="late">25 nov</td></tr><tr tabindex="0"><td class="strong">Instituto Horizonte</td><td>Negociação</td><td><span class="tag t-green">Indicação</span></td><td class="num">R$ 48.200</td><td><span class="own"><span class="av sm" style="--c:#2f9e8f">RS</span>Rafael Souza</span></td><td class="">29 nov</td></tr><tr tabindex="0"><td class="strong">Farmácia Bem Viver</td><td>Ganho</td><td><span class="tag t-amber">Inbound</span></td><td class="num">R$ 39.600</td><td><span class="own"><span class="av sm" style="--c:#c27a3a">BT</span>Beatriz Tavares</span></td><td class="">18 nov</td></tr><tr tabindex="0"><td class="strong">Construtora Alvorada</td><td>Ganho</td><td><span class="tag t-green">Indicação</span></td><td class="num">R$ 112.000</td><td><span class="own"><span class="av sm" style="--c:#4c8bd6">LF</span>Lucas Ferraz</span></td><td class="">14 nov</td></tr></tbody></table></div></div>
+    <div class="view" id="v-states"><div class="states">
+      <section class="panel"><h3>Vazio</h3><div class="empty"><svg class="i " aria-hidden="true"><use href="#i-inbox"/></svg><strong>Nenhum negócio nesta etapa</strong><p>Arraste um cartão para cá ou crie um novo negócio.</p><button class="btn pri"><svg class="i " aria-hidden="true"><use href="#i-plus"/></svg>Novo negócio<kbd>N</kbd></button></div></section>
+      <section class="panel" aria-busy="true"><h3>Carregando</h3><div class="sk"></div><div class="sk"></div><div class="sk"></div></section>
+      <section class="panel"><h3>Erro</h3><div class="err" role="alert"><svg class="i " aria-hidden="true"><use href="#i-alert"/></svg><div><strong>Não foi possível carregar o funil</strong><p>A conexão caiu. Seus dados estão salvos.</p></div></div><button class="btn">Tentar de novo<kbd>R</kbd></button></section>
+    </div></div>
+    <div class="hint"><span><kbd>N</kbd> novo</span><span><kbd>/</kbd> buscar</span><span><kbd>←</kbd><kbd>→</kbd> mover etapa</span><span><kbd>Esc</kbd> fechar painel</span></div>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Detalhe do negócio" role="dialog" aria-modal="false">
+  <div class="dh"><span class="tag t-violet" id="d-stage">Etapa</span><button class="ib" aria-label="Mais ações"><svg class="i " aria-hidden="true"><use href="#i-more"/></svg></button><button class="ib" id="close" aria-label="Fechar painel"><svg class="i " aria-hidden="true"><use href="#i-x"/></svg></button><kbd>Esc</kbd></div>
+  <div class="db">
+    <div><h2 id="d-co">Empresa</h2><p style="color:var(--muted)" id="d-desc"></p></div>
+    <div class="big" id="d-val"></div>
+    <div class="steps" aria-hidden="true"><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span></div>
+    <dl class="props">
+      <dt>Responsável</dt><dd><span class="av sm" id="d-av"></span><span id="d-own"></span></dd>
+      <dt>Prazo</dt><dd><svg class="i " aria-hidden="true"><use href="#i-cal"/></svg><span id="d-due"></span></dd>
+      <dt>Contato</dt><dd><span class="av sm" style="--c:#6f7a8f">CM</span>Camila Moreira</dd>
+      <dt>E-mail</dt><dd><svg class="i " aria-hidden="true"><use href="#i-mail"/></svg>camila.moreira@empresa.com.br</dd>
+      <dt>Telefone</dt><dd><svg class="i " aria-hidden="true"><use href="#i-phone"/></svg>(11) 98421-7730</dd>
+    </dl>
+    <div><div class="sec">Atividade</div>
+      <ul class="tl">
+        <li>Proposta revisada enviada por e-mail<small>Hoje, 10:42</small></li>
+        <li>Reunião de demonstração com a diretoria<small>21 nov, 15:00</small></li>
+        <li>Etapa alterada para Qualificação<small>18 nov, 09:15</small></li>
+        <li>Negócio criado por indicação<small>12 nov, 17:30</small></li>
+      </ul></div>
+    <div><div class="sec">Nota</div><textarea class="note" aria-label="Nota" placeholder="Escreva uma nota. Use @ para mencionar."></textarea></div>
+  </div>
+  <div class="df"><button class="btn">Marcar como perdido</button><button class="btn pri"><svg class="i " aria-hidden="true"><use href="#i-check"/></svg>Avançar etapa</button></div>
+</aside>
+<script>
+(function(){
+  var r=document.documentElement,b=document.body;
+  try{var s=localStorage.getItem("pipa-theme");if(s)r.setAttribute("data-theme",s)}catch(e){}
+  document.getElementById("theme").onclick=function(){
+    var cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+    var n=cur==="dark"?"light":"dark";r.setAttribute("data-theme",n);try{localStorage.setItem("pipa-theme",n)}catch(e){}
+  };
+  document.querySelectorAll(".tab").forEach(function(t){t.onclick=function(){
+    document.querySelectorAll(".tab").forEach(function(x){x.setAttribute("aria-selected",x===t)});
+    document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("on",v.id==="v-"+t.dataset.view)});
+  }});
+  document.querySelectorAll(".chip").forEach(function(c){c.onclick=function(){c.setAttribute("aria-pressed",c.getAttribute("aria-pressed")!=="true")}});
+  var last=null;
+  function open(c){
+    last=c;document.querySelectorAll(".card").forEach(function(x){x.setAttribute("aria-expanded",x===c)});
+    var d=c.dataset;
+    document.getElementById("d-co").textContent=d.co;document.getElementById("d-desc").textContent=d.desc;
+    document.getElementById("d-val").textContent=d.val;document.getElementById("d-stage").textContent=d.stage;
+    document.getElementById("d-own").textContent=d.owner;document.getElementById("d-due").textContent=d.due;
+    var a=document.getElementById("d-av");a.textContent=d.ini;a.style.setProperty("--c",d.color);
+    b.classList.add("open");document.getElementById("close").focus();
+  }
+  function close(){b.classList.remove("open");document.querySelectorAll(".card").forEach(function(x){x.removeAttribute("aria-expanded")});if(last)last.focus()}
+  document.querySelectorAll(".card").forEach(function(c){c.onclick=function(){open(c)}});
+  document.getElementById("close").onclick=close;document.getElementById("scrim").onclick=close;
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&b.classList.contains("open"))close();
+    if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();document.querySelector(".search input").focus()}
+  });
+})();
+</script>
+</body>
+</html>

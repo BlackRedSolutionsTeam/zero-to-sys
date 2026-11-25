@@ -1,0 +1,431 @@
+<!doctype html>
+<!--
+  Tipo de sistema: Painel admin / sistema interno (lista + CRUD em drawer)
+  Direção visual: compacta e neutra, cinzas quentes, marca verde-petróleo (teal), cara de ferramenta de trabalho.
+  Marca fictícia: Lastro (gestão de contratos).
+  Doc correspondente: ../docs/03-admin-crud.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lastro — Contratos</title>
+<style>
+:root{
+  --bg:#f6f5f3; --surface:#ffffff; --surface-2:#faf9f7; --border:#e4e1db; --border-strong:#cfcbc3;
+  --text:#1f1d1a; --muted:#645f57; --brand:#0f766e; --brand-hover:#0b625b; --on-brand:#ffffff; --brand-soft:#e1f0ee;
+  --ok:#166534; --ok-bg:#e3f3e8; --warn:#8a4b00; --warn-bg:#fdf0d9; --err:#b42318; --err-bg:#fde8e6; --neutral-bg:#ecebe7;
+  --shadow:0 1px 2px rgba(31,29,26,.06); --shadow-pop:0 12px 32px rgba(31,29,26,.18);
+  --scrim:rgba(31,29,26,.4);
+  --r:6px; --r-lg:10px;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#151413; --surface:#1d1c1a; --surface-2:#232220; --border:#34312d; --border-strong:#47433d;
+    --text:#ecebe8; --muted:#a8a298; --brand:#3cc4b4; --brand-hover:#5ad3c5; --on-brand:#06201d; --brand-soft:#16312e;
+    --ok:#6fd58f; --ok-bg:#16301f; --warn:#f2b45a; --warn-bg:#3a2a10; --err:#ff8f84; --err-bg:#3d1a17; --neutral-bg:#2b2926;
+    --shadow:0 1px 2px rgba(0,0,0,.4); --shadow-pop:0 12px 32px rgba(0,0,0,.6); --scrim:rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151413; --surface:#1d1c1a; --surface-2:#232220; --border:#34312d; --border-strong:#47433d;
+  --text:#ecebe8; --muted:#a8a298; --brand:#3cc4b4; --brand-hover:#5ad3c5; --on-brand:#06201d; --brand-soft:#16312e;
+  --ok:#6fd58f; --ok-bg:#16301f; --warn:#f2b45a; --warn-bg:#3a2a10; --err:#ff8f84; --err-bg:#3d1a17; --neutral-bg:#2b2926;
+  --shadow:0 1px 2px rgba(0,0,0,.4); --shadow-pop:0 12px 32px rgba(0,0,0,.6); --scrim:rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{color-scheme:light dark}
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:14px/20px var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* layout */
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+.side{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:12px 8px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:8px;padding:4px 8px 16px;font-weight:650;font-size:15px;letter-spacing:-.01em}
+.logo{width:24px;height:24px;border-radius:6px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center}
+.logo .ic{width:14px;height:14px}
+.nav-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:12px 8px 4px}
+.nav a{display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border-radius:var(--r);color:var(--muted);text-decoration:none;font-weight:500}
+.nav a:hover{background:var(--neutral-bg);color:var(--text)}
+.nav a[aria-current="page"]{background:var(--brand-soft);color:var(--brand)}
+.nav .count{margin-left:auto;font-size:12px;font-variant-numeric:tabular-nums}
+.side-foot{margin-top:auto;display:flex;align-items:center;gap:8px;padding:8px;border-top:1px solid var(--border)}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--neutral-bg);display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
+.who{min-width:0;line-height:16px}.who b{display:block;font-weight:600;font-size:13px}.who span{font-size:12px;color:var(--muted)}
+.main{min-width:0}
+.top{height:48px;display:flex;align-items:center;gap:8px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.crumbs{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;min-width:0}
+.crumbs b{color:var(--text);font-weight:600}
+.spacer{flex:1}
+.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid transparent;background:none;border-radius:var(--r);color:var(--muted)}
+.icon-btn:hover{background:var(--neutral-bg);color:var(--text)}
+.burger{display:none}
+.content{padding:20px 24px 32px;max-width:1280px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+h1{margin:0;font-size:20px;line-height:28px;font-weight:650;letter-spacing:-.015em}
+.sub{color:var(--muted);margin:2px 0 0}
+.btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:var(--r);border:1px solid var(--border-strong);background:var(--surface);font-weight:500;white-space:nowrap}
+.btn:hover{background:var(--neutral-bg)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand-hover)}
+.btn.danger{color:var(--err)}
+.btn.ghost{border-color:transparent;background:none}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 16px;box-shadow:var(--shadow)}
+.stat span{color:var(--muted);font-size:12px}
+.stat b{display:block;font-size:20px;line-height:28px;font-weight:650;font-variant-numeric:tabular-nums}
+.stat small{font-size:12px;color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.tabs{display:flex;gap:4px;padding:0 12px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tab{height:40px;padding:0 10px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--brand)}
+.tab .n{font-size:12px;background:var(--neutral-bg);border-radius:10px;padding:0 6px;font-variant-numeric:tabular-nums}
+.tools{display:flex;gap:8px;padding:10px 12px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--border)}
+.search{position:relative;flex:1 1 240px;max-width:340px}
+.search .ic{position:absolute;left:10px;top:8px;color:var(--muted)}
+.field,.search input{height:32px;width:100%;border:1px solid var(--border-strong);background:var(--surface);border-radius:var(--r);padding:0 10px}
+.search input{padding-left:32px}
+.field:hover,.search input:hover{border-color:var(--muted)}
+select.field{width:auto;padding-right:24px}
+.field::placeholder,.search input::placeholder{color:var(--muted)}
+.bulk{display:none;align-items:center;gap:8px;padding:8px 12px;background:var(--brand-soft);border-bottom:1px solid var(--border);color:var(--text)}
+.bulk.on{display:flex}
+.bulk b{font-variant-numeric:tabular-nums}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:860px}
+th{position:sticky;top:0;text-align:left;font-size:12px;font-weight:600;color:var(--muted);background:var(--surface-2);height:36px;padding:0 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{height:44px;padding:0 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr[aria-selected="true"]{background:var(--brand-soft)}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+th.num{text-align:right}
+.sort{background:none;border:0;padding:0;font-weight:600;color:inherit;display:inline-flex;align-items:center;gap:4px}
+.sort:hover{color:var(--text)}
+.cb{width:16px;height:16px;accent-color:var(--brand);margin:0}
+.ck{width:40px;padding-right:0}
+.cell-main{display:flex;flex-direction:column;line-height:16px}
+.cell-main a{color:var(--text);font-weight:600;text-decoration:none;background:none;border:0;padding:0;text-align:left}
+.cell-main a:hover{color:var(--brand);text-decoration:underline}
+.cell-main span{font-size:12px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:550}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.err{background:var(--err-bg);color:var(--err)}.chip.mute{background:var(--neutral-bg);color:var(--muted)}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;color:var(--muted);flex-wrap:wrap}
+.pager .pg{display:flex;gap:4px;align-items:center}
+.pager .btn{height:28px;padding:0 8px}
+.pager .btn[aria-current="page"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.pager .btn[disabled]{opacity:.5;cursor:default}
+
+/* estados */
+.state{display:none;padding:56px 16px;text-align:center}
+.state .ico{width:44px;height:44px;border-radius:10px;background:var(--neutral-bg);display:inline-grid;place-items:center;color:var(--muted);margin-bottom:12px}
+.state .ico .ic{width:22px;height:22px}
+.state h2{margin:0;font-size:15px}
+.state p{margin:4px auto 16px;max-width:360px;color:var(--muted)}
+.sk{display:none;padding:0}
+.sk i{display:block;height:44px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.sk i::after{content:"";position:absolute;inset:14px 12px;border-radius:4px;background:linear-gradient(90deg,var(--neutral-bg) 0 30%,var(--border) 50%,var(--neutral-bg) 70%) 0 0/200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+[data-view="empty"] .tscroll,[data-view="empty"] .pager,[data-view="loading"] .tscroll,[data-view="loading"] .pager,[data-view="error"] .tscroll,[data-view="error"] .pager,[data-view="empty"] .tools,[data-view="loading"] .tools{display:none}
+[data-view="empty"] .state.empty,[data-view="error"] .state.error{display:block}
+[data-view="loading"] .sk{display:block}
+.err .ico{background:var(--err-bg);color:var(--err)}
+.statebar{display:flex;gap:4px;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--border-strong);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;height:26px;padding:0 10px;color:var(--muted)}
+.seg button+button{border-left:1px solid var(--border)}
+.seg button[aria-pressed="true"]{background:var(--brand-soft);color:var(--brand);font-weight:600}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .18s;z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:100%;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-pop);transform:translateX(100%);transition:transform .2s ease;z-index:21;display:flex;flex-direction:column;visibility:hidden}
+body.open .scrim{opacity:1;pointer-events:auto}
+body.open .drawer{transform:none;visibility:visible}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+.d-head h2{margin:0;font-size:16px;line-height:24px}
+.d-body{padding:16px;overflow:auto;flex:1;display:grid;gap:16px;align-content:start}
+.d-foot{display:flex;gap:8px;justify-content:flex-end;align-items:center;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface-2)}
+.d-foot .l{margin-right:auto}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:12px}
+legend{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:0;margin-bottom:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f label{display:block;font-weight:550;margin-bottom:4px}
+.f label i{color:var(--err);font-style:normal}
+.f .hint{font-size:12px;color:var(--muted);margin-top:4px}
+.f .msg{display:none;font-size:12px;color:var(--err);margin-top:4px;align-items:center;gap:4px}
+.f.bad .field{border-color:var(--err);box-shadow:0 0 0 1px var(--err)}
+.f.bad .msg{display:flex}
+.f.bad .hint{display:none}
+textarea.field{height:72px;padding:8px 10px;resize:vertical}
+.toast{position:fixed;bottom:16px;left:50%;transform:translate(-50%,24px);background:var(--text);color:var(--bg);padding:8px 14px;border-radius:var(--r);opacity:0;transition:.2s;z-index:30;pointer-events:none;display:flex;gap:8px;align-items:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.m-scrim{display:none}
+
+@media (max-width:1023px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .app{display:block}
+  .side{position:fixed;left:0;top:0;bottom:0;width:260px;z-index:25;transform:translateX(-100%);transition:transform .2s;visibility:hidden}
+  body.nav-open .side{transform:none;visibility:visible;box-shadow:var(--shadow-pop)}
+  body.nav-open .m-scrim{display:block;position:fixed;inset:0;background:var(--scrim);z-index:24}
+  .burger{display:grid}
+  .top,.content{padding-left:16px;padding-right:16px}
+  .hide-m{display:none}
+}
+@media (max-width:520px){
+  .row2{grid-template-columns:1fr}
+  .stats{gap:8px}.stat b{font-size:17px;white-space:nowrap}
+  .head .btn.primary{width:100%;justify-content:center}
+  .search{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-arch" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M10 12h4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></symbol>
+</svg>
+
+<div class="app">
+  <aside class="side" id="side" aria-label="Navegação principal">
+    <div class="brand"><span class="logo"><svg class="ic"><use href="#i-box"/></svg></span>Lastro</div>
+    <nav class="nav">
+      <a href="#"><svg class="ic"><use href="#i-chart"/></svg>Visão geral</a>
+      <a href="#" aria-current="page"><svg class="ic"><use href="#i-file"/></svg>Contratos<span class="count">248</span></a>
+      <a href="#"><svg class="ic"><use href="#i-users"/></svg>Fornecedores<span class="count">64</span></a>
+      <a href="#"><svg class="ic"><use href="#i-bell"/></svg>Alertas<span class="count">9</span></a>
+      <div class="nav-label">Administração</div>
+      <a href="#"><svg class="ic"><use href="#i-users"/></svg>Usuários</a>
+      <a href="#"><svg class="ic"><use href="#i-gear"/></svg>Configurações</a>
+    </nav>
+    <div class="side-foot"><span class="avatar">MS</span><div class="who"><b>Marina Sales</b><span>Administradora</span></div></div>
+  </aside>
+  <div class="m-scrim" id="mscrim"></div>
+
+  <div class="main">
+    <header class="top">
+      <button class="icon-btn burger" id="burger" aria-label="Abrir menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+      <div class="crumbs"><span class="hide-m">Lastro</span><svg class="ic hide-m"><use href="#i-right"/></svg><b>Contratos</b></div>
+      <span class="spacer"></span>
+      <button class="icon-btn" id="theme" aria-label="Alternar tema claro e escuro"><svg class="ic"><use href="#i-sun"/></svg></button>
+    </header>
+
+    <main class="content">
+      <div class="head">
+        <div><h1>Contratos</h1><p class="sub">248 contratos ativos em 64 fornecedores. Atualizado hoje, 09:12.</p></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;width:auto">
+          <button class="btn hide-m"><svg class="ic"><use href="#i-dl"/></svg>Exportar CSV</button>
+          <button class="btn primary" id="new"><svg class="ic"><use href="#i-plus"/></svg>Novo contrato</button>
+        </div>
+      </div>
+
+      <section class="stats" aria-label="Resumo">
+        <div class="stat"><span>Valor mensal</span><b>R$ 482.310,00</b><small>+3,2% vs. outubro</small></div>
+        <div class="stat"><span>A vencer em 30 dias</span><b>12</b><small>R$ 96.400,00 em risco</small></div>
+        <div class="stat"><span>Vencidos</span><b>3</b><small>Exigem ação</small></div>
+        <div class="stat"><span>Em rascunho</span><b>7</b><small>Sem aprovação</small></div>
+      </section>
+
+      <div class="statebar">Estado da lista (demonstração):
+        <div class="seg" role="group" aria-label="Estado da lista">
+          <button aria-pressed="true" data-v="list">Com dados</button><button aria-pressed="false" data-v="loading">Carregando</button><button aria-pressed="false" data-v="empty">Vazio</button><button aria-pressed="false" data-v="error">Erro</button>
+        </div>
+      </div>
+
+      <section class="panel" id="panel" data-view="list">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" aria-selected="true">Todos <span class="n">248</span></button>
+          <button class="tab" role="tab" aria-selected="false">Ativos <span class="n">226</span></button>
+          <button class="tab" role="tab" aria-selected="false">A vencer <span class="n">12</span></button>
+          <button class="tab" role="tab" aria-selected="false">Vencidos <span class="n">3</span></button>
+          <button class="tab" role="tab" aria-selected="false">Rascunhos <span class="n">7</span></button>
+        </div>
+        <div class="tools">
+          <div class="search"><svg class="ic"><use href="#i-search"/></svg><label class="sr" for="q">Buscar contratos</label><input id="q" type="search" placeholder="Buscar por número ou fornecedor" autocomplete="off"></div>
+          <label class="sr" for="f1">Categoria</label>
+          <select class="field" id="f1"><option>Todas as categorias</option><option>Software</option><option>Facilities</option><option>Logística</option><option>Jurídico</option></select>
+          <label class="sr" for="f2">Responsável</label>
+          <select class="field hide-m" id="f2"><option>Qualquer responsável</option><option>Marina Sales</option><option>Caio Neves</option><option>Paula Braga</option></select>
+          <button class="btn ghost hide-m"><svg class="ic"><use href="#i-filter"/></svg>Mais filtros</button>
+        </div>
+        <div class="bulk" id="bulk" role="status">
+          <b id="bn">0</b><span>selecionados</span><span class="spacer"></span>
+          <button class="btn"><svg class="ic"><use href="#i-dl"/></svg><span class="hide-m">Exportar</span></button>
+          <button class="btn"><svg class="ic"><use href="#i-arch"/></svg><span class="hide-m">Arquivar</span></button>
+          <button class="btn danger"><svg class="ic"><use href="#i-trash"/></svg><span class="hide-m">Excluir</span></button>
+          <button class="icon-btn" id="bclear" aria-label="Limpar seleção"><svg class="ic"><use href="#i-x"/></svg></button>
+        </div>
+
+        <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th class="ck"><input class="cb" type="checkbox" id="all" aria-label="Selecionar todos"></th>
+            <th><button class="sort">Contrato <svg class="ic"><use href="#i-sort"/></svg></button></th>
+            <th>Categoria</th>
+            <th>Responsável</th>
+            <th class="num"><button class="sort">Valor mensal <svg class="ic"><use href="#i-sort"/></svg></button></th>
+            <th>Vigência até</th>
+            <th>Status</th>
+            <th style="width:40px"><span class="sr">Ações</span></th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        </div>
+        <div class="sk" aria-label="Carregando" role="status"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="state empty"><div class="ico"><svg class="ic"><use href="#i-file"/></svg></div><h2>Nenhum contrato por aqui</h2><p>Cadastre o primeiro contrato ou importe uma planilha para começar a acompanhar prazos e valores.</p><button class="btn primary" data-new><svg class="ic"><use href="#i-plus"/></svg>Novo contrato</button></div>
+        <div class="state error err"><div class="ico"><svg class="ic"><use href="#i-alert"/></svg></div><h2>Não foi possível carregar os contratos</h2><p>A conexão com o servidor falhou. Seus dados estão salvos. Tente de novo em instantes.</p><button class="btn" data-retry>Tentar novamente</button></div>
+        <div class="pager"><span>1–8 de 248</span>
+          <div class="pg"><button class="btn" disabled aria-label="Página anterior"><svg class="ic"><use href="#i-left"/></svg></button><button class="btn" aria-current="page">1</button><button class="btn">2</button><button class="btn">3</button><span>…</span><button class="btn">31</button><button class="btn" aria-label="Próxima página"><svg class="ic"><use href="#i-right"/></svg></button></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dt" aria-hidden="true">
+  <div class="d-head"><h2 id="dt">Novo contrato</h2><button class="icon-btn" data-close aria-label="Fechar painel"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <form class="d-body" id="form" novalidate>
+    <fieldset>
+      <legend>Identificação</legend>
+      <div class="f" data-f="num"><label for="num">Número do contrato <i>*</i></label><input class="field" id="num" placeholder="CT-2026-0000" aria-describedby="num-m"><div class="hint">Formato CT-AAAA-NNNN.</div><div class="msg" id="num-m"><svg class="ic"><use href="#i-alert"/></svg><span>Use o formato CT-2026-0123.</span></div></div>
+      <div class="f" data-f="forn"><label for="forn">Fornecedor <i>*</i></label><select class="field" id="forn" style="width:100%"><option value="">Selecione</option><option>Atlas Tecnologia Ltda.</option><option>Brisa Facilities S.A.</option><option>Cais Logística ME</option><option>Dorsal Advocacia</option></select><div class="msg"><svg class="ic"><use href="#i-alert"/></svg><span>Escolha um fornecedor.</span></div></div>
+      <div class="f"><label for="cat">Categoria</label><select class="field" id="cat" style="width:100%"><option>Software</option><option>Facilities</option><option>Logística</option><option>Jurídico</option></select></div>
+    </fieldset>
+    <fieldset>
+      <legend>Valores e prazo</legend>
+      <div class="row2">
+        <div class="f" data-f="val"><label for="val">Valor mensal (R$) <i>*</i></label><input class="field" id="val" inputmode="decimal" placeholder="0,00" style="text-align:right"><div class="msg"><svg class="ic"><use href="#i-alert"/></svg><span>Informe um valor maior que zero.</span></div></div>
+        <div class="f"><label for="ind">Reajuste</label><select class="field" id="ind" style="width:100%"><option>IPCA anual</option><option>IGP-M anual</option><option>Sem reajuste</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="f"><label for="ini">Início</label><input class="field" id="ini" type="date" value="2026-12-01"></div>
+        <div class="f" data-f="fim"><label for="fim">Vigência até <i>*</i></label><input class="field" id="fim" type="date" value="2026-11-01"><div class="msg"><svg class="ic"><use href="#i-alert"/></svg><span>A data final deve ser depois do início.</span></div></div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Observações</legend>
+      <div class="f"><label for="obs">Notas internas</label><textarea class="field" id="obs" placeholder="Cláusulas relevantes, contatos, condições de renovação"></textarea></div>
+    </fieldset>
+  </form>
+  <div class="d-foot"><button class="btn danger ghost l" id="del" hidden><svg class="ic"><use href="#i-trash"/></svg>Excluir</button><button class="btn" data-close>Cancelar</button><button class="btn primary" id="save">Salvar contrato</button></div>
+</aside>
+<div class="toast" id="toast" role="status"><svg class="ic"><use href="#i-check"/></svg><span id="tmsg"></span></div>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+  var data=[
+    ["CT-2026-0412","Atlas Tecnologia Ltda.","Software","Marina Sales","18.400,00","30/06/2027","Ativo","ok"],
+    ["CT-2026-0398","Brisa Facilities S.A.","Facilities","Caio Neves","42.750,00","15/12/2026","A vencer","warn"],
+    ["CT-2025-0877","Cais Logística ME","Logística","Paula Braga","9.980,00","31/10/2026","Vencido","err"],
+    ["CT-2026-0405","Dorsal Advocacia","Jurídico","Marina Sales","12.000,00","28/02/2028","Ativo","ok"],
+    ["CT-2026-0421","Eixo Segurança Patrimonial","Facilities","Caio Neves","27.300,00","—","Rascunho","mute"],
+    ["CT-2025-0791","Farol Telecom S.A.","Software","Paula Braga","6.215,40","12/12/2026","A vencer","warn"],
+    ["CT-2026-0360","Granito Transportes","Logística","Caio Neves","31.870,00","30/09/2027","Ativo","ok"],
+    ["CT-2026-0417","Horizonte Cloud Ltda.","Software","Marina Sales","54.090,00","31/01/2028","Ativo","ok"]
+  ];
+  var rows=$("#rows");
+  rows.innerHTML=data.map(function(r,i){return '<tr data-i="'+i+'"><td class="ck"><input class="cb" type="checkbox" aria-label="Selecionar '+r[0]+'"></td>'+
+   '<td><div class="cell-main"><button class="lnk" style="all:unset;cursor:pointer;font-weight:600" data-edit>'+r[0]+'</button><span>'+r[1]+'</span></div></td>'+
+   '<td>'+r[2]+'</td><td>'+r[3]+'</td><td class="num">R$ '+r[4]+'</td><td style="font-variant-numeric:tabular-nums">'+r[5]+'</td>'+
+   '<td><span class="chip '+r[7]+'">'+r[6]+'</span></td><td><button class="icon-btn" data-edit aria-label="Editar '+r[0]+'"><svg class="ic"><use href="#i-right"/></svg></button></td></tr>'}).join("");
+  $$("[data-edit].lnk,.lnk").forEach(function(b){b.addEventListener("mouseenter",function(){b.style.color="var(--brand)"});b.addEventListener("mouseleave",function(){b.style.color=""});b.setAttribute("tabindex","0");b.setAttribute("role","button")});
+
+  // tema
+  var root=document.documentElement;
+  $("#theme").onclick=function(){
+    var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme",dark?"light":"dark");
+  };
+  // menu mobile
+  $("#burger").onclick=function(){document.body.classList.add("nav-open")};
+  $("#mscrim").onclick=function(){document.body.classList.remove("nav-open")};
+  // seleção
+  var all=$("#all"),bulk=$("#bulk");
+  function sync(){
+    var cs=$$("tbody .cb"),n=cs.filter(function(c){return c.checked}).length;
+    cs.forEach(function(c){c.closest("tr").setAttribute("aria-selected",c.checked)});
+    $("#bn").textContent=n;bulk.classList.toggle("on",n>0);
+    all.checked=n===cs.length;all.indeterminate=n>0&&n<cs.length;
+  }
+  all.onchange=function(){$$("tbody .cb").forEach(function(c){c.checked=all.checked});sync()};
+  rows.addEventListener("change",function(e){if(e.target.classList.contains("cb"))sync()});
+  $("#bclear").onclick=function(){all.checked=false;all.onchange()};
+  // busca
+  $("#q").addEventListener("input",function(e){var t=e.target.value.toLowerCase();$$("#rows tr").forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().indexOf(t)>-1?"":"none"})});
+  // abas
+  $$(".tab").forEach(function(t){t.onclick=function(){$$(".tab").forEach(function(x){x.setAttribute("aria-selected","false")});t.setAttribute("aria-selected","true")}});
+  // estados
+  var panel=$("#panel");
+  function view(v){panel.setAttribute("data-view",v);$$(".seg button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.v===v)})}
+  $$(".seg button").forEach(function(b){b.onclick=function(){view(b.dataset.v)}});
+  $("[data-retry]").onclick=function(){view("loading");setTimeout(function(){view("list")},900)};
+  // drawer
+  var last;
+  function open(i){
+    last=document.activeElement;var f=$("#form");f.reset();$$(".f.bad").forEach(function(x){x.classList.remove("bad")});
+    var edit=typeof i==="number";
+    $("#dt").textContent=edit?"Editar "+data[i][0]:"Novo contrato";$("#del").hidden=!edit;
+    $("#save").textContent=edit?"Salvar alterações":"Salvar contrato";
+    if(edit){$("#num").value=data[i][0];$("#val").value=data[i][4];$("#fim").value=data[i][5].split("/").reverse().join("-")||""; $("#ini").value="2026-01-01";[].forEach.call($("#forn").options,function(o){if(o.text===data[i][1])o.selected=true});}
+    document.body.classList.add("open");$("#drawer").setAttribute("aria-hidden","false");
+    setTimeout(function(){$("#num").focus()},120);
+  }
+  function close(){document.body.classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");if(last)last.focus()}
+  $("#new").onclick=function(){open()};$("[data-new]").onclick=function(){open()};
+  rows.addEventListener("click",function(e){var b=e.target.closest("[data-edit],.lnk");if(b)open(+b.closest("tr").dataset.i)});
+  $$("[data-close]").forEach(function(b){b.onclick=close});$("#scrim").onclick=close;
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){close();document.body.classList.remove("nav-open")}});
+  // validação
+  function check(){
+    var ok=true;
+    function bad(id,c){var f=$("[data-f="+id+"]");f.classList.toggle("bad",c);if(c)ok=false;var el=$("input,select",f);el.setAttribute("aria-invalid",c)}
+    bad("num",!/^CT-\d{4}-\d{4}$/.test($("#num").value.trim()));
+    bad("forn",!$("#forn").value);
+    var v=parseFloat($("#val").value.replace(/\./g,"").replace(",","."));bad("val",!(v>0));
+    bad("fim",!$("#fim").value||$("#fim").value<=$("#ini").value);
+    return ok;
+  }
+  $("#save").onclick=function(){
+    if(check()){close();toast("Contrato salvo.")}else{var b=$(".f.bad input,.f.bad select");if(b)b.focus()}
+  };
+  ["#num","#forn","#val","#fim"].forEach(function(s){$(s).addEventListener("change",function(){if($(".f.bad"))check()})});
+  var tt;function toast(m){$("#tmsg").textContent=m;$("#toast").classList.add("on");clearTimeout(tt);tt=setTimeout(function(){$("#toast").classList.remove("on")},2400)}
+})();
+</script>
+</body>
+</html>

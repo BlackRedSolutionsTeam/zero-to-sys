@@ -1,0 +1,17 @@
+{
+  "name": "zero-to-sys",
+  "owner": {
+    "name": "BlackRed Solutions",
+    "url": "https://github.com/BlackRedSolutionsTeam"
+  },
+  "plugins": [
+    {
+      "name": "zero-to-sys",
+      "source": "./",
+      "description": "Skills e agente orquestrador para criar um sistema do zero até produção."
+    }
+  ],
+  "metadata": {
+    "description": "Skills e agente para criar sistemas do zero até produção, em português."
+  }
+}
