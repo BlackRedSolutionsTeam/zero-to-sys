@@ -147,8 +147,8 @@ Pontos fortes e fracos de cada provedor.
 |---|---|---|
 | Hostinger | 4 GB e 4 TB no plano de entrada; backup semanal grátis; root | Renovação quase dobra; cidade, nota fiscal, PIX e SLA não informados |
 | HostGator | Menor preço de 2 GB com NVMe e DDR5; tráfego ilimitado; datacenter OCI em São Paulo citado | Contrato de 3 anos; sem SLA formal; pagamento e nota não informados |
-| Locaweb | Marca nacional antiga; suporte 24h por telefone; snapshot grátis | Entrada de 1 GB é pequena; renovação sobe; nota, PIX e SLA do VPS não informados |
-| KingHost | Preço mensal sem contrato; SLA 99,9%; suporte humano por WhatsApp | Cidade, snapshot, PIX e nota não informados |
+| Locaweb | Marca nacional antiga; suporte 24h por telefone; snapshot grátis; Pix, boleto e débito automático; emite nota fiscal | Entrada de 1 GB é pequena; renovação sobe; SLA do VPS não informado |
+| KingHost | Preço mensal sem contrato; SLA 99,9%; suporte humano por WhatsApp; Pix e boleto; nota fiscal no app | Cidade do datacenter e snapshot não informados |
 | HostDime | Datacenters em São Paulo e João Pessoa; dedicados grandes; boleto; SLA e resposta definidos | Sem preço na página; tráfego com cobrança de excedente; mais complexo |
 
 ## Recomendação por perfil
@@ -158,7 +158,7 @@ Pontos fortes e fracos de cada provedor.
 | MVP barato | HostGator ou Locaweb | Menores preços promo; confira a renovação antes de fechar |
 | SaaS pequeno | Hostinger KVM 1 ou KingHost 4 GB | 4 GB roda app e Postgres juntos; KingHost não prende contrato |
 | Agência com vários sites | KingHost ou Locaweb | Plano de 4 GB ou mais, suporte em português; confirme painel e nota |
-| Cliente que exige nota e suporte nacional | Locaweb ou KingHost | Marcas nacionais; peça a nota por escrito, pois a página não informa |
+| Cliente que exige nota e suporte nacional | Locaweb ou KingHost | Marcas nacionais que emitem nota fiscal e aceitam Pix e boleto |
 | Servidor grande ou dedicado | HostDime | Dedicados configuráveis e datacenters em SP e João Pessoa |
 
 ## Estimativa mensal de uma configuração típica
