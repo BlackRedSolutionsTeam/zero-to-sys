@@ -17,7 +17,7 @@ O fluxo tem cinco etapas, cada uma num estado do pedido:
 1. **Pagamento aprovado:** webhook do provedor de pagamento ([pagamentos](../../integrations/docs/01-pagamentos.md)).
 2. **Emissão pedida:** job manda os dados ao emissor com uma **referência** única e grava `emitindo`.
 3. **Processamento:** o emissor assina e envia à SEFAZ ou prefeitura; a resposta inicial só confirma a fila.
-4. **Webhook do emissor:** informa `autorizada`, `rejeitada` ou `cancelada`.
+4. **Webhook do emissor:** avisa que o documento foi autorizado; rejeição e cancelamento você confirma por consulta (veja "Webhook").
 5. **Entrega:** guarda XML e PDF e manda ao cliente.
 
 A **referência** (`ref`) é o identificador da nota no emissor. Reenviar com a mesma `ref` não cria nota nova, e é isso que torna a emissão idempotente.
@@ -118,7 +118,14 @@ export async function emitirNota(pedidoId: string) {
 
 ### Webhook
 
-A página "Utilizando webhooks" do Focus NFe recomenda responder imediatamente com HTTP 200 ou 202 e mandar o trabalho pesado para fila. Cadastre o gatilho pela API de webhooks (criar, listar, consultar e excluir) e confira os campos do corpo na documentação.
+Conferido em 2026-11-25 nas páginas "Webhooks", "Utilizando webhooks" e "Criar" da documentação do Focus NFe (doc.focusnfe.com.br):
+
+- **Rotas:** `POST /v2/hooks` (cria), `GET /v2/hooks` (lista), `GET /v2/hooks/{id}` (consulta) e `DELETE /v2/hooks/{id}` (exclui). Autenticação HTTP Basic com o token como usuário e senha vazia.
+- **Corpo de criação:** `event` e `url` são obrigatórios; `cnpj`, `cpf`, `authorization` e `authorization_header` são opcionais. Com os dois últimos, o Focus envia na chamada o cabeçalho que você escolheu, e seu endpoint valida a origem.
+- **Um gatilho por evento.** Os eventos de documentos emitidos são `nfe`, `nfce`, `nfse` (NFS-e municipal), `nfsen` (NFS-e nacional), `cte`, `mdfe`, `nfcom`, `dce` e `inutilizacao`, disparados quando o documento é **autorizado**, com os mesmos dados da consulta `GET`. Há ainda eventos de documentos recebidos (`nfe_recebida`, `nfe_recebida_falha_consulta`, `cte_recebida`, `nfsen_recebida`) e da NFC-e (`nfce_contingencia`, `nfce_consulta_automatica`).
+- **Reenvio:** cada tipo tem `POST .../{referencia}/hook` para pedir de novo a notificação (por exemplo `POST /v2/nfse/{referencia}/hook`).
+- **Resposta do seu endpoint:** HTTP 200 ou 202 imediatamente; o trabalho pesado vai para fila. Em falha, o Focus reenvia com intervalos progressivos por até 48 horas.
+- **Não confirmado:** a documentação lida não diz se o gatilho também dispara em rejeição (`erro_autorizacao`) ou cancelamento. Por isso o fluxo abaixo consulta o documento e a rotina de reconciliação procura notas paradas; não conte com o webhook para rejeição.
 
 ```ts
 app.post("/webhooks/focus/:segredo", express.json(), async (req, res) => {
@@ -141,13 +148,13 @@ export async function processarRetornoNota({ corpo }: { corpo: RetornoEmissor })
     const caminhoPdf = await armazenamento.salvar(`notas/${nota.id}.pdf`, pdf);
     await notas.marcar(corpo.ref, { estado: "autorizada", caminho_xml: caminhoXml, caminho_pdf: caminhoPdf });
     await fila.enfileirar("enviar-nota-por-email", { notaId: nota.id });
-  } else if (atual.status === "erro_autorizacao") {
+  } else if (atual.status === "erro_autorizacao" || atual.status === "negado") {
     await notas.marcar(corpo.ref, { estado: "rejeitada", mensagem_erro: atual.mensagem });
   }
 }
 ```
 
-Os valores de `status` seguem o que a consulta do seu emissor devolve; leia a página "Consultar" da documentação dele. Consultar o emissor dentro do job, em vez de confiar no corpo do webhook, deixa a ação idempotente e imune a corpo forjado.
+Valores de `status` na consulta do Focus NFe (páginas "Consultar" de NFS-e, NFS-e nacional e NF-e, lidas em 2026-11-25): `processando_autorizacao`, `autorizado`, `cancelado` e `erro_autorizacao`; a NFS-e nacional ainda lista `negado`. Em outro emissor, os valores são outros. Consultar o emissor dentro do job, em vez de confiar no corpo do webhook, deixa a ação idempotente e imune a corpo forjado.
 
 ### Envio ao cliente
 

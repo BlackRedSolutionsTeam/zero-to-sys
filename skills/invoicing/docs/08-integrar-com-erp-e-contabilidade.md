@@ -44,12 +44,12 @@
 ## Quando é bom
 
 - **Omie:** API de pedidos de venda, ordens de serviço (faturamento para NFS-e), consulta de NF-e e NFS-e emitidas, clientes, produtos e contas a receber; webhooks configurados em Aplicativos.
-- **Bling:** API v3 com OAuth 2.0 (confirmado no anúncio oficial) e erro 429 ao exceder o limite de requisições; veja os números atuais no portal do desenvolvedor.
-- **Conta Azul:** API em `api-v2.contaazul.com` com consulta de NF-e e NFS-e emitidas, por data, número e id da venda, e busca por chave de acesso.
+- **Bling:** API v3 com OAuth 2.0 e erro 429 ao exceder o limite; limites lidos na página oficial em 2026-11-25 (tabela abaixo).
+- **Conta Azul:** API em `api-v2.contaazul.com` com consulta de NF-e e NFS-e emitidas, por data, número e id da venda, e busca por chave de acesso. É só consulta de notas já emitidas no ERP, não emissão.
 
 ## Quando é ruim
 
-- **Limites de requisição:** a Omie limita por IP, por app e por método; o Bling retorna 429. Leia em lote e com espera.
+- **Limites de requisição:** a Omie limita por IP, por app e por método; o Bling e a Conta Azul retornam 429. Leia em lote e com espera.
 - **Cada ERP tem um modelo de cliente, produto e venda diferente:** mapeie com uma tabela de correspondência, não com a estrutura do seu banco.
 - **Nota emitida nos dois lados:** se o ERP emite, o seu sistema não pode emitir a mesma venda.
 - **Credenciais de cliente no seu servidor:** cada cliente autoriza com OAuth ou chave dele; trate como segredo (skill `security`).
@@ -61,8 +61,10 @@
 | ERP | Autenticação | Limites e detalhes |
 |---|---|---|
 | Omie | Chave e segredo do aplicativo, criados em Aplicativos; chamadas em JSON a `https://app.omie.com.br/api/v1/...` | 240 requisições por minuto por IP, app e método, 960 por minuto por IP, 4 simultâneas; apps de teste 60 por minuto; no máximo 100 registros por página; 10 chamadas inválidas iguais bloqueiam por 30 minutos |
-| Bling | OAuth 2.0 (authorization code, access token e refresh token), erro 401 para chave inválida | Há limite e o erro é 429; o número não foi confirmado nas páginas públicas consultadas |
-| Conta Azul | OAuth 2.0 com aplicativo criado no portal do desenvolvedor | `GET /v1/notas-fiscais` (NF-e), `GET /v1/notas-fiscais-servico` (NFS-e), `GET /v1/notas-fiscais/{chave}` (arquivo da nota); o método exato de envio do token e os limites devem ser lidos na documentação do aplicativo |
+| Bling | OAuth 2.0 (authorization code, access token e refresh token), erro 401 para chave inválida | 3 requisições por segundo e 120.000 por dia, por conta Bling (não por endpoint); acima disso, HTTP 429. Bloqueio do IP por 10 minutos com 300 erros em 10 segundos ou 600 requisições em 10 segundos, e por 60 minutos com 20 chamadas a `/oauth/token` em 60 segundos; insistir pode bloquear o IP por tempo indeterminado (developer.bling.com.br/limites, 2026-11-25) |
+| Conta Azul | OAuth 2.0 Authorization Code. Troca do código em `POST https://api-v2.contaazul.com/oauth/token` com `Authorization: Basic` (client id e secret em Base64) e corpo `application/x-www-form-urlencoded` (`grant_type`, `code`, `redirect_uri`). Chamadas com `Authorization: Bearer <access_token>`. `access_token` vale 3.600 segundos; o `refresh_token` vale até 2 anos, mas cada renovação emite um novo e invalida o anterior, então grave o novo a cada renovação | 600 chamadas por minuto e até 10 por segundo, por conta conectada; acima disso, HTTP 429. Rotas: `GET /v1/notas-fiscais` (NF-e emitidas), `GET /v1/notas-fiscais-servico` (NFS-e) e `GET /v1/notas-fiscais/{chave}` (arquivo da nota). A própria documentação é inconsistente: a introdução da API de notas diz que só há consulta de NF-e, mas a rota de NFS-e está listada; teste antes de prometer ao cliente |
+
+Fontes lidas em 2026-11-25: developer.bling.com.br/limites e developers.contaazul.com (autenticação, troca do código, renovação, chamadas, perguntas frequentes e erros comuns). Não lidos: a URL da tela de autorização e os escopos da Conta Azul, e o fluxo OAuth do Bling além dos limites; copie-os do portal do desenvolvedor de cada um ao montar o aplicativo.
 
 ### Endpoints úteis da Omie
 

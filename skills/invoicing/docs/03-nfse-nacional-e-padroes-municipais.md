@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Referência** | https://www.gov.br/nfse, https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica, https://doc.focusnfe.com.br (NFSe Nacional) |
+| **Referência** | https://www.gov.br/nfse, https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica, https://doc.focusnfe.com.br (NFSe Nacional), Ato Conjunto RFB/CGIBS nº 4/2026 e nº 7/2026 (cgibs.gov.br), Resolução CGSN nº 191/2026 |
 | **Categoria** | Regra fiscal |
 | **Tipo** | Padrão de emissão de nota de serviço |
 | **Vale para** | Empresas de serviço (SaaS, clínica, agência, escola, consultoria) |
@@ -56,18 +56,30 @@ Integrar-se ao padrão nacional não equivale a emitir por ele: só quando o mun
 
 ### Datas que importam
 
-Conferidas em 2026-11-25 em notícias que reproduzem o Ato Conjunto RFB/CGIBS nº 7/2026 (publicado no DOU em 13/11/2026, em vigor na publicação). Leia o ato no site do CGIBS antes de fixar uma data com o cliente.
+Conferidas em 2026-11-25 no texto do Ato Conjunto RFB/CGIBS nº 7, de 11/11/2026 (publicado no site do CGIBS, em vigor na publicação), que altera o Ato Conjunto RFB/CGIBS nº 4, de 30/07/2026. Os dois PDFs foram lidos no site do CGIBS (cgibs.gov.br). A data vale para os fatos geradores a partir dela.
 
-| O que | Data |
+| O que (NFS-e, destaque de IBS e CBS) | Data |
 |---|---|
-| Municípios devem autorizar emissão no padrão nacional | 1º de janeiro de 2026 |
-| NFS-e Via | 3 de agosto de 2026 (sem alteração) |
-| Serviços gerais de ISS, destaque de IBS e CBS | 1º de outubro de 2026 (sem alteração) |
-| Locação de bens, condomínio, bens imateriais fora da LC 116 e demais hipóteses | 1º de janeiro de 2027 |
-| Plataformas digitais, subitens 1.03, 1.05 e 1.09 da LC 116 e transporte coletivo municipal (16.01) | 1º de março de 2027 |
-| Simples Nacional | Parte em 1º de janeiro e parte em 1º de março de 2027 |
+| Serviços sujeitos ao ISS na lista da LC 116 que não caem nas linhas abaixo (Ato 4, art. 1º, III, "d", sem alteração pelo Ato 7) | 1º de outubro de 2026 |
+| Plataformas digitais (LC 214/2025, art. 22, § 1º, e §§ 12 a 14) | 1º de março de 2027 (era 1º/12/2026) |
+| Subitens 1.03, 1.05 e 1.09 da LC 116 | 1º de março de 2027 (era 1º/12/2026) |
+| Subitem 16.01 da LC 116 (transporte coletivo municipal) | 1º de março de 2027 (era 1º/12/2026) |
+| Bens imateriais fora da LC 116 e fora do ICMS | 1º de janeiro de 2027 (era 1º/12/2026) |
+| Taxas e outras receitas de condomínio edilício | 1º de janeiro de 2027 (era 1º/12/2026) |
+| Locações de bens móveis e locações, cessões onerosas e arrendamentos de imóveis | 1º de janeiro de 2027 (era 1º/12/2026) |
+| Demais fornecimentos de serviços | 1º de janeiro de 2027 (era 1º/12/2026) |
+| Optantes do Simples Nacional | 1º de janeiro de 2027 para as hipóteses "d" a "h" e 1º de março de 2027 para as demais (§ 1º do art. 1º, nova redação) |
+| NFS-e Via (Ato 4, inciso XIII) | 3 de agosto de 2026 |
 
-A obrigação do MEI emitir no padrão nacional vale desde 1º de setembro de 2023 para serviço a pessoa jurídica. Para ME e EPP do Simples Nacional, as fontes divergem entre novembro e setembro de 2026 (Resoluções CGSN 191 e 189 de 2026): confirme com o contador.
+Pelo texto do Ato 4, o Simples Nacional tinha 1º de janeiro de 2027 para tudo; o Ato 7 passou as hipóteses "a" a "c" (plataformas, 1.03, 1.05, 1.09 e 16.01) para 1º de março de 2027. Ainda é lido pelo texto, mas confirme no site do CGIBS se houve ato posterior a 2026-11-25.
+
+Em 2026-11-25 não foi lida uma orientação da CGNFS-e sobre rejeição pelo sistema nacional enquanto o IBS e a CBS não são informados; se o seu fluxo depende disso, leia a nota técnica vigente do portal gov.br/nfse.
+
+### Obrigação de usar o padrão nacional
+
+- **Municípios:** a LC 214/2025 obriga municípios e o Distrito Federal a autorizarem a emissão no padrão nacional a partir de 1º de janeiro de 2026 (material da Receita Federal, não relido nesta revisão); não há número oficial fixo de municípios aderentes.
+- **MEI:** vale desde 1º de setembro de 2023 para serviço a pessoa jurídica.
+- **ME e EPP do Simples Nacional:** a Resolução CGSN nº 191, de 04/08/2026 (DOU 10/08/2026), altera o art. 59 da Resolução CGSN 140/2018: a ME ou EPP optante usa obrigatoriamente a NFS-e de padrão nacional emitida pelo Emissor Nacional, por emissor web ou por API (§ 1º), com efeitos do art. 1º a partir de **1º de novembro de 2026**. O art. 2º revoga a Resolução CGSN 189/2026, que previa 1º de setembro de 2026; a divergência entre as fontes vinha dessa troca. O texto lido foi a "visão multivigente" do portal do Simples, que informa não substituir o publicado no DOU. A Resolução CGSN 190/2026 (IBS e CBS no Simples) não foi lida; confirme com o contador.
 
 ### Emitir NFS-e nacional pelo Focus NFe
 
@@ -99,4 +111,4 @@ curl -u "$FOCUS_TOKEN:" -X POST "https://homologacao.focusnfe.com.br/v2/nfse?ref
 | Município libera emissão nacional | Rota de NFS-e nacional do emissor |
 | Município com sistema próprio | Rota municipal do emissor |
 | Não sabe qual é | Consulte o município no portal gov.br/nfse e teste em homologação |
-| Prazo da reforma | Peça a data ao contador e confirme no site do CGIBS |
+| Prazo da reforma | Leia a tabela deste doc, confirme no site do CGIBS se saiu ato novo e guarde a data em configuração, não no código |

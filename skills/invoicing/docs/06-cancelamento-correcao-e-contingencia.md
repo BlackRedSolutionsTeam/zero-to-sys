@@ -61,9 +61,9 @@
 | NF-e | Até 24 horas após a autorização na documentação do Focus NFe | Os estados podem fixar prazos diferentes (há casos de 2 horas e de prazo maior com multa); confira a legislação do estado do emitente |
 | NFC-e | Até 30 minutos na documentação do Focus NFe | Confira o estado |
 | NFS-e | Definido pelo município ou pelo padrão nacional | Consulte o município; cancelar muda a apuração do ISS |
-| Carta de correção | Até 20 por NF-e, texto entre 15 e 1.000 caracteres (fontes secundárias; confirme no manual da NF-e) | Não corrige valor, imposto, destinatário nem data de emissão |
+| Carta de correção | Só NF-e (a NFC-e não permite o evento). Sequencial de 1 a 20 por NF-e (a 21ª é rejeitada com o código 594) e texto de 15 a 1.000 caracteres (MOC 7.0, tabela 5-39 e regra GA03 da tabela 5-40) | Não corrige valor, imposto, destinatário nem data de emissão; a carta mais recente substitui as anteriores, então cada nova carta repete tudo que vale |
 
-Datas conferidas em 2026-11-25; os prazos estaduais mudam, então trate esta tabela como ponto de partida.
+Conferido em 2026-11-25: o limite de 20 cartas e o tamanho do texto foram lidos no Manual de Orientação do Contribuinte (MOC 7.0, de novembro de 2020, no site do CONFAZ); o Ajuste SINIEF 7/2005 (cláusula décima quarta-A) define a carta e o que ela não pode corrigir, mas não traz esses números. O MOC pode ter notas técnicas posteriores que não foram relidas. O prazo de 24 horas da NF-e vem da cláusula décima segunda do Ajuste SINIEF 7/2005 e o de 30 minutos da NFC-e, da documentação do Focus NFe. Os prazos estaduais mudam; trate esta tabela como ponto de partida.
 
 ### Cancelar e corrigir
 
@@ -79,13 +79,14 @@ curl -u "$FOCUS_TOKEN:" -X POST "https://api.focusnfe.com.br/v2/nfe/pedido-123/c
   -d '{"correcao":"Corrigido o nome da transportadora para Transportes Exemplo Ltda"}'
 ```
 
-Confira rota, método e tamanho mínimo da justificativa na página "Cancelar" e "Emitir Carta de Correção" da documentação antes de ir a produção.
+Rotas e tamanhos conferidos em 2026-11-25 na documentação do Focus NFe: `DELETE /v2/nfe/{referencia}` com `justificativa` de 15 a 255 caracteres e `POST /v2/nfe/{referencia}/carta_correcao` com `correcao` de 15 a 1.000 caracteres; o Focus avisa que aceita até 20 correções e vale a última.
 
 ### Serviço de cancelamento no sistema
 
 ```ts
 export async function cancelarNota(notaId: string, usuarioId: string, justificativa: string) {
-  if (justificativa.trim().length < 15) throw new Error("Justificativa curta demais");
+  const tamanho = justificativa.trim().length;
+  if (tamanho < 15 || tamanho > 255) throw new Error("Justificativa curta demais");
 
   const nota = await notas.buscar(notaId);
   if (nota.estado !== "autorizada") throw new Error("Só nota autorizada pode ser cancelada");
