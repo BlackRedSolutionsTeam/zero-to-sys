@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 31 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 32 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -108,6 +108,7 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [local-dev/](skills/local-dev/) | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding | 8 |
 | [legal/](skills/legal/) | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos | 8 |
 | [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push | 9 |
+| [admin-panel/](skills/admin-panel/) | `admin-panel` | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte | 13 |
 | [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
 | [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
 | [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |

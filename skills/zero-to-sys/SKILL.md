@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, admin-panel, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -38,6 +38,7 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `local-dev` | [local-dev/](../local-dev/SKILL.md) | Ambiente local, Compose, devcontainer, .env.example e onboarding |
 | `legal` | [legal/](../legal/SKILL.md) | Termos, política de privacidade, cookies, aceite versionado e contratos |
 | `mobile-release` | [mobile-release/](../mobile-release/SKILL.md) | Contas, assinatura, EAS, lojas, regras de revisão e push |
+| `admin-panel` | [admin-panel/](../admin-panel/SKILL.md) | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte |
 | `infra` | [infra/](../infra/SKILL.md) | Onde e como pôr em produção |
 
 ## Skills sob demanda
@@ -56,6 +57,7 @@ Estas skills não têm fase fixa: chame cada uma quando a condição valer.
 | `local-dev` | Ao montar o repositório e quando alguém novo entra no time |
 | `legal` | Antes de abrir o produto ao público |
 | `mobile-release` | Quando há app mobile para publicar |
+| `admin-panel` | Quando o sistema tem clientes, cobrança ou operação que a equipe precisa gerir sem mexer no banco; entra no backlog como item próprio |
 
 ## Passo 0 — Descobrir o contexto
 

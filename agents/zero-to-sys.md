@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
+description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ai-features, invoicing, search, messaging, performance, operations, maintenance, local-dev, legal, mobile-release, admin-panel, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
 model: inherit
 ---
 
@@ -48,6 +48,7 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding |
 | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos |
 | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push |
+| `admin-panel` | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte |
 | `infra` | Deploy, hospedagem, CI/CD, banco gerenciado, segredos, backup, monitoramento, segurança |
 
 ## Como trabalhar
