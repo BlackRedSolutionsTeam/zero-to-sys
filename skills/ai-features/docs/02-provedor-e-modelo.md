@@ -70,6 +70,7 @@ Para residência de dados na API direta existe o parâmetro `inference_geo: "us"
 - **Teto de gasto mensal por nível:** US$ 500 (Start), US$ 1.000 (Build) e US$ 200.000 (Scale). Ao chegar no teto, a API devolve 429 sem `retry-after` até o dia 1 do mês seguinte (`enforced_spend_limit_reached`). Defina também o seu próprio limite no Console, abaixo do teto.
 - **Cache de entrada não conta no limite de tokens de entrada**, o que aumenta a vazão.
 - **Retenção:** a Anthropic informa apagar entradas e saídas de seus servidores em até 30 dias, com exceções (contrato de retenção zero, política de uso, lei). Conteúdo sinalizado por violação pode ser guardado por mais tempo. Dados pessoais: doc 07.
+- **Treino:** a página de privacidade da Anthropic (conferida em 2026-11-25) diz que, por padrão, entradas e saídas dos produtos comerciais, incluída a API, não são usadas para treinar modelos. Exceções: feedback ou relato de erro enviado por você (o conteúdo relacionado pode ser usado, e feedback guardado fica até 5 anos, sem vínculo com usuário) e adesão explícita. Planos de consumo seguem outras regras. Termos do seu contrato (por exemplo, retenção zero) não foram conferidos aqui: leia os da sua conta.
 
 ## Para que tipo de projeto
 

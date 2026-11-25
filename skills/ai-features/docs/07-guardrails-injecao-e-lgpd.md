@@ -107,7 +107,7 @@ export async function triarMensagem(mensagem: string) {
 | Base legal e finalidade | Registrar para que o dado vai ao modelo; consentimento ou outra base prevista na lei |
 | Minimização | Enviar só os campos necessários; pseudonimizar nomes, CPF, telefone e e-mail quando a tarefa não precisa deles |
 | Dado sensível (saúde, biometria, menores) | Base legal específica, revisão jurídica e, se possível, dispensar o dado do prompt |
-| Provedor como operador | Contrato e política de privacidade do provedor revisados; a Anthropic informa apagar entradas e saídas em até 30 dias, com exceções (retenção zero por contrato, política de uso, lei); confira os termos da sua conta |
+| Provedor como operador | Contrato e política de privacidade do provedor revisados; a Anthropic informa apagar entradas e saídas em até 30 dias, com exceções (retenção zero por contrato, política de uso, lei); por padrão a API não treina modelos com seus dados, salvo feedback enviado ou adesão (conferido em 2026-11-25); confira os termos da sua conta |
 | Transferência internacional | A API direta processa fora do Brasil; avalie cláusulas e a opção `inference_geo` só para os EUA (doc 02); não há processamento no Brasil na API direta |
 | Direitos do titular | Se há dado pessoal em vetores de RAG ou em logs, apague junto com o documento e o registro |
 | Logs | Sem dado pessoal, ou com prazo curto e acesso restrito |
