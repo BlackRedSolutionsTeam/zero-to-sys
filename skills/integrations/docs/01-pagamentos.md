@@ -8,7 +8,7 @@
 | **Categoria** | Integrações |
 | **Tipo** | Prática de integração com serviço externo |
 | **Vale para** | Node, Python, .NET, Java, Laravel, Go; Stripe, Mercado Pago, Asaas, AbacatePay |
-| **Verificado em** | 2026-11-24 |
+| **Verificado em** | 2026-11-25 |
 
 ## O que é
 
@@ -54,7 +54,7 @@ Taxas mudam e dependem do seu volume e da forma de pagamento. Em todos os casos:
 | Provedor | Quando escolher | O que a documentação oficial confirma |
 |---|---|---|
 | Stripe | Venda internacional, SaaS com assinatura, quer a melhor API | Checkout com mais de 125 formas de pagamento locais, Billing para assinaturas, Connect para marketplace; Pix aceito em conta Stripe do Brasil (e de outros países listados), exceto alguns ramos (a doc proíbe, por exemplo, serviços médicos, MCC 8099; confira o seu); Pix Automático para recorrência |
-| Mercado Pago | Público brasileiro que já usa a carteira Mercado Pago | Checkout Pro com cartão, Pix, boleto e conta Mercado Pago; assinaturas com tópicos próprios de webhook |
+| Mercado Pago | Público brasileiro que já usa a carteira Mercado Pago | Checkout Pro com cartão, Pix, boleto e conta Mercado Pago; Pix direto por API; assinaturas com tópicos próprios de webhook |
 | Asaas | Cobrança brasileira com boleto, Pix e cartão; clínica, escola, serviço recorrente | API com Pix, boleto, cartão de crédito e débito e TED; assinaturas; split (habilitado em Integrações > Segurança); sandbox próprio |
 | AbacatePay | Pix simples, MVP, quer começar rápido | Pix, cartão e boleto no checkout; cobrança Pix transparente por API; assinaturas; split em até 10 partes; Modo Teste sem verificar a conta |
 
@@ -131,6 +131,10 @@ app.post("/webhooks/stripe", express.raw({ type: "application/json" }), async (r
 ```
 
 `registrarSeNovo` grava o `evento.id` numa tabela com chave única e devolve `false` se já existir. O trabalho pesado (marcar `pago`, confirmar o agendamento, mandar e-mail) vai para a fila ([05-filas-e-jobs.md](05-filas-e-jobs.md)), na mesma transação do registro quando possível ([transações e outbox](../../data/docs/09-transacoes-e-concorrencia.md)). Teste local: `stripe listen --forward-to localhost:3000/webhooks/stripe`.
+
+### Equivalente com Pix: Mercado Pago
+
+Cobrança: `POST https://api.mercadopago.com/v1/payments` com `Authorization: Bearer <access token>`, header `X-Idempotency-Key` e `payment_method_id: "pix"` (a documentação também descreve a API de Orders, `POST /v1/orders`, com `payment_method.id: "pix"`). Sem `date_of_expiration` o Pix vence em 24 horas; o valor aceito fica entre 30 minutos e 30 dias após a emissão. Webhook: em Suas integrações, escolha a aplicação e vá em Webhooks > Configurar notificações, com URLs separadas para teste e produção, e marque o tópico `payment` ("Pagamentos"). A notificação traz só o `data.id`: consulte `GET /v1/payments/{id}` para ler o status. Responda 200 ou 201; senão o Mercado Pago reenvia a cada 15 minutos. O header `x-signature` vem como `ts=...,v1=...`; valide com o `x-request-id`, o `data.id` da query e a chave secreta gerada ao salvar o webhook (o SDK oficial tem `WebhookSignatureValidator`) e responda 401 se falhar.
 
 ### Equivalente com Pix: Asaas
 

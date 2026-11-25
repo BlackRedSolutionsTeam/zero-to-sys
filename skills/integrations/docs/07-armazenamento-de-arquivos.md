@@ -119,7 +119,7 @@ Imagens: gere versões menores (miniatura, tamanho de tela) em um job em fila ([
 |---|---|---|
 | Node | `@aws-sdk/client-s3` | sharp |
 | Python | boto3 | Pillow |
-| .NET | AWSSDK.S3 | ImageSharp (confira a licença para uso comercial) |
+| .NET | AWSSDK.S3 | ImageSharp (Apache 2.0 só em projeto open source ou com receita abaixo de US$ 1 milhão por ano; fora disso, licença comercial paga da Six Labors, conferido em 2026-11-25) |
 | Java | AWS SDK for Java v2 | Thumbnailator ou ImageIO |
 | Laravel | Flysystem S3 (`Storage::temporaryUrl`) | Intervention Image |
 | Go | aws-sdk-go-v2 | disintegration/imaging |

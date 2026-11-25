@@ -78,16 +78,16 @@ create table import_errors (
 );
 ```
 
-Bibliotecas por stack (confira a licença antes de usar em produto comercial):
+Bibliotecas por stack, com a licença conferida nos repositórios oficiais e nos registros em 2026-11-25 (confirme de novo antes de adotar, pois licenças mudam):
 
 | Stack | CSV | XLSX | Observação |
 |---|---|---|---|
-| Node | Papa Parse (MIT) | SheetJS CE (Apache 2.0), ExcelJS | ExcelJS tem leitura e escrita em streaming |
-| Python | pandas, módulo `csv` | openpyxl, pandas | pandas carrega tudo; use `chunksize` em CSV grande |
-| .NET | MiniExcel, CsvHelper | ClosedXML, MiniExcel, EPPlus | EPPlus 5 em diante usa Polyform Noncommercial: uso comercial exige licença paga |
-| Java | Apache Commons CSV | Apache POI | Confira a licença na página de cada um |
-| Laravel | Laravel Excel | Laravel Excel | Fila e chunks embutidos |
-| Go | `encoding/csv` | excelize | Confira a licença na página de cada um |
+| Node | Papa Parse (MIT) | SheetJS CE (Apache 2.0), ExcelJS (MIT) | ExcelJS tem leitura e escrita em streaming. O pacote `xlsx` no npm está parado na 0.18.5; a versão atual do SheetJS CE sai pelo cdn.sheetjs.com |
+| Python | pandas (BSD-3-Clause), módulo `csv` | openpyxl (MIT), pandas | pandas carrega tudo; use `chunksize` em CSV grande |
+| .NET | MiniExcel (Apache 2.0), CsvHelper (MS-PL ou Apache 2.0) | ClosedXML (MIT), MiniExcel, EPPlus | Restrição comercial: EPPlus 5 em diante usa Polyform Noncommercial 1.0.0, e o uso comercial exige licença paga. Prefira ClosedXML ou MiniExcel |
+| Java | Apache Commons CSV | Apache POI (Apache 2.0) | Apache Commons CSV também é Apache 2.0 |
+| Laravel | Laravel Excel (MIT) | Laravel Excel (MIT) | Fila e chunks embutidos |
+| Go | `encoding/csv` | excelize (BSD-3-Clause) | Biblioteca padrão e excelize têm licença permissiva |
 
 Leitura de CSV em streaming com validação (Node):
 

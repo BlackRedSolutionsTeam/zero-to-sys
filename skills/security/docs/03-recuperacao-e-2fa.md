@@ -16,7 +16,7 @@
 
 **2FA** (segundo fator) exige algo além da senha:
 
-- **TOTP** (RFC 6238): código de 6 dígitos que muda a cada 30 segundos, gerado por app autenticador.
+- **TOTP** (RFC 6238): código (em geral de 6 dígitos) que muda a cada 30 segundos, gerado por app autenticador.
 - **Passkey / WebAuthn:** chave criptográfica guardada no aparelho ou no gerenciador de senhas, confirmada por biometria. Não dá para ser enganado por site falso.
 - **Códigos de recuperação:** lista de códigos de uso único, para quem perdeu o aparelho.
 - **SMS:** código por mensagem. O mais fraco, por causa de SIM swap (o golpista transfere o número para outro chip).
@@ -137,7 +137,7 @@ No cadastro, a verificação de e-mail usa o mesmo desenho: token aleatório, ha
 | Stack | Caminho |
 |---|---|
 | Better Auth | Plugin de 2FA da própria biblioteca (TOTP e códigos de recuperação) |
-| Auth.js | Sem 2FA pronto; use passkeys (provider WebAuthn) ou monte o TOTP |
+| Auth.js | Sem 2FA pronto; passkeys pelo provider WebAuthn, que a doc marca como experimental, ou monte o TOTP |
 | ASP.NET Core Identity | Suporte a autenticador TOTP e códigos de recuperação embutido |
 | Django | Pacote de terceiros para TOTP, por exemplo django-otp |
 | Laravel | Fortify traz 2FA com TOTP e códigos de recuperação |

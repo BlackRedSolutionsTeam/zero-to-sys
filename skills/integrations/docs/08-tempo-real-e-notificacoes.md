@@ -48,10 +48,10 @@ Tempo real é o servidor avisar o cliente quando algo muda, sem o usuário recar
 - **Comece pelo mais simples:** SSE cobre a maioria dos avisos de um SaaS.
 - **Serviço gerenciado** quando você não quer operar conexões abertas. Planos grátis (conferidos em 2026-11-24):
 
-| Serviço | Plano grátis |
+| Serviço | Plano grátis (conferido em 2026-11-25) |
 |---|---|
 | Pusher Channels | 200 mil mensagens por dia e 100 conexões simultâneas |
-| Ably | Até 500 usuários ativos por mês; limites de mensagens na política de uso justo |
+| Ably | Até 500 usuários ativos por mês; limites de mensagens, conexões e canais na política de uso justo (consulte o limite atual na página de preços) |
 | Supabase Realtime | 200 conexões simultâneas e 2 milhões de mensagens por mês |
 | Liveblocks | 10 conexões por sala, 500 salas ativas por mês; exige a marca Liveblocks |
 

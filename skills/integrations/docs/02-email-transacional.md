@@ -8,7 +8,7 @@
 | **Categoria** | Integrações |
 | **Tipo** | Prática de integração com serviço externo |
 | **Vale para** | Node, Python, .NET, Java, Laravel, Go |
-| **Verificado em** | 2026-11-24 |
+| **Verificado em** | 2026-11-25 |
 
 ## O que é
 
@@ -63,13 +63,13 @@ Para enviar, você usa um serviço (Resend, Postmark, SES...) por API ou SMTP. M
 
 Limites mudam: confira a página oficial antes de decidir.
 
-| Serviço | Plano grátis (conferido em 2026-11-24) | Observação |
+| Serviço | Plano grátis (conferido em 2026-11-25) | Observação |
 |---|---|---|
 | Resend | 3.000 e-mails por mês, 100 por dia, 3 domínios, 1 endpoint de webhook | Mesma equipe do React Email |
-| Postmark | 100 e-mails por mês, sem excedente | Separa transacional e broadcast |
-| Amazon SES | Não há cota de e-mails grátis na página de preços; crédito de até US$ 200 para contas novas por 6 meses | Conta nova nasce em sandbox |
+| Postmark | 100 e-mails por mês, sem excedente; plano Basic pago a partir de US$ 15 por mês com 10.000 e-mails | Separa transacional e broadcast |
+| Amazon SES | Não há cota de e-mails grátis na página de preços; contas novas recebem até US$ 200 em créditos, com plano grátis por 6 meses e créditos usáveis em até 12 meses. Depois, US$ 0,16 por 1.000 e-mails no plano Essentials (até 10 milhões por mês) | Conta nova nasce em sandbox |
 | Mailgun | 100 por dia, 1 domínio, logs por 1 dia | API e SMTP |
-| Brevo | Não consegui conferir; consulte o preço atual | Consulte a página oficial |
+| Brevo | 300 e-mails por dia, segundo páginas do próprio Brevo; a página de preços não expôs o valor, então confirme lá | Envio liberado após aprovação da conta |
 
 **Sandbox da SES:** conta nova só envia para endereços verificados, até 200 mensagens por 24 horas e 1 por segundo. É preciso pedir acesso de produção (resposta inicial em até 96 horas).
 
@@ -110,7 +110,7 @@ O `throw` faz a fila tentar de novo com espera crescente. No Resend a chave tem 
 - **Bounce:** o endereço não existe ou a caixa está cheia. Marque `emailValido = false` e pare de enviar.
 - **Complaint:** o destinatário apertou "é spam". Pare de enviar mensagens opcionais para ele.
 
-Cada serviço tem webhooks para esses eventos; cadastre uma rota, verifique a assinatura e trate como em [04-webhooks.md](04-webhooks.md). No Resend os eventos são `email.bounced` e `email.complained`; nos outros serviços, confira os nomes na documentação. A SES exige um processo para tratar bounce e complaint já no pedido de produção.
+Cada serviço tem webhooks para esses eventos; cadastre uma rota, verifique a assinatura e trate como em [04-webhooks.md](04-webhooks.md). No Resend os eventos são `email.bounced` e `email.complained`; na Postmark há webhooks próprios de bounce e de spam complaint; na SES, os eventos `Bounce` e `Complaint` chegam por SNS (campo `eventType`, ou `notificationType` sem event publishing), e só os bounces `Permanent` pedem remover o endereço. Nos demais, confira os nomes na documentação. A SES exige um processo para tratar bounce e complaint já no pedido de produção.
 
 ### Templates
 
@@ -128,7 +128,7 @@ O link leva um token aleatório, de uso único e com validade curta. Grave apena
 
 Não mande e-mail de verdade em dev. Use um servidor SMTP falso que captura tudo:
 
-| Ferramenta | Estado (conferido em 2026-11-24) |
+| Ferramenta | Estado (conferido em 2026-11-25) |
 |---|---|
 | Mailpit | Ativo: último push em 2026-11-23, versão v1.34.0 de 2026-11-17. SMTP na porta 1025, interface web na 8025, imagem Docker `axllent/mailpit` |
 | MailHog | Parado: última versão v1.0.1 em 2020-08-11, último push em 2024-02-13. Prefira o Mailpit |

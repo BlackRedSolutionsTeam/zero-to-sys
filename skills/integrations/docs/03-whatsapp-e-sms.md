@@ -8,7 +8,7 @@
 | **Categoria** | Integrações |
 | **Tipo** | Prática de integração de mensagens |
 | **Vale para** | Node, Python, .NET, Java, Laravel e Go; exemplos em TypeScript |
-| **Verificado em** | 2026-11-24 |
+| **Verificado em** | 2026-11-25 |
 
 ## O que é
 
@@ -82,7 +82,7 @@ create table contact_consent (
 );
 ```
 
-Envio de lembrete (a Cloud API recebe `POST /<PHONE_NUMBER_ID>/messages` em `graph.facebook.com`, com `messaging_product: "whatsapp"`, `to`, `type: "template"` e o objeto `template`; confira o formato do objeto na referência da Messages API):
+Envio de lembrete (a Cloud API recebe `POST /<PHONE_NUMBER_ID>/messages` em `graph.facebook.com`, com `messaging_product: "whatsapp"`, `to`, `type: "template"` e o objeto `template`; o corpo do template usa `components` com `type: "body"` e parâmetros `type: "text"`, na ordem dos placeholders):
 
 ```typescript
 async function sendReminder(patient: Patient, appointment: Appointment) {
@@ -107,7 +107,31 @@ async function sendReminder(patient: Patient, appointment: Appointment) {
 }
 ```
 
-Cada envio fica em log com o id da mensagem. O status (entregue, lido, falhou) chega por [webhook](04-webhooks.md).
+```typescript
+function buildReminderPayload(patient: Patient, appointment: Appointment) {
+  return {
+    messaging_product: "whatsapp",
+    to: patient.phone,
+    type: "template",
+    template: {
+      name: "appointment_reminder",
+      language: { code: "pt_BR" },
+      components: [
+        {
+          type: "body",
+          parameters: [
+            { type: "text", text: patient.name },
+            { type: "text", text: appointment.doctorName },
+            { type: "text", text: appointment.startsAtLabel },
+          ],
+        },
+      ],
+    },
+  };
+}
+```
+
+O `name` e o `language.code` precisam ser os do template aprovado; `to` vai com o código do país (por exemplo `5511999999999`). Cada envio fica em log com o id da mensagem. O status (entregue, lido, falhou) chega por [webhook](04-webhooks.md).
 
 Escolha do canal, em ordem de custo para o lembrete:
 

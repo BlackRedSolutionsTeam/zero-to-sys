@@ -69,8 +69,8 @@ Opções, todas conferidas na documentação oficial:
 | Graphile Worker (Node) | Postgres | Fila para Node e Postgres; retries com backoff exponencial (padrão de 25 tentativas em cerca de três dias), agendamento estilo cron e `SKIP LOCKED` |
 | River (Go, também outras linguagens) | Postgres ou SQLite | Enfileira em transação; retries, jobs únicos, jobs periódicos |
 | BullMQ (Node) | Redis 6.2+ (ou Postgres 13+) | Retry com backoff, job schedulers com cron; at-least-once |
-| Inngest | Serviço | Plano grátis: 50.000 execuções por mês e 5 passos simultâneos |
-| Trigger.dev | Serviço | Plano grátis: US$ 5 de crédito de computação por mês, 20 execuções simultâneas |
+| Inngest | Serviço | Plano grátis (conferido em 2026-11-25): 50.000 execuções por mês (cada passo conta como uma), 5 passos simultâneos e 24 horas de histórico de logs |
+| Trigger.dev | Serviço | Plano grátis (conferido em 2026-11-25): US$ 5 de crédito de computação por mês, 20 execuções simultâneas e 1 dia de retenção de logs |
 
 Preços e limites mudam; confirme na página oficial antes de decidir.
 
