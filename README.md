@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 11 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 12 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -84,6 +84,7 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [product/](skills/product/) | `product` | O que construir: escopo do MVP, fluxos, regras de negócio, histórias com critérios de aceite e backlog | 7 |
 | [stacks/](skills/stacks/) | `stacks` | Qual stack usar em cada tipo de projeto e em qual área cada uma funciona melhor | 12 |
 | [architecture/](skills/architecture/) | `architecture` | Como organizar pastas e arquivos para ser fácil achar e manter, pela documentação oficial de cada stack | 13 |
+| [data/](skills/data/) | `data` | Como modelar tabelas, migrations, multiempresa, auditoria, índices, transações e LGPD no banco | 10 |
 | [coding/](skills/coding/) | `coding` | Como escrever código simples, bem organizado e bem modularizado | 12 |
 | [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 13 |
 | [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 12 |
@@ -99,6 +100,7 @@ A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa or
 0. **[product/](skills/product/SKILL.md):** defina o que construir: MVP, regras de negócio e backlog.
 1. **[stacks/](skills/stacks/SKILL.md):** escolha a stack pelo tipo de projeto.
 2. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
+   **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
 3. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
 4. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
 5. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
