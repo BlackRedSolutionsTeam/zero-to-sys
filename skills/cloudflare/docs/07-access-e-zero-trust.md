@@ -57,7 +57,7 @@ No exemplo do plugin, a clínica de clinica-exemplo.com.br tem `coolify.clinica-
 - **Não serve para público aberto:** cliente final não deve passar por ele.
 - **Webhooks de terceiros** (pagamento, e-mail) não fazem login: exclua o caminho deles da aplicação ou use service token quando o remetente permitir mandar cabeçalhos.
 - **Origem ainda exposta:** se o IP do servidor responde direto, o Access é contornado. Feche a origem como em [Tunnel e proteção da origem](06-tunnel-e-protecao-da-origem.md).
-- **Limite de usuários do plano grátis:** o número exato não foi conferido nesta verificação (as páginas de plano não mostraram o valor). Consulte https://www.cloudflare.com/plans/zero-trust-services/ e a página de preços do Zero Trust antes de contar com ele.
+- **Limite de usuários do plano grátis:** até 50 usuários (conferido em 2026-11-25 em cloudflare.com/plans/zero-trust-services). Acima disso, o plano pago por uso custa US$ 7 por usuário por mês; o contrato anual tem preço sob consulta.
 
 ## Como começar
 

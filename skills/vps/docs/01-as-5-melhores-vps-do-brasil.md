@@ -181,7 +181,8 @@ Sem domínio nem backup externo.
 | AWS Lightsail (região São Paulo) | Entrada nos EUA: US$ 5,00/mês, 2 vCPU, 0,5 GB, 20 GB, 1 TB; preço em São Paulo: não informado na página, que diz metade da franquia de transferência | Você já usa AWS ou precisa de serviços gerenciados |
 | DigitalOcean | US$ 4,00/mês, 1 vCPU, 512 MiB, 10 GiB, 500 GiB; sem Brasil na lista de datacenters | Preço em dólar e API madura; latência maior |
 | Hetzner | A partir de € 5,49/mês sem IVA; sem Brasil na lista (Alemanha, Finlândia, Singapura, EUA) | Mais recursos por real e aceitar latência maior |
-| Oracle Cloud, Vultr | não conferido (página bloqueou a leitura) | Confira antes de decidir |
+| Oracle Cloud (região São Paulo) | Always Free: 2 VMs AMD com 1/8 de OCPU e 1 GB cada, e Arm Ampere A1 com 1.500 horas de OCPU e 9.000 GB-hora por mês (equivale a 2 OCPU e 12 GB ligados o mês todo) | Testar ou rodar algo pequeno de graça; conta exige cartão e a capacidade grátis pode faltar na região |
+| Vultr (São Paulo) | Cloud Compute a partir de US$ 2,50/mês (Regular Performance) ou US$ 6/mês (High Performance); São Paulo na lista de locais | VPS em dólar com datacenter em São Paulo e API madura |
 
 ## Como começar
 

@@ -79,7 +79,15 @@ Exemplo do plugin: a clínica usa `clinica-exemplo.com.br` registrado no Registr
 
 ### 3. Registre no Registro.br
 
-Conferido em 2026-11-25 na página inicial: R$ 40,00 por ano. O Registro.br pede cadastro com CPF ou CNPJ do titular, então use os dados do cliente. O fluxo exato de telas, os prazos de ativação e as regras de renovação mudam; siga a Central de Ajuda em registro.br/ajuda, que não consegui abrir por extenso nesta verificação.
+Conferido em 2026-11-25 em registro.br (páginas "Pagamento de domínio" e "Regras do domínio"):
+
+- **Preço:** R$ 40,00 por 1 ano, R$ 76,00 por 2, R$ 112,00 por 3, até R$ 364,00 por 10 anos.
+- **Quem pode registrar:** pessoa física (CPF) ou jurídica (CNPJ) estabelecida no Brasil com cadastro regular. Use os dados do cliente.
+- **Nome:** de 2 a 26 caracteres, letras, números, hífen e acentos do português; não pode ser só números nem começar ou terminar com hífen. Nomes que só diferem por acento ou hífen contam como o mesmo.
+- **DNS:** o registro só é efetivado com pelo menos dois servidores DNS respondendo pelo domínio (os da Cloudflare atendem).
+- **Pagamento:** Pix, cartão Visa ou MasterCard e boleto.
+- **Nota fiscal:** o Registro.br não emite nota fiscal; emite "fatura de registro". Avise o cliente que precisa de nota para a contabilidade.
+- **Nome não muda depois de registrado:** para outro nome, é um novo registro.
 
 Ordem prática:
 

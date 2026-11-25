@@ -57,13 +57,14 @@ Termos: **registrar** é a empresa onde você registra e paga o domínio. **Titu
 
 ## Prazos do Registro.br
 
-Conferido em 2026-11-25 em fonte secundária (Locaweb e HomeHost); o texto do registro.br não pôde ser lido nesta verificação, então confirme no site.
+Conferido em 2026-11-25 em registro.br (páginas "Pagamento de domínio", "Domínio congelado" e "Processo de liberação"):
 
-- A fatura de renovação é emitida cerca de 60 dias antes do vencimento.
-- Após o vencimento há cerca de 14 dias de expiração, com o domínio ainda no ar.
-- Depois vem o congelamento, de até 90 dias: o domínio sai do ar mas continua seu, e pagar a renovação o reativa.
-- Passado o período, o domínio é liberado para novo registro pelo processo do Registro.br.
-- O valor anual aparece na fatura do Registro.br. Não o copie daqui; consulte a página oficial.
+- O aviso de cobrança vai por e-mail para os contatos do domínio no registro e **30 dias antes de cada expiração**. Não há boleto pelo correio: e-mail de contato desatualizado é a causa mais comum de domínio perdido.
+- Sem pagamento, o domínio é **congelado** (sai do ar) e, depois de um período, entra no **processo de liberação** para novo registro. Os processos são mensais (próximos: 09/12/2026 e 13/01/2027) e, se houver mais de um interessado, o domínio pode ir a leilão (processo competitivo, ofertas a partir de R$ 50,00).
+- Domínio congelado pode ser publicado de novo por pouco tempo com a **extensão de pagamento**, que só pode ser usada uma vez, em emergência.
+- Quem fica devendo a primeira manutenção de um domínio não consegue registrar outros.
+- A duração exata de cada fase não aparece nessas páginas; fontes de terceiros (Locaweb, HomeHost) falam em cerca de 14 dias até o congelamento e até 90 dias congelado. Confirme no registro.br antes de prometer prazo.
+- Valores de renovação: os mesmos do registro (R$ 40,00 por ano, R$ 364,00 por 10 anos). Renovar por vários anos reduz o risco de esquecer.
 
 Em registrars de `.com` e `.app` o ciclo é outro (renovação, resgate, exclusão) e muda por empresa. Leia a política do seu registrar.
 
