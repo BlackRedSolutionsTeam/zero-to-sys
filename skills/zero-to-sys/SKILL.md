@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
+description: Orquestra a criação de um sistema do zero até produção, decidindo a ordem em que as outras skills deste repositório entram (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ia, code-indexes, coding, user-experience, design-systems, design, infra) a partir do contexto do projeto, e depois conduz a construção das funcionalidades do backlog uma a uma (dados, back, tela, testes, staging) com uma definição de pronto. Use sempre que o usuário pedir para "criar um sistema do zero", "começar um projeto novo", "montar um SaaS/app/site do zero", "por onde eu começo", "monta tudo para mim", "constrói o backlog", "implementa a próxima funcionalidade" ou invocar /zero-to-sys; também quando um projeto existente precisa ser reorganizado de ponta a ponta.
 ---
 
 # zero-to-sys
@@ -24,6 +24,10 @@ Skill principal. Não decide stack, pasta, código, visual nem infra: ela descob
 | `user-experience` | [user-experience/](../user-experience/SKILL.md) | Como a experiência muda entre celular, tablet e desktop |
 | `design-systems` | [design-systems/](../design-systems/SKILL.md) | Qual layout cada tela deve ter, com exemplo pronto |
 | `design` | [design/](../design/SKILL.md) | Quais UI kits e ícones usar |
+| `domains` | [domains/](../domains/SKILL.md) | Como registrar e configurar o domínio e o e-mail dele |
+| `cloudflare` | [cloudflare/](../cloudflare/SKILL.md) | Como pôr a Cloudflare na frente do sistema |
+| `vps` | [vps/](../vps/SKILL.md) | Qual VPS no Brasil e como preparar o servidor |
+| `nginx` | [nginx/](../nginx/SKILL.md) | Como configurar o nginx no servidor |
 | `infra` | [infra/](../infra/SKILL.md) | Onde e como pôr em produção |
 
 ## Passo 0 — Descobrir o contexto
@@ -52,6 +56,7 @@ Os pontos acima dizem como construir. Antes de fixar a stack, entenda também o 
 | Funcionalidades principais | As 3 a 5 coisas que o usuário faz no dia a dia; o fluxo principal, passo a passo | Módulos e pastas, ordem de construção |
 | Dados | O que guarda, volume esperado, dados pessoais ou sensíveis, histórico e auditoria | Banco, backup, LGPD, segurança |
 | Integrações | Pagamento, e-mail, WhatsApp, ERP, APIs de terceiros, importar planilha | Stack do backend, segredos, MCP |
+| Domínio | Já tem domínio? Em nome de quem? E-mail com o domínio da empresa? | `domains`, `cloudflare` |
 | Tempo real e tarefas em segundo plano | Notificações, chat, painéis ao vivo, relatórios demorados, rotinas agendadas | Stack, filas, infra |
 | Onde o usuário usa | Navegador no computador, celular, app instalado, offline | Web, mobile ou desktop; design |
 | Visual | Marca, cores, referências de sites que o cliente gosta | `design` |
@@ -81,7 +86,7 @@ Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos.
 | 5 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
 | 6 | `coding`, depois `security` e `quality` | Stack, árvore, `CLAUDE.md`, papéis do produto | Lint e format, padrão de erros, validação na borda, Conventional Commits (`coding`); login, sessão, papéis e permissões base, rate limit e auditoria de dependências (`security`, pule em site sem login); CI com os gates de testes (`quality`) | Nunca em `coding` e `quality` |
 | 7 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, fluxos da fase 0, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca (`design-systems`); UI kit e set de ícones para montá-las (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
-| 8 | `infra` | Stack, porte, restrições | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 8 parcial) |
+| 8 | `infra`, com `domains` e `cloudflare`; em servidor próprio, `vps` e `nginx` | Stack, porte, restrições, domínio | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base (`infra`); domínio, DNS e e-mail do domínio (`domains`); borda com SSL, cache e WAF (`cloudflare`); VPS preparada e nginx com HTTPS, quando não for PaaS (`vps`, `nginx`) | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 8 parcial) |
 | 9 | Construção (ciclo abaixo) | `BACKLOG.md` e tudo o que as fases 0 a 8 montaram | Cada item do backlog pronto, testado e em staging | Nunca: é aqui que o sistema existe |
 
 Depois da fase 8, volte à `ia` uma vez: com o projeto rodando, veja os sinais de "Quando criar cada recurso" (skills, subagentes, hooks, MCP) e proponha o que fizer sentido.

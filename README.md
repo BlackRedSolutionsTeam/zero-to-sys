@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code: as 17 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+O repositório é um plugin do Claude Code: as 21 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
 
 ### 1. Instalar
 
@@ -94,6 +94,10 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 | [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 15 |
 | [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 14 |
 | [design/](skills/design/) | `design` | Quais UI kits e ícones gratuitos usar para um visual profissional | 7 |
+| [domains/](skills/domains/) | `domains` | Como registrar e configurar o domínio, o DNS e o e-mail do domínio | 7 |
+| [cloudflare/](skills/cloudflare/) | `cloudflare` | Como configurar a Cloudflare: DNS, SSL, cache, WAF, Tunnel, Access, Pages e R2 | 10 |
+| [vps/](skills/vps/) | `vps` | Qual VPS contratar no Brasil e como preparar o servidor | 8 |
+| [nginx/](skills/nginx/) | `nginx` | Como configurar o nginx com HTTPS, limites, hardening e sem CVE aberto | 11 |
 | [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
 | [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
 | [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |

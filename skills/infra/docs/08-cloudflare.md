@@ -12,6 +12,8 @@
 | **Licença** | Serviço proprietário |
 | **Verificado em** | 2026-11-24 |
 
+> Para a configuração completa (SSL Full strict, cache, WAF, Tunnel, Access, Pages, R2, IaC), use a skill [cloudflare](../../cloudflare/SKILL.md). Este doc é o resumo para a decisão de infra.
+
 ## O que é
 
 Você muda os servidores de nome do domínio para a Cloudflare. A partir daí o tráfego passa por ela: ela responde o DNS, guarda cópias de arquivos estáticos perto do usuário, bloqueia ataques conhecidos e esconde o IP real da origem.

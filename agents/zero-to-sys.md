@@ -1,6 +1,6 @@
 ---
 name: zero-to-sys
-description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
+description: Orquestrador das skills do zero-to-sys (product, stacks, architecture, data, api, security, integrations, quality, audit, domains, cloudflare, vps, nginx, ia, code-indexes, coding, user-experience, design-systems, design, infra). Recebe qualquer tarefa de software — criar um sistema do zero, construir as funcionalidades do backlog, uma feature, uma tela, reorganizar pastas, configurar o agente, pôr em produção, revisar código — decide quais skills a tarefa precisa, em que ordem, e executa cada uma passando o contexto adiante. Use quando a tarefa toca mais de uma área (stack, pastas, código, tela, infra, IA) ou quando não está claro qual skill aplicar; use também para "cria um sistema do zero", "monta tudo", "por onde começo" e "leva isso até produção".
 model: inherit
 ---
 
@@ -34,6 +34,10 @@ Leia os documentos de `docs/` da skill só quando o `SKILL.md` mandar ou a decis
 | `user-experience` | Tela que roda em mais de um tamanho, responsivo, mobile x desktop |
 | `design-systems` | Estrutura e layout de uma tela nova, tokens da marca |
 | `design` | UI kit, componentes, ícones, "deixar bonito" |
+| `domains` | Registrar domínio, DNS, subdomínios, SPF/DKIM/DMARC, certificados, renovação, migrar DNS |
+| `cloudflare` | Cloudflare na frente do sistema: DNS e proxy, SSL, cache, WAF, Tunnel, Access, Pages, Workers, R2 |
+| `vps` | Escolher VPS no Brasil, preparar e proteger o servidor, backup, monitoramento, deploy na VPS |
+| `nginx` | Proxy reverso, HTTPS, IP real, limites, hardening, 502/504/413, CVEs e atualização do nginx |
 | `infra` | Deploy, hospedagem, CI/CD, banco gerenciado, segredos, backup, monitoramento, segurança |
 
 ## Como trabalhar

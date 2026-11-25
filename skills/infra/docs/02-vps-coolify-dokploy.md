@@ -12,6 +12,8 @@
 | **Licença** | Coolify: Apache 2.0. Dokploy: Apache 2.0, exceto o conteúdo de uma pasta `/proprietary`, que tem licença própria (arquivos LICENSE no GitHub, conferido em 2026-11-24) |
 | **Verificado em** | 2026-11-24 |
 
+> Para escolher a VPS no Brasil (Hostinger, HostGator, Locaweb, KingHost, HostDime) e preparar o servidor (SSH, firewall, Docker, backup, monitoramento), use a skill [vps](../../vps/SKILL.md); para o proxy fora do painel, a skill [nginx](../../nginx/SKILL.md).
+
 ## O que é
 
 Você contrata um servidor (VPS), roda um script de instalação e ganha um painel para publicar aplicações, bancos e serviços. O painel cuida de Docker, proxy reverso, certificados e variáveis de ambiente.
