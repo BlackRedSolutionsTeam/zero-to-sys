@@ -46,7 +46,7 @@ Guia para quem precisa dos documentos e dos registros jurídicos do produto: o q
 
 - [ ] Política de privacidade em URL fixa, com data e versão, linkada no rodapé e no cadastro, baseada no mapa de dados.
 - [ ] Termos de uso e, se houver venda, regras de cancelamento, arrependimento e reembolso que o sistema realmente cumpre.
-- [ ] Nenhuma tag de analytics ou anúncio carrega antes do aceite; recusar é tão fácil quanto aceitar; há link "Preferências de cookies" no rodapé.
+- [ ] Nenhuma tag não necessária baseada em consentimento (anúncio, pixel, analytics com perfil) carrega antes do aceite; o primeiro nível do banner tem "Rejeitar cookies não necessários" com o mesmo destaque de aceitar; há link "Preferências de cookies" no rodapé.
 - [ ] Aceite gravado por usuário, documento e versão, sem edição de linhas antigas.
 - [ ] Canal do titular público, com prazo e responsável; encarregado indicado ou dispensa decidida com o advogado.
 - [ ] Lista de suboperadores atualizada, com país, e contrato de operador nos clientes B2B.
@@ -66,4 +66,4 @@ Regulação setorial (saúde, financeiro, jogos, educação), contratos societá
 
 ## Validade dos dados
 
-Leis, resoluções e guias da ANPD foram conferidos em 2026-11-25 (LGPD no Planalto; guia de cookies da ANPD de 2022 pela página oficial e por resumos; Resolução CD/ANPD nº 18/2024, nº 2/2022 e nº 19/2024 por resumos de escritórios e notícias; Lei 15.211/2025 por notícias). A regulamentação dos direitos dos titulares estava em elaboração na agenda 2025-2026. Cada documento tem a linha "Verificado em".
+Leis, resoluções e guias da ANPD foram conferidos em 2026-11-25 (guia de cookies da ANPD, v1.0 de out/2022, lido inteiro no PDF oficial; Resolução CD/ANPD nº 18/2024 no DOU; nº 2/2022 e nº 19/2024 no gov.br/anpd; LGPD e Lei 15.211/2025 no texto atualizado da Câmara dos Deputados, porque o Planalto não respondeu). Os demais docs podem ter conferência própria. A regulamentação dos direitos dos titulares estava em elaboração na agenda 2025-2026. Cada documento tem a linha "Verificado em".
