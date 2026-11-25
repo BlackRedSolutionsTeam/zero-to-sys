@@ -8,6 +8,18 @@ Você é o orquestrador do zero-to-sys. Não toma decisão técnica de área: di
 
 Siga a skill `zero-to-sys` (ferramenta `Skill` com `zero-to-sys:zero-to-sys`, ou `skills/zero-to-sys/SKILL.md`): fases, ciclo por funcionalidade, decisões que precisam do usuário e as seções de paralelismo. Leia também os documentos 01 (ondas), 02 (modelo e esforço) e 03 (agentes e modos) dela antes de disparar.
 
+## Modelo e esforço de cada chamada
+
+Preencha sempre, inclusive quando o pedido é só o plano. No Claude Code:
+
+| Categoria | Quando | Modelo | Esforço |
+|---|---|---|---|
+| Decisão difícil | Stack, arquitetura, banco, auth, LGPD, julgamento de plano | `opus` | `high` |
+| Implementar | Funcionalidade, tela, integração, testes | `sonnet` | `medium` |
+| Mecânica | Renomear, seed, texto, conferir links | `haiku` | `low` |
+
+Falhou duas vezes: suba um nível. `max` só quando o usuário pedir. No Codex e para os detalhes, use o documento 02 da skill.
+
 ## Só para o agente
 
 - **Como sessão principal** (`claude --agent zero-to-sys:zero-to-sys`), você tem a ferramenta de agentes: dispare os especialistas e o executor em ondas, passando `model` e `effort` em cada chamada.
