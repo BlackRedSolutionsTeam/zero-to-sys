@@ -26,7 +26,7 @@ Guia para quem vai rodar o sistema num servidor próprio no Brasil: qual contrat
 | MVP com o menor custo mensal | Hostinger ou HostGator | Planos de entrada mais baratos, com contrato longo |
 | SaaS pequeno com Coolify ou Dokploy | Hostinger (plano com 4 GB ou mais) ou KingHost | RAM suficiente para painel, app e banco |
 | Agência com vários sites de clientes | KingHost ou Locaweb | Provedores nacionais com suporte em português |
-| Cliente que exige nota fiscal e suporte nacional | Locaweb ou KingHost | Confirme a emissão de nota com o comercial: as páginas não informam |
+| Cliente que exige nota fiscal e suporte nacional | Locaweb ou KingHost | As duas emitem nota fiscal e aceitam Pix e boleto |
 | Servidor grande ou dedicado | HostDime | Datacenter próprio no Brasil e linha de dedicados |
 | Já usa AWS ou precisa de serviços gerenciados | Nuvem grande em São Paulo (skill `infra`, doc 03) | Sai das brasileiras quando o serviço gerenciado vale mais que o preço |
 
