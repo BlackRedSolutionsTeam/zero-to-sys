@@ -58,7 +58,7 @@ Conferido em 2026-11-25:
 
 - Aguenta volume e concorrência que um nó único de motor simples não aguenta.
 - Ferramentas de análise (Kibana, OpenSearch Dashboards) incluídas no ecossistema.
-- OpenSearch com licença Apache 2.0 evita dúvida jurídica de licença.
+- OpenSearch com licença Apache 2.0 evita dúvida jurídica de licença (o `LICENSE.txt` do repositório `opensearch-project/OpenSearch` é a Apache License 2.0, conferido em 2026-11-25).
 
 ## Quando é ruim
 
@@ -70,7 +70,7 @@ Conferido em 2026-11-25:
 
 ## Como começar
 
-OpenSearch de um nó para desenvolvimento, com Docker. Confirme a variável da senha inicial e o parâmetro `vm.max_map_count` na página oficial de instalação da versão escolhida; não foi possível conferi-los nesta escrita:
+OpenSearch de um nó para desenvolvimento, com Docker. Comando executado em 2026-11-25 com `opensearchproject/opensearch:3` (OpenSearch 3.10.1, Docker Desktop no macOS): subiu e respondeu em `https://localhost:9200`. A variável `OPENSEARCH_INITIAL_ADMIN_PASSWORD` é obrigatória desde a 2.12 e exige senha forte (a documentação cita tamanho mínimo, várias classes de caracteres e verificação de entropia; sem ela, ou com ela fraca, o contêiner encerra). Em Linux, o `vm.max_map_count` precisa ser pelo menos 262144 (`sudo sysctl -w vm.max_map_count=262144`, e a linha `vm.max_map_count=262144` em `/etc/sysctl.conf` para persistir; confira com `cat /proc/sys/vm/max_map_count`). No Docker Desktop o valor já era 262144 e não foi preciso mudar; o ajuste num servidor Linux real não foi testado aqui. Use o `-k` do `curl` com o certificado de teste autoassinado:
 
 ```bash
 docker run -d --name opensearch \
@@ -80,10 +80,10 @@ docker run -d --name opensearch \
   opensearchproject/opensearch:3
 ```
 
-Índice com analisador de português que também ignora acentos. O analisador `portuguese` embutido usa o tokenizador padrão, minúsculas, lista de palavras comuns e o stemmer `light_portuguese`; para ignorar acentos, recrie-o como analisador customizado e acrescente o filtro `asciifolding` (na documentação da Elastic o `asciifolding` não aparece no exemplo do português; esta adição é uma extensão padrão do filtro):
+Índice com analisador de português que também ignora acentos. O analisador `portuguese` embutido usa o tokenizador padrão, minúsculas, lista de palavras comuns e o stemmer `light_portuguese`; para ignorar acentos, recrie-o como analisador customizado e acrescente o filtro `asciifolding` (na documentação da Elastic o `asciifolding` não aparece no exemplo do português; esta adição é uma extensão padrão do filtro; testado no OpenSearch 3.10.1: a busca `acao advogado` achou "Ação civil dos advogados"):
 
 ```bash
-curl -X PUT "https://localhost:9200/patients" -u "admin:$OPENSEARCH_PASSWORD" \
+curl -k -X PUT "https://localhost:9200/patients" -u "admin:$OPENSEARCH_PASSWORD" \
   -H "Content-Type: application/json" \
   --data '{
     "settings": {

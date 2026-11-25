@@ -106,7 +106,21 @@ curl -X PUT "http://127.0.0.1:7700/indexes/products/settings/synonyms" \
   --data '{"celular":["smartphone","telefone"],"smartphone":["celular"],"telefone":["celular"]}'
 ```
 
-Typesense: o servidor aceita regras de sinônimos por coleção e `typo_tolerance` por parâmetro de busca; confirme o formato na documentação da versão instalada, pois ele mudou entre versões maiores.
+Typesense 30.2 (testado em 2026-11-25): os sinônimos ficam num conjunto (`/synonym_sets/<nome>`), ligado à coleção com `PATCH` no campo `synonym_sets`. Do 29 para o 30 as rotas antigas `/collections/<coleção>/synonyms/*` deixaram de existir (devolvem "Not Found"); a documentação do 30 descreve a migração automática dos sinônimos antigos e diz que chaves de API com a ação `synonyms:*` passam a precisar de `synonym_sets:*`. Sem `root` a lista é de mão dupla; com `root` é de mão única.
+
+```bash
+curl -X PUT "http://127.0.0.1:8108/synonym_sets/pt" \
+  -H "X-TYPESENSE-API-KEY: $TYPESENSE_API_KEY" \
+  -H "Content-Type: application/json" \
+  --data '{"items":[{"id":"celular","synonyms":["celular","smartphone","telefone"]}]}'
+
+curl -X PATCH "http://127.0.0.1:8108/collections/products" \
+  -H "X-TYPESENSE-API-KEY: $TYPESENSE_API_KEY" \
+  -H "Content-Type: application/json" \
+  --data '{"synonym_sets":["pt"]}'
+```
+
+Depois disso, buscar `smartphone` achou o documento "celular novo". A tolerância a erro de digitação é controlada por parâmetro de busca, `num_typos` (0, 1 ou 2); no teste, `camsa` não achou nada com `num_typos=0` e achou os 300 documentos com `num_typos=2`.
 
 Elasticsearch e OpenSearch: use o analisador do [doc 03](03-elasticsearch-e-opensearch.md) (`asciifolding`, lista de palavras comuns e `light_portuguese`) e um filtro `synonym` com a lista no próprio índice.
 

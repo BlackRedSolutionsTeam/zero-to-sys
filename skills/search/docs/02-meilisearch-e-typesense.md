@@ -96,7 +96,7 @@ curl -X POST "http://127.0.0.1:7700/indexes/patients/search" \
   --data '{"q":"sousa","filter":"company_id = 10","limit":20}'
 ```
 
-Typesense com Docker (o README oficial mostra a 29.0; confirme no Docker Hub a etiqueta da versão que quer):
+Typesense com Docker (a etiqueta `30.2` existe no Docker Hub e foi executada em 2026-11-25; o servidor subiu como "Starting Typesense 30.2"; fixe sempre uma etiqueta, nunca `latest`):
 
 ```bash
 docker run -d --name typesense \
@@ -126,7 +126,7 @@ curl -G "http://127.0.0.1:8108/collections/patients/documents/search" \
   --data-urlencode "filter_by=company_id:=10"
 ```
 
-Os campos e os nomes de parâmetros acima seguem a API de cada projeto; confirme na documentação da versão que for instalar. Portas presas em `127.0.0.1` e atrás de um proxy com HTTPS (skill `nginx`), porque o Docker ignora o `ufw` em portas publicadas (skill `vps`, doc 03).
+Os comandos de Meilisearch (v1.58.0) e de Typesense (30.2) acima foram executados em 2026-11-25 em contêineres temporários; os parâmetros mudam entre versões maiores, então releia a documentação ao atualizar. Portas presas em `127.0.0.1` e atrás de um proxy com HTTPS (skill `nginx`), porque o Docker ignora o `ufw` em portas publicadas (skill `vps`, doc 03).
 
 ## Combina com / alternativas
 

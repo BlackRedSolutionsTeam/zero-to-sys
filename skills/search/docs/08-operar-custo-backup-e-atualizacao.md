@@ -65,7 +65,7 @@ Custo e dimensionamento, conferidos em 2026-11-25:
 | Motor | O que pesa | Referência de partida |
 |---|---|---|
 | PostgreSQL (doc 01) | Disco e CPU do banco já pago | Sem custo extra |
-| Meilisearch | Disco e memória do índice; na nuvem, buscas e documentos | Build: 50 mil buscas e 100 mil documentos incluídos; Pro: 250 mil buscas e 1 milhão de documentos (mensalidade: confira no console) |
+| Meilisearch | Disco e memória do índice; na nuvem, buscas e documentos | Build: 50 mil buscas e 100 mil documentos incluídos; Pro: 250 mil buscas e 1 milhão de documentos (valor da mensalidade não confirmado em fonte oficial: a página de preços não pôde ser lida em 2026-11-25; sites de terceiros citam US$ 30 e US$ 300 por mês, a conferir no console; a documentação oficial dá a cota incluída e o excedente de US$ 0,40 por mil buscas no Build e US$ 0,30 no Pro) |
 | Typesense | RAM proporcional aos dados | Cerca de 30 MB do servidor vazio; cerca de 165 MB para 1 milhão de títulos (README oficial) |
 | Elasticsearch e OpenSearch | RAM da JVM, disco, vários nós | Exemplo oficial da AWS: `r6g.xlarge.search` a US$ 0,335 por hora |
 

@@ -48,7 +48,7 @@
 ## Quando é ruim
 
 - **Campos precisam ser declarados como filtráveis:** no Meilisearch, em `filterableAttributes`; no Typesense, `facet: true` no esquema; trocar isso depois reindexa.
-- **Limite de páginas profundas:** no Meilisearch o padrão estima até 1.000 resultados (`maxTotalHits`); no Elasticsearch e no OpenSearch `from + size` é limitado a 10.000 por padrão (`index.max_result_window`). Para varrer tudo, use cursor ou exportação.
+- **Limite de páginas profundas:** no Meilisearch o padrão alcança até 1.000 resultados (`maxTotalHits`, confirmado na v1.58.0); no OpenSearch 3.10.1 `from + size` é limitado a 10.000 por padrão (`index.max_result_window`, confirmado: `from=9990&size=20` devolveu "Result window is too large"); o Elasticsearch tem o mesmo padrão segundo sua documentação, que não foi executada aqui. Para varrer tudo, use cursor ou exportação.
 - **Facetas demais** deixam a consulta lenta e a tela confusa; limite a quatro ou cinco.
 - **Total exato e contagem de página** ("página 3 de 80") pedem cálculo caro ou inexistente; prefira "carregar mais".
 - **Filtro montado concatenando texto** com entrada do usuário é injeção; escape e valide os valores.
@@ -81,9 +81,9 @@ curl -X POST "http://127.0.0.1:7700/indexes/products/search" \
   --data '{"q":"camisa","filter":"company_id = 10 AND price 50 TO 100","facets":["category"],"page":1,"hitsPerPage":20}'
 ```
 
-Com `page` e `hitsPerPage` o Meilisearch devolve o total exato de resultados; com `offset` e `limit` devolve uma estimativa. Confirme o comportamento na versão instalada.
+Testado no Meilisearch v1.58.0 em 2026-11-25, com 1.500 documentos: com `page` e `hitsPerPage` a resposta traz `totalHits` e `totalPages`; com `offset` e `limit` traz `estimatedTotalHits`. O `maxTotalHits` (padrão 1000) limita quantos resultados dá para alcançar, não o número informado: o total veio como 1500, mas `page=51` com `hitsPerPage=20` e `offset=1100` vieram vazios, e `limit=5000` devolveu só 1000 itens. Para alcançar mais, suba o `maxTotalHits` em `PATCH /indexes/<índice>/settings/pagination` (com 5000, `limit=5000` devolveu os 1500). Por isso a tela não deve oferecer páginas além do que o servidor entrega.
 
-Typesense, facetas, filtro e paginação (o máximo de itens por página é limitado pelo servidor; confirme o valor da versão):
+Typesense, facetas, filtro e paginação (testado na 30.2 em 2026-11-25; `per_page` tem máximo de 250, e `per_page=251` devolve o erro "Only upto 250 hits can be fetched per page", como diz a documentação; com `group_by` o limite vale para grupos):
 
 ```bash
 curl -G "http://127.0.0.1:8108/collections/products/documents/search" \
