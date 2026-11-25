@@ -1,6 +1,6 @@
 ---
 name: infra
-description: Escolhe e monta a infraestrutura de um projeto, do zero até produção, de forma escalável e segura (hospedagem PaaS, VPS com Coolify/Dokploy, nuvem grande, Docker e Kubernetes, Postgres gerenciado, OpenTofu/Pulumi, GitHub Actions, Cloudflare, segredos, observabilidade, backup e segurança básica). Use sempre que o usuário pedir para "colocar no ar", "fazer deploy", "onde hospedar", "montar a infra", "configurar CI/CD", "subir em produção", "escolher banco gerenciado", "configurar backup", "monitorar" ou "deixar seguro". Não decide linguagem ou framework (skill stacks), pastas (architecture) nem estilo de código (coding).
+description: 'Escolhe e monta a infraestrutura do zero até produção: PaaS, VPS com Coolify, nuvem, Docker, Postgres gerenciado, IaC, CI/CD, segredos, observabilidade, backup e segurança básica. Use quando pedirem "colocar no ar", "fazer deploy", "onde hospedar" ou "configurar CI/CD".'
 ---
 
 # infra

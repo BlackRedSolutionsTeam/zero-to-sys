@@ -1,6 +1,6 @@
 ---
 name: vps
-description: Ajuda a escolher uma VPS no Brasil e a deixar o servidor pronto, seguro e operável — as 5 opções brasileiras comparadas com preço conferido (Hostinger, HostGator, Locaweb, KingHost e HostDime, esta para servidores grandes e dedicados), dimensionamento, primeiro acesso seguro (SSH com chave, sem root, firewall, fail2ban), atualizações automáticas, Docker e swap, backup com restauração testada, monitoramento e alertas, deploy (Coolify, Dokploy ou Compose com GitHub Actions) e migração para outra VPS ou para a nuvem. Use sempre que o usuário perguntar "qual VPS contratar", "VPS no Brasil", "servidor barato", "preparar o servidor", "proteger o SSH", "Ubuntu server", "instalar Docker no servidor", "backup do servidor", "o servidor caiu" ou "migrar de servidor". Não configura o nginx (skill nginx), a Cloudflare (skill cloudflare), o domínio (skill domains) nem o Coolify e o Dokploy em si (skill infra, doc 02).
+description: 'Escolhe uma VPS no Brasil e deixa o servidor pronto e seguro: opções com preço, dimensionamento, primeiro acesso, SSH, firewall, atualizações, Docker, Coolify, backup e monitoramento. Use quando pedirem "qual VPS", "preparar o servidor" ou "deploy na VPS".'
 ---
 
 # vps

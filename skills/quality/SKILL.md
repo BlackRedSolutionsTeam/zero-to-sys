@@ -1,6 +1,6 @@
 ---
 name: quality
-description: Define como provar que o sistema funciona — estratégia de testes por camada (pirâmide ou troféu), testes de unidade das regras de negócio, testes de integração com banco real (Testcontainers), testes de API e de contrato, ponta a ponta com Playwright nos fluxos principais, acessibilidade e desempenho automáticos (axe, Lighthouse CI), o que barra o PR no CI, a definição de pronto de cada funcionalidade e como o agente de IA verifica o próprio trabalho. Use sempre que for planejar ou escrever testes de uma funcionalidade, configurar o CI de qualidade, ou quando o usuário perguntar "como testar isso", "escreve os testes", "teste e2e", "Playwright", "o que barra o PR", "está pronto?", "definição de pronto" ou "como sei que o agente não quebrou nada". Não decide como escrever um teste legível nem lint e format (skill coding), nem o pipeline de deploy e os ambientes (skill infra).
+description: 'Define como provar que o sistema funciona: estratégia de testes, unidade, integração com banco real, API e contrato, ponta a ponta com Playwright, o que barra o PR e definição de pronto. Use quando pedirem "escrever testes", "teste e2e", "o que testar" ou "definição de pronto".'
 ---
 
 # quality

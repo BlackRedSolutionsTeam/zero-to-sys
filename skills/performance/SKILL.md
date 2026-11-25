@@ -1,6 +1,6 @@
 ---
 name: performance
-description: Guia o ganho de desempenho medido no back-end, do banco ao cache, e a decisão de escalar sem otimizar no escuro — metas e percentis, log de consulta lenta e APM, EXPLAIN, N+1, índices e pool de conexões (PgBouncer), cache HTTP, de aplicação e Redis com invalidação, teste de carga com k6, profiling em Node, .NET, Python e Go, trabalho pesado em fila, escalar (vertical, horizontal, réplica de leitura) e custo x desempenho. Use sempre que o usuário disser "está lento", "a API demora", "melhorar o desempenho", "otimizar consulta", "N+1", "usar cache", "precisa de Redis", "teste de carga", "quantos usuários aguenta", "o servidor não aguenta", "escalar o sistema" ou "réplica de leitura". Não cria índices nem pagina (skill data), não mede Core Web Vitals no cliente (skill user-experience), não monta o CI (skill quality) nem a infraestrutura (skill infra).
+description: 'Ganha desempenho medido no back-end: metas e percentis, consulta lenta, EXPLAIN, N+1, índices, pool de conexões, cache, filas, teste de carga com k6 e quando escalar. Use quando houver lentidão, antes de escalar ou quando pedirem "deixar mais rápido" ou "teste de carga".'
 ---
 
 # performance

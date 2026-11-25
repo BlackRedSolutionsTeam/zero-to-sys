@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code e do Codex: as 34 skills, o agente orquestrador e os 7 especialistas entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code (CLI, extensão do VS Code ou JetBrains, ou app desktop) ou do Codex instalado. Instruções do Codex em [No Codex](#no-codex).
+O repositório é um plugin do Claude Code e do Codex: as 34 skills, o agente orquestrador, os 7 especialistas e o executor entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code (CLI, extensão do VS Code ou JetBrains, ou app desktop) ou do Codex instalado. Instruções do Codex em [No Codex](#no-codex).
 
 ### 1. Instalar
 
@@ -52,7 +52,7 @@ Instaladas como plugin, as skills e o agente ganham o prefixo `zero-to-sys:`:
 | Skill principal | `/zero-to-sys:zero-to-sys` |
 | Skills de área | `/zero-to-sys:stacks`, `/zero-to-sys:architecture`, `/zero-to-sys:coding`, `/zero-to-sys:infra`… |
 | Agente orquestrador | `claude --agent zero-to-sys:zero-to-sys` (paralelo) ou `@zero-to-sys:zero-to-sys` |
-| Especialistas | `@zero-to-sys:zero-to-sys-arquiteto`, `@zero-to-sys:zero-to-sys-backend`… |
+| Especialistas | `@zero-to-sys:zero-to-sys-arquiteto`, `@zero-to-sys:zero-to-sys-seguranca`… |
 
 Não precisa chamar pelo nome: o Claude carrega cada skill sozinho quando o pedido bate com o tema dela.
 
@@ -97,41 +97,41 @@ A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre 
 
 ## Skills
 
-| Pasta | Skill | O que responde | Documentos |
-|---|---|---|---|
-| [product/](skills/product/) | `product` | O que construir: escopo do MVP, fluxos, regras de negócio, histórias com critérios de aceite e backlog | 7 |
-| [stacks/](skills/stacks/) | `stacks` | Qual stack usar em cada tipo de projeto e em qual área cada uma funciona melhor | 12 |
-| [architecture/](skills/architecture/) | `architecture` | Como organizar pastas e arquivos para ser fácil achar e manter, pela documentação oficial de cada stack | 13 |
-| [data/](skills/data/) | `data` | Como modelar tabelas, migrations, multiempresa, auditoria, índices, transações e LGPD no banco | 10 |
-| [api/](skills/api/) | `api` | Como desenhar o contrato da API: rotas, erros, paginação, versionamento, OpenAPI e cliente tipado | 8 |
-| [security/](skills/security/) | `security` | Como proteger a aplicação: login, permissões, OWASP, rate limit, upload, dependências e LGPD | 9 |
-| [integrations/](skills/integrations/) | `integrations` | Como integrar pagamento, e-mail, WhatsApp, webhooks, filas, rotinas, arquivos e planilhas | 9 |
-| [audit/](skills/audit/) | `audit` | Como auditar um projeto existente e dizer o que está bom e o que falta | 3 |
-| [quality/](skills/quality/) | `quality` | Como provar que funciona: testes por camada, ponta a ponta, CI e definição de pronto | 9 |
-| [coding/](skills/coding/) | `coding` | Como escrever código simples, bem organizado e bem modularizado | 12 |
-| [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop | 15 |
-| [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema | 14 |
-| [design/](skills/design/) | `design` | Quais UI kits e ícones gratuitos usar para um visual profissional | 7 |
-| [domains/](skills/domains/) | `domains` | Como registrar e configurar o domínio, o DNS e o e-mail do domínio | 7 |
-| [cloudflare/](skills/cloudflare/) | `cloudflare` | Como configurar a Cloudflare: DNS, SSL, cache, WAF, Tunnel, Access, Pages e R2 | 10 |
-| [vps/](skills/vps/) | `vps` | Qual VPS contratar no Brasil e como preparar o servidor | 8 |
-| [nginx/](skills/nginx/) | `nginx` | Como configurar o nginx com HTTPS, limites, hardening e sem CVE aberto | 11 |
-| [ai-features/](skills/ai-features/) | `ai-features` | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo | 9 |
-| [invoicing/](skills/invoicing/) | `invoicing` | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP | 8 |
-| [search/](skills/search/) | `search` | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch | 8 |
-| [messaging/](skills/messaging/) | `messaging` | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas | 6 |
-| [performance/](skills/performance/) | `performance` | Medir e ganhar desempenho no back, cache, carga com k6 e escala | 8 |
-| [operations/](skills/operations/) | `operations` | SLO, plantão, runbooks, incidentes, página de status e suporte | 8 |
-| [maintenance/](skills/maintenance/) | `maintenance` | Fim de suporte, atualização de dependências e framework, dívida técnica | 7 |
-| [local-dev/](skills/local-dev/) | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding | 8 |
-| [legal/](skills/legal/) | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos | 8 |
-| [store-targets/](skills/store-targets/) | `store-targets` | Onde o projeto vai ser publicado e o que cada loja exige desde o início | 3 |
-| [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push | 10 |
-| [desktop-release/](skills/desktop-release/) | `desktop-release` | Microsoft Store, Mac App Store, assinatura, notarização e Linux | 6 |
-| [admin-panel/](skills/admin-panel/) | `admin-panel` | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte | 13 |
-| [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura | 14 |
-| [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma | 12 |
-| [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor | 11 |
+| Pasta | Skill | O que responde |
+|---|---|---|
+| [product/](skills/product/) | `product` | O que construir: escopo do MVP, fluxos, regras de negócio, histórias com critérios de aceite e backlog |
+| [stacks/](skills/stacks/) | `stacks` | Qual stack usar em cada tipo de projeto e em qual área cada uma funciona melhor |
+| [architecture/](skills/architecture/) | `architecture` | Como organizar pastas e arquivos para ser fácil achar e manter, pela documentação oficial de cada stack |
+| [data/](skills/data/) | `data` | Como modelar tabelas, migrations, multiempresa, auditoria, índices, transações e LGPD no banco |
+| [api/](skills/api/) | `api` | Como desenhar o contrato da API: rotas, erros, paginação, versionamento, OpenAPI e cliente tipado |
+| [security/](skills/security/) | `security` | Como proteger a aplicação: login, permissões, OWASP, rate limit, upload, dependências e LGPD |
+| [integrations/](skills/integrations/) | `integrations` | Como integrar pagamento, e-mail, WhatsApp, webhooks, filas, rotinas, arquivos e planilhas |
+| [audit/](skills/audit/) | `audit` | Como auditar um projeto existente e dizer o que está bom e o que falta |
+| [quality/](skills/quality/) | `quality` | Como provar que funciona: testes por camada, ponta a ponta, CI e definição de pronto |
+| [coding/](skills/coding/) | `coding` | Como escrever código simples, bem organizado e bem modularizado |
+| [user-experience/](skills/user-experience/) | `user-experience` | Como adaptar cada tela a celular, tablet e desktop |
+| [design-systems/](skills/design-systems/) | `design-systems` | Qual layout usar em cada tipo de tela, com um exemplo HTML pronto por tipo de sistema |
+| [design/](skills/design/) | `design` | Quais UI kits e ícones gratuitos usar para um visual profissional |
+| [domains/](skills/domains/) | `domains` | Como registrar e configurar o domínio, o DNS e o e-mail do domínio |
+| [cloudflare/](skills/cloudflare/) | `cloudflare` | Como configurar a Cloudflare: DNS, SSL, cache, WAF, Tunnel, Access, Pages e R2 |
+| [vps/](skills/vps/) | `vps` | Qual VPS contratar no Brasil e como preparar o servidor |
+| [nginx/](skills/nginx/) | `nginx` | Como configurar o nginx com HTTPS, limites, hardening e sem CVE aberto |
+| [ai-features/](skills/ai-features/) | `ai-features` | Pôr IA e LLM dentro do produto: provedor, RAG, avaliação, guardrails e custo |
+| [invoicing/](skills/invoicing/) | `invoicing` | Emitir NFS-e, NF-e e NFC-e por API e integrar com ERP |
+| [search/](skills/search/) | `search` | Busca textual: Postgres, Meilisearch, Typesense ou Elasticsearch |
+| [messaging/](skills/messaging/) | `messaging` | Brokers (RabbitMQ, Kafka), outbox, vídeo e chamadas |
+| [performance/](skills/performance/) | `performance` | Medir e ganhar desempenho no back, cache, carga com k6 e escala |
+| [operations/](skills/operations/) | `operations` | SLO, plantão, runbooks, incidentes, página de status e suporte |
+| [maintenance/](skills/maintenance/) | `maintenance` | Fim de suporte, atualização de dependências e framework, dívida técnica |
+| [local-dev/](skills/local-dev/) | `local-dev` | Ambiente local, Compose, devcontainer, .env.example e onboarding |
+| [legal/](skills/legal/) | `legal` | Termos, política de privacidade, cookies, aceite versionado e contratos |
+| [store-targets/](skills/store-targets/) | `store-targets` | Onde o projeto vai ser publicado e o que cada loja exige desde o início |
+| [mobile-release/](skills/mobile-release/) | `mobile-release` | Contas, assinatura, EAS, lojas, regras de revisão e push |
+| [desktop-release/](skills/desktop-release/) | `desktop-release` | Microsoft Store, Mac App Store, assinatura, notarização e Linux |
+| [admin-panel/](skills/admin-panel/) | `admin-panel` | Painel de administração do sistema: papéis internos, auditoria, impersonação e telas de suporte |
+| [infra/](skills/infra/) | `infra` | Como montar a infraestrutura de forma escalável e segura |
+| [ia/](skills/ia/) | `ia` | Como usar agentes de IA de código da melhor forma |
+| [code-indexes/](skills/code-indexes/) | `code-indexes` | Quais ferramentas de indexação de código e economia de tokens usar, e onde cada uma se sai melhor |
 
 ## Por onde começar
 
@@ -151,17 +151,18 @@ A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa or
 
 O [agents/zero-to-sys.md](agents/zero-to-sys.md) é o orquestrador. Ele divide a tarefa, dispara em paralelo os especialistas (quantos a máquina aguentar), escolhe o modelo e o esforço de cada chamada, junta os resultados e verifica.
 
-| Agente | Especialista em | Skills |
+| Agente | Papel | Skills |
 |---|---|---|
-| [zero-to-sys-arquiteto](agents/zero-to-sys-arquiteto.md) | Produto e sistema | product, stacks, architecture, data, api |
+| [zero-to-sys-arquiteto](agents/zero-to-sys-arquiteto.md) | Produto e sistema | product, stacks, architecture, data, api, admin-panel |
 | [zero-to-sys-seguranca](agents/zero-to-sys-seguranca.md) | Segurança e conformidade | security, legal, audit |
-| [zero-to-sys-backend](agents/zero-to-sys-backend.md) | Back-end e integrações | integrations, messaging, search, invoicing, ai-features, admin-panel, performance |
+| [zero-to-sys-integracoes](agents/zero-to-sys-integracoes.md) | Integrações | integrations, messaging, search, invoicing, ai-features |
 | [zero-to-sys-frontend](agents/zero-to-sys-frontend.md) | Interface e experiência | user-experience, design-systems, design |
 | [zero-to-sys-qualidade](agents/zero-to-sys-qualidade.md) | Código, testes e ambiente | coding, quality, code-indexes, ia, local-dev, maintenance |
-| [zero-to-sys-infra](agents/zero-to-sys-infra.md) | Infraestrutura e operação | infra, vps, nginx, cloudflare, domains, operations |
+| [zero-to-sys-infra](agents/zero-to-sys-infra.md) | Infraestrutura, operação e desempenho | infra, vps, nginx, cloudflare, domains, operations, performance |
 | [zero-to-sys-publicacao](agents/zero-to-sys-publicacao.md) | Publicação nas lojas | store-targets, mobile-release, desktop-release |
+| [zero-to-sys-executor](agents/zero-to-sys-executor.md) | Implementa o plano aprovado | coding, quality e as que o pedido listar |
 
-Cada especialista planeja, julga (aprova, ajusta ou reprova um plano ou diff de outra área) ou executa. O orquestrador diz o modo em cada pedido.
+Os especialistas planejam e julgam; o executor implementa. Fluxo de cada parte: especialista planeja → áreas afetadas julgam → executor implementa → qualidade revisa. Modos, ondas e modelos ficam na skill `zero-to-sys` (documentos 01 a 03).
 
 No Claude Code, um subagente não dispara outros agentes. Para o orquestrador rodar os especialistas em paralelo, abra a sessão com ele como agente principal:
 
@@ -188,12 +189,12 @@ zero-to-sys/
 │   ├── plugin.json        manifesto do plugin (nome, versão, descrição)
 │   └── marketplace.json   permite instalar direto do GitHub
 ├── agents/
-│   └── zero-to-sys.md     agente orquestrador
+│   ├── zero-to-sys.md     agente orquestrador
+│   └── zero-to-sys-*.md   especialistas e executor
 ├── skills/
-│   ├── zero-to-sys/       skill principal: ordem das fases
+│   ├── zero-to-sys/       skill principal: fases, ondas, modelos e modos dos agentes
 │   └── <skill>/           uma pasta por área
 │       ├── SKILL.md       guia de decisão e regras de uso, lido pelo Claude
-│       ├── README.md      apresentação e manutenção da skill
 │       └── docs/
 │           ├── README.md  índice, "Qual escolher" e o que saiu da lista
 │           └── NN-nome.md um documento por ferramenta ou prática
@@ -202,8 +203,10 @@ zero-to-sys/
 
 ## Como manter
 
-- **Nova skill:** crie `skills/<nome>/` no mesmo formato, acrescente uma linha na tabela de skills, na skill `zero-to-sys` e no agente.
-- **Nova versão:** suba o `version` do `.claude-plugin/plugin.json`; quem instalou recebe a atualização pelo `/plugin`.
-
-- **Adicionar ou remover um item:** siga o "Como manter" do `README.md` da skill e atualize a contagem na tabela acima.
-- **Revisar dados:** preços, licenças, versões e comandos foram verificados em 2026-11-24. Cada documento tem a data em "Verificado em" e cita a fonte oficial de cada dado; confira na fonte antes de tomar uma decisão que dependa deles.
+- **Nova skill:** crie `skills/<nome>/SKILL.md` (descrição com até 400 caracteres) e `docs/`, e ponha a skill na tabela de um agente especialista em `agents/`. A tabela de skills deste README também ganha uma linha.
+- **Novo documento numa skill:** crie `docs/NN-nome.md` com as mesmas seções dos outros e inclua-o na tabela do `SKILL.md` e no `docs/README.md`, se houver.
+- **Remover um documento:** apague, tire das tabelas e dos links "Combina com / alternativas" dos outros documentos.
+- **Nova versão:** suba o `version` igual em `.claude-plugin/plugin.json` e em `plugin.json`.
+- **Modelos e paralelismo:** só em `skills/zero-to-sys/docs/01` a `03`.
+- **Revisar dados:** cada documento tem a data em "Verificado em" e cita a fonte oficial; confira na fonte antes de uma decisão que dependa deles.
+- **CI:** o workflow `checks` confere versão, links, skills sem agente e tamanho das descrições.

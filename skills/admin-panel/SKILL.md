@@ -1,6 +1,6 @@
 ---
 name: admin-panel
-description: Guia a criação do painel administrativo do sistema que está sendo construído — o backoffice usado pela equipe (suporte, financeiro, operação) para gerenciar usuários, empresas, assinaturas, configurações, feature flags, filas, logs e suporte sem mexer direto no banco, para qualquer stack. Diz quando o painel entra no backlog e o que vai no MVP e o que fica para depois; compara construir, gerar ou comprar (Retool, Appsmith, Refine, React Admin, Filament, Django Admin, Rails Admin, AdminJS, Directus) com licença e preço conferidos; cobre papéis internos, 2FA, impersonação, auditoria imutável, ações perigosas, dados pessoais mascarados, multiempresa, painel em subdomínio com Cloudflare Access e métricas básicas. Use sempre que o usuário pedir "painel admin do sistema", "painel administrativo", "backoffice", "back-office", "área interna da equipe", "painel do suporte", "entrar como cliente", "log de auditoria da equipe", "quem pode acessar o admin" ou ao montar o backlog de um sistema novo. Não desenha o layout da tela de CRUD (skill design-systems, doc 03) nem o modelo geral de papéis, auditoria e LGPD (skills security e data).
+description: 'Guia o painel administrativo do sistema (backoffice da equipe): usuários, empresas, assinaturas, papéis internos, impersonação, auditoria, feature flags e telas de suporte. Use quando pedirem "painel admin", "backoffice", "entrar como cliente" ou gerir o sistema sem mexer no banco.'
 ---
 
 # admin-panel

@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Audita um projeto existente e diz o que está bom e o que falta, área por área, com evidência — confronta o código com o checklist de cada skill do plugin (arquitetura, código, dados, API, testes, segurança, integrações, experiência do usuário, infra, configuração do agente e produto), classifica em ok, atenção, falta ou não verificado, e ordena o que corrigir por risco e esforço. Use sempre que o usuário pedir "audita o projeto", "o que falta nesse projeto", "diagnóstico", "está bem feito?", "saúde do código", "revisão geral", "por onde começo a melhorar" ou ao assumir um projeto desconhecido, antes de mudar qualquer coisa. Só diagnostica: não altera código; a correção passa pela skill da área.
+description: 'Audita um projeto existente área por área com evidência e diz o que está bom e o que falta, usando o checklist de cada skill; só leitura. Use quando pedirem "avalia esse projeto", "diagnóstico", "o que falta para produção" ou antes de mexer num código herdado.'
 ---
 
 # audit

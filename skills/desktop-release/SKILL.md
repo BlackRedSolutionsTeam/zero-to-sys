@@ -1,6 +1,6 @@
 ---
 name: desktop-release
-description: Leva um app desktop (Tauri, Electron, Flutter, .NET, nativo) até a Microsoft Store, a Mac App Store e o download direto sem tropeçar nas regras — contas Partner Center (gratuita no fluxo novo, Company para dados financeiros) e Apple Developer, pacote MSIX ou MSI/EXE offline e silencioso, assinatura de código no Windows (certificado OV, Azure Artifact Signing fora do Brasil, SmartScreen), Mac App Store com sandbox e regras 2.4.5, notarização com Developer ID, políticas de certificação da Microsoft (10.x, IARC), pagamento (checkout próprio na Microsoft, IAP no Mac), atualizador próprio só fora das lojas e Linux (Flathub, Snap). Use sempre que o usuário pedir "publicar na Microsoft Store", "publicar na Mac App Store", "assinar o instalador", "SmartScreen bloqueia meu app", "notarizar o app", "Gatekeeper", "MSIX", "instalador do Tauri/Electron", "auto update do desktop" ou "Flathub". Não escolhe os destinos (store-targets), não cuida do celular (mobile-release) nem escolhe a stack (stacks).
+description: 'Leva um app desktop à Microsoft Store, à Mac App Store e ao download assinado: contas, MSIX ou MSI/EXE, assinatura de código, sandbox e notarização, regras de certificação, pagamento, atualização e Linux. Use quando pedirem "publicar na Microsoft Store", "notarizar" ou "SmartScreen bloqueia".'
 ---
 
 # desktop-release

@@ -1,6 +1,6 @@
 ---
 name: api
-description: Define o contrato da API entre front e back para os dois encaixarem sem retrabalho — estilo (REST, RPC tipado ou GraphQL), rotas, verbos e códigos de status, formato único de erro (Problem Details), paginação, filtros e ordenação, versionamento, idempotência e retries, OpenAPI com documentação navegável e cliente tipado gerado para o front. Use sempre que for criar ou mudar rotas, quando o usuário pedir "cria a API", "padrão de rotas", "formato de erro", "paginação", "documenta a API", "OpenAPI", "gera o client", "versionar a API" ou "o front quebrou quando mudei o back". Não escolhe o framework do backend (skill stacks), as pastas das rotas (skill architecture), login e permissões (skill security) nem os testes (skill quality).
+description: 'Define o contrato da API entre front e back: REST, RPC ou GraphQL, rotas e status, formato de erro, paginação e filtros, versionamento, idempotência, OpenAPI e cliente gerado. Use quando for criar ou mudar rotas ou pedirem "desenhar a API" ou "padrão de erro".'
 ---
 
 # api

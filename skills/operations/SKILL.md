@@ -1,6 +1,6 @@
 ---
 name: operations
-description: Organiza o que acontece depois do deploy — metas de disponibilidade (SLO) e severidade, plantão enxuto para time pequeno, alertas que valem acordar alguém, runbooks (app fora do ar, banco cheio, certificado vencido, fila parada), atendimento de incidente (detectar, conter, comunicar, resolver), página de status e mensagens ao cliente, postmortem sem culpa, suporte ao cliente com triagem e SLA e a revisão operacional mensal, com modelos prontos de runbook, postmortem e mensagem de status e preços de ferramentas conferidos. Use sempre que o usuário perguntar "o sistema caiu", "como atender um incidente", "o que escrever para o cliente", "montar um plantão", "escrever um runbook", "fazer um postmortem", "página de status", "SLA", "SLO", "quais alertas criar" ou "organizar o suporte". Não configura o monitoramento técnico (skill vps e infra, doc 10), o backup (infra, doc 11) nem o rollback (infra, doc 14).
+description: 'Organiza o que acontece depois do deploy: SLO e severidade, plantão para time pequeno, alertas, runbooks, incidentes e postmortem, página de status e suporte. Use quando o sistema entra no ar ou quando pedirem "plantão", "runbook", "incidente" ou "página de status".'
 ---
 
 # operations

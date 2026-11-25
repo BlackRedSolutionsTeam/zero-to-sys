@@ -1,6 +1,6 @@
 ---
 name: messaging
-description: Ajuda a decidir e montar mensageria pesada, vídeo e chamadas quando a fila do Postgres ou do Redis não basta — quando sair da fila simples para um broker, RabbitMQ (filas, exchanges, retentativas), Kafka (eventos, partições, quando é exagero), NATS, outbox e entrega confiável entre serviços, vídeo e chamadas com LiveKit, Daily e Twilio com custo por minuto, e transmissão e upload de vídeo com Mux e Cloudflare Stream. Use sempre que o usuário perguntar "preciso de Kafka?", "RabbitMQ ou fila no Postgres", "mensageria entre microsserviços", "outbox", "evento duplicado", "chamada de vídeo no sistema", "teleconsulta", "LiveKit", "WebRTC", "upload de vídeo", "transmissão ao vivo" ou "hospedar vídeos de curso". Não cobre fila simples e jobs nem SSE e WebSocket (skill integrations) nem como operar o servidor do broker (skill infra).
+description: 'Decide e monta mensageria pesada, vídeo e chamadas quando a fila do Postgres ou do Redis não basta: RabbitMQ, Kafka, NATS, outbox, idempotência e WebRTC. Use quando pedirem "RabbitMQ", "Kafka", "eventos entre serviços" ou "videochamada no sistema".'
 ---
 
 # messaging

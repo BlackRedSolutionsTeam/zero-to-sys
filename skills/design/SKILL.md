@@ -1,6 +1,6 @@
 ---
 name: design
-description: Escolhe e aplica UI kits e ícones para deixar um site ou app com visual profissional usando só ferramentas gratuitas (shadcn/ui, Magic UI, Aceternity UI, HyperUI, Lucide, Phosphor, Tabler Icons). Use sempre que for criar ou redesenhar uma interface web — landing page, site institucional, portfólio, SaaS, dashboard, painel admin — ou quando o usuário pedir para "deixar bonito", "deixar profissional", "escolher componentes", "qual UI kit usar", "qual biblioteca de ícones" ou "montar a landing".
+description: 'Escolhe e aplica UI kits e ícones gratuitos para um visual profissional (shadcn/ui, Magic UI, Aceternity UI, HyperUI, Lucide, Phosphor, Tabler). Use ao criar ou redesenhar uma interface ou quando pedirem "deixar bonito", "qual UI kit" ou "qual biblioteca de ícones".'
 ---
 
 # design

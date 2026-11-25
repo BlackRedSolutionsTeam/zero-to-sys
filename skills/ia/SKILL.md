@@ -1,6 +1,6 @@
 ---
 name: ia
-description: Orienta como trabalhar com agentes de IA de código (foco no Claude Code, citando o equivalente em outras ferramentas) — arquivo de instruções do projeto (CLAUDE.md, AGENTS.md), memória, skills, subagentes, modo de planejamento, gestão de contexto, MCP, hooks, permissões e segurança, paralelismo com worktrees, como pedir e verificar o trabalho, modelo e nível de esforço. Use sempre que for configurar um projeto para trabalhar com IA, começar uma tarefa grande com agente, rodar agentes em paralelo ou sem supervisão, ou quando o usuário perguntar "como configuro o Claude Code", "o que pôr no CLAUDE.md", "skill ou subagente", "quando usar MCP", "como evitar que o agente erre", "como reduzir o gasto de tokens", "vale criar uma skill/um hook para isso" ou "como revisar código gerado por IA".
+description: 'Orienta o trabalho com agentes de IA de código: CLAUDE.md e AGENTS.md, memória, skills, subagentes, modo de planejamento, contexto, MCP, hooks, permissões, worktrees, modelo e esforço. Use ao configurar um projeto para IA ou quando perguntarem "como configuro o Claude Code".'
 ---
 
 # ia

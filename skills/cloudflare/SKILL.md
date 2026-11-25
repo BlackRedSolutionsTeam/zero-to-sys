@@ -1,6 +1,6 @@
 ---
 name: cloudflare
-description: Configura a Cloudflare na frente do sistema do jeito certo — colocar o domínio (nameservers, importar registros), DNS e proxy (laranja x cinza, IP real do visitante), SSL/TLS Full (strict) com certificado de origem e HSTS, cache seguro (nunca página logada), WAF, rate limit, bots e Turnstile, Tunnel para publicar sem abrir porta e origem fechada, Access para proteger painéis internos, Pages e Workers, R2, Email Routing e redirecionamentos, e tudo em IaC com token de escopo mínimo. Use sempre que o usuário pedir "coloca na Cloudflare", "configura o DNS", "SSL", "HTTPS", "cache", "WAF", "rate limit", "Turnstile", "Tunnel", "proteger o painel", "Pages", "Workers", "R2" ou "redirecionar o www". Não registra o domínio (skill domains), não prepara o servidor (skills vps e nginx) nem define regras de segurança da aplicação (skill security).
+description: 'Configura a Cloudflare na frente do sistema: domínio e DNS, proxy e IP real, SSL Full (strict), cache seguro, WAF e rate limit, Tunnel, Access, Pages, Workers e R2. Use quando pedirem "pôr a Cloudflare", "proteger o site", "cache da Cloudflare" ou "Tunnel".'
 ---
 
 # cloudflare

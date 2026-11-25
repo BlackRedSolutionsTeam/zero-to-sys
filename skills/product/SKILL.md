@@ -1,6 +1,6 @@
 ---
 name: product
-description: Transforma o pedido do cliente em produto definido antes de escrever código — entrevista em linguagem do cliente, escopo do MVP (dentro, fora e depois), fluxo principal e jornadas, histórias de usuário com critérios de aceite em Dado/Quando/Então, regras de negócio e máquina de estados, e backlog em ordem de construção com fatias verticais. Use sempre que for começar um sistema ou uma funcionalidade nova e o "o que fazer" ainda não estiver claro, ou quando o usuário pedir "o que entra no MVP", "escreve as histórias", "critérios de aceite", "monta o backlog", "quais são as regras de negócio", "por onde começo a construir" ou "como saber quando está pronto". Não decide stack (skill stacks), modelo de dados (skill data), layout de tela (skill design-systems) nem como testar (skill coding).
+description: 'Transforma o pedido do cliente em produto definido antes do código: entrevista, escopo do MVP, fluxos, histórias com critérios de aceite, regras de negócio e backlog priorizado. Use no começo de um projeto ou funcionalidade, ou quando pedirem "definir o MVP" ou "montar o backlog".'
 ---
 
 # product

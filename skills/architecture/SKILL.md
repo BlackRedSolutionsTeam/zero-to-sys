@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Define a estrutura de pastas e arquivos de um projeto para que seja fácil achar um arquivo e dar manutenção, seguindo a documentação oficial, os templates e os apps de referência de cada stack (feature-first, colocation, vertical slice, camadas, monólito modular, monorepo, Next.js, React + Vite, Expo, NestJS, ASP.NET Core, FastAPI, Django, Laravel, Go). Use sempre que for criar um projeto do zero, reorganizar pastas, decidir "onde coloco este arquivo", "como organizo as pastas", "qual estrutura usar", "monorepo ou não", "separar em módulos" ou escrever o ARCHITECTURE.md do projeto.
+description: 'Define a estrutura de pastas e arquivos do projeto pela documentação oficial de cada stack (feature-first, vertical slice, camadas, monólito modular, monorepo). Use ao criar um projeto, reorganizar pastas, decidir "onde coloco este arquivo" ou escrever o ARCHITECTURE.md.'
 ---
 
 # architecture

@@ -1,6 +1,6 @@
 ---
 name: ai-features
-description: Guia para pôr IA e LLM dentro do produto (chat, assistente, RAG, extração de dados, classificação, resumo, agente com ferramentas) de forma útil, barata e segura — quando IA vale a pena e quando regra comum resolve, escolha de provedor e modelo com preço conferido (Claude Haiku 5.5, Sonnet 5.5, Opus 5.5 e Fable 5.2), prompts e saída estruturada com validação, RAG com embeddings e pgvector, ferramentas e agentes, avaliação com conjunto de testes, guardrails contra injeção de prompt e LGPD, custo, cache e limites por usuário, streaming, filas e timeouts. Use sempre que o usuário pedir "colocar IA no sistema", "chatbot", "assistente no produto", "integrar com a API do Claude", "RAG", "busca semântica", "embeddings", "pgvector", "extrair dados de PDF ou e-mail com IA", "classificar com LLM", "saída em JSON do modelo", "agente com ferramentas", "quanto custa a API de IA", "prompt injection" ou "streaming de resposta". Não é sobre usar IA para escrever o código (skill ia) e não repete segurança geral (security), banco (data), filas (integrations), testes (quality) nem observabilidade (infra).
+description: 'Põe IA e LLM dentro do produto (chat, assistente, RAG, extração, classificação, agente com ferramentas): quando vale a pena, provedor e modelo, prompts, avaliação, guardrails, LGPD e custo. Use quando pedirem "colocar IA no sistema", "chatbot", "RAG" ou "usar LLM".'
 ---
 
 # ai-features

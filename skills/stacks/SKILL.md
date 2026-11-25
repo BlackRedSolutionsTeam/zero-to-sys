@@ -1,6 +1,6 @@
 ---
 name: stacks
-description: Escolhe a stack completa (frontend, backend, banco, ORM, auth, testes) para cada tipo de projeto, usando só ferramentas gratuitas (Astro, Next.js, React Router/TanStack Start, React + Vite com API separada, Node com Hono/Fastify/NestJS, Python com FastAPI/Django, .NET, Java com Spring Boot, Laravel/Rails, Go, Expo/Flutter, Tauri/Electron). Use sempre que for começar um sistema do zero ou decidir tecnologia — "qual stack usar", "com o que eu faço esse sistema", "qual backend", "qual framework", "vale Next ou Laravel", "qual linguagem para esta API", "como montar um SaaS, e-commerce, app mobile, sistema interno ou site", "criar o projeto".
+description: 'Escolhe a stack completa (front, back, banco, ORM, auth, testes) por tipo de projeto, só com ferramentas gratuitas: Astro, Next.js, React + Vite, Node, Python, .NET, Java, Laravel, Rails, Go, Expo, Flutter, Tauri. Use ao começar um sistema ou quando perguntarem "qual stack usar".'
 ---
 
 # stacks

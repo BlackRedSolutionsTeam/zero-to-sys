@@ -1,6 +1,6 @@
 ---
 name: nginx
-description: Configura o nginx como proxy reverso e servidor web, do jeito seguro e atualizado — quando usar nginx, Caddy, Traefik ou Cloudflare Tunnel, instalação pelo repositório oficial, proxy para a aplicação (Node, .NET, Python, Next.js), HTTPS com Let's Encrypt e TLS da Mozilla, IP real atrás da Cloudflare, estáticos, cache e compressão, WebSocket, SSE e uploads, limites (limit_req), headers de segurança e hardening, logs e diagnóstico (502, 504, 413), Docker e deploy sem queda, e as correções de segurança vigentes (CVEs, versões corrigidas, como verificar e atualizar). Use sempre que o usuário pedir "configura o nginx", "proxy reverso", "HTTPS no servidor", "certbot", "502 Bad Gateway", "504", "413 Request Entity Too Large", "WebSocket não conecta", "client_max_body_size", "nginx vulnerável", "CVE do nginx" ou "atualizar o nginx". Não escolhe a VPS (skill vps), não configura a Cloudflare (skill cloudflare) nem as regras de segurança da aplicação (skill security).
+description: 'Configura o nginx como proxy reverso seguro e atualizado: quando usar nginx, Caddy ou Tunnel, HTTPS, IP real, limites, cabeçalhos, hardening, erros 502/504/413 e CVEs. Use quando pedirem "configurar o nginx", "proxy reverso", "HTTPS no servidor" ou "erro 502".'
 ---
 
 # nginx

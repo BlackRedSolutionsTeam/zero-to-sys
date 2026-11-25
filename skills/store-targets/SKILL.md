@@ -1,6 +1,6 @@
 ---
 name: store-targets
-description: Pergunta logo no começo do projeto onde ele vai ser publicado (App Store, Google Play, Microsoft Store, Mac App Store, download direto no desktop, web) e deixa o projeto pronto para todos os destinos escolhidos — matriz das regras das lojas que mudam o projeto desde o início (login equivalente, exclusão de conta, compra pela loja, política de privacidade, classificação etária, sandbox, formato do pacote, assinatura de código, atualizador próprio), destino × stack, contas a abrir na semana 1 e um docs/STORES.md com a lista de preparação. Use sempre que for começar um projeto que pode virar app, quando o usuário perguntar "onde vou publicar", "vai para as lojas", "quero publicar na App Store e na Play", "também no Windows", "Microsoft Store", "Mac App Store", "o que as lojas exigem" ou quando um projeto ganha um destino novo. Não faz o envio para as lojas (skills mobile-release e desktop-release) nem escolhe a stack sozinha (stacks).
+description: 'Pergunta no começo do projeto onde ele vai ser publicado (App Store, Google Play, Microsoft Store, Mac App Store, desktop, web) e aplica as regras de todas as lojas escolhidas desde o início, com um docs/STORES.md. Use quando o projeto pode virar app ou ganha um destino novo.'
 ---
 
 # store-targets

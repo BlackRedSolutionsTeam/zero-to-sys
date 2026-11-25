@@ -1,6 +1,6 @@
 ---
 name: maintenance
-description: Mantém o sistema vivo e atualizado depois que ele está no ar — calendário de fim de suporte (Node, .NET, Python, Postgres, Django, Laravel, Rails, Angular, Next.js, Spring Boot) com data conferida, atualização automática de dependências com Renovate ou Dependabot e regras de merge, atualização segura de versão maior de framework, atualização de Postgres sem queda, registro e pagamento de dívida técnica, remoção de código morto e dependências sem uso e rotina trimestral de saúde do projeto. Use sempre que o usuário perguntar "essa versão ainda tem suporte", "fim de suporte do Node/.NET/Python/Postgres", "atualizar o framework", "subir de versão maior", "configurar Renovate ou Dependabot", "atualizar o Postgres", "dívida técnica", "código morto", "dependência sem uso", "manutenção do projeto" ou "revisão trimestral". Não repete a auditoria de vulnerabilidades (skill security), a refatoração em passos (skill coding), os gates de CI (skill quality), o diagnóstico (skill audit) nem os workflows do GitHub Actions (skill infra).
+description: 'Mantém o sistema atualizado depois do lançamento: calendário de fim de suporte, Renovate ou Dependabot, upgrade de framework e de banco, dívida técnica e rotina trimestral. Use quando pedirem "atualizar dependências", "fim de suporte", "upgrade do framework" ou "dívida técnica".'
 ---
 
 # maintenance

@@ -1,6 +1,6 @@
 ---
 name: invoicing
-description: Ajuda a emitir nota fiscal num SaaS ou sistema interno brasileiro sem implementar a SEFAZ e as prefeituras na mão — qual nota emitir (NFS-e, NF-e, NFC-e) e o que muda por regime tributário, emissor via API (Focus NFe, eNotas, NFE.io, PlugNotas) com preço conferido, NFS-e nacional e padrões municipais, cadastro fiscal (NCM, CFOP, CNAE, alíquotas), fluxo pagamento aprovado até envio de PDF e XML por webhook, cancelamento, carta de correção e contingência, guarda de XML e LGPD, e integração com ERP e contabilidade (Omie, Bling, Conta Azul). Use sempre que o usuário perguntar "emitir nota fiscal", "NFS-e", "NF-e", "NFC-e", "qual emissor de nota usar", "Focus NFe", "nota fiscal no SaaS", "certificado digital", "cancelar nota", "carta de correção", "guardar XML", "integrar com Omie, Bling ou Conta Azul" ou "reforma tributária na nota". Não decide o pagamento e os webhooks (skill integrations), dinheiro e auditoria no banco (skill data), a regra de negócio em si (skill product) nem a proteção do certificado (skill security).
+description: 'Emite nota fiscal (NFS-e, NF-e, NFC-e) por API sem implementar a SEFAZ: qual nota por regime, emissores com preço, certificado, guarda do XML, reforma tributária (IBS/CBS) e integração com ERP. Use quando pedirem "emitir nota fiscal", "NFS-e" ou "integrar com o Bling".'
 ---
 
 # invoicing

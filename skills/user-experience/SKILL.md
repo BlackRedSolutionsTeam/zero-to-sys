@@ -1,6 +1,6 @@
 ---
 name: user-experience
-description: Explica as diferenças de experiência do usuário entre celular, tablet e desktop e como adaptar cada tela a cada um (contexto de uso, pontos de quebra, navegação, toque x mouse x teclado, formulários, tabelas, modais e folhas, tipografia e densidade, desempenho, iOS x Android x web). Use sempre que for projetar ou revisar uma tela que roda em mais de um tamanho — "deixa responsivo", "como fica no celular", "adapta para tablet", "versão mobile", "isso está ruim no celular", "site responsivo ou app" — e antes de montar qualquer tela nova de um sistema que será usado em mais de um dispositivo.
+description: 'Adapta cada tela a celular, tablet e desktop: contexto de uso, pontos de quebra, navegação, toque e teclado, formulários, tabelas, modais e folhas, densidade e diferenças entre iOS, Android e web. Use quando pedirem "deixar responsivo", "versão mobile" ou "como fica no celular".'
 ---
 
 # user-experience

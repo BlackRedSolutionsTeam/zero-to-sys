@@ -1,6 +1,6 @@
 ---
 name: security
-description: Cuida da segurança no nível da aplicação — escolha do login, sessão e tokens, recuperação de senha e 2FA, papéis e permissões (autorização no servidor, isolamento entre empresas), OWASP no código, rate limit, upload seguro de arquivos, dependências vulneráveis e LGPD na prática. Use sempre que o sistema tiver login, perfis de acesso, upload ou dado pessoal, ou quando o usuário pedir "faz o login", "admin e usuário comum", "permissões", "deixa seguro", "revisa a segurança", "rate limit", "upload de arquivo", "LGPD", "2FA" ou "recuperar senha". Não cuida de WAF, rede, TLS nem segredos do ambiente (skill infra), das tabelas (skill data), nem do lado jurídico da LGPD (advogado).
+description: 'Cuida da segurança da aplicação: login, sessão e tokens, recuperação de senha e 2FA, permissões e isolamento entre empresas, OWASP, rate limit, upload, dependências vulneráveis e LGPD no código. Use quando pedirem "login", "permissões", "deixar seguro" ou "LGPD".'
 ---
 
 # security

@@ -1,6 +1,6 @@
 ---
 name: local-dev
-description: Deixa o projeto no estado "clonou, rodou" — Docker Compose para banco, cache, fila e e-mail local (Mailpit), devcontainer e quando usar, .env.example e segredos de desenvolvimento, seeds e dados de teste, scripts de uma linha (make, just ou npm scripts), hooks de pré-commit e formatação (Husky, Lefthook, pre-commit), README de onboarding com problemas comuns e paridade com produção (mesma versão de banco e runtime). Use sempre que o usuário pedir "ambiente local", "como rodar o projeto", "subir o banco local", "docker compose para desenvolvimento", "devcontainer", ".env.example", "onboarding de dev", "README para quem entra no time", "make ou just", "pré-commit", "na minha máquina funciona" ou "padronizar o ambiente". Não ensina Docker em produção, segredos de produção ou CI (skill infra), receitas de seed por ORM (skill data) nem escolha de lint e formatador (skill coding).
+description: 'Deixa o projeto no estado "clonou, rodou": Docker Compose, devcontainer, .env.example, seeds, scripts de uma linha, hooks de commit e onboarding. Use ao montar o repositório, quando alguém novo entra no time ou quando pedirem "ambiente local" ou "docker compose".'
 ---
 
 # local-dev

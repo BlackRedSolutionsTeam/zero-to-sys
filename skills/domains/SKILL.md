@@ -1,6 +1,6 @@
 ---
 name: domains
-description: Cuida do domínio do sistema do registro até a migração — escolher e registrar (Registro.br para .com.br, registrars para .com, .app, .dev), configurar o DNS (A, AAAA, CNAME, TXT, MX, CAA, TTL), organizar subdomínios por ambiente (app, api, staging, www x apex), publicar o e-mail do domínio (MX, SPF, DKIM, DMARC), manter o HTTPS (certificados e renovação), proteger a conta (auto-renovação, lock, 2FA, titularidade do cliente) e trocar de DNS sem queda. Use sempre que o usuário pedir "registrar domínio", "domínio .com.br", "apontar o domínio", "criar subdomínio", "configurar SPF/DKIM/DMARC", "e-mail caindo no spam", "renovar o domínio", "transferir o domínio" ou "trocar o DNS". Não configura a Cloudflare em si (skill cloudflare), o servidor (skills vps e nginx) nem o envio de e-mail transacional (skill integrations).
+description: 'Cuida do domínio do registro à migração: Registro.br e registrars, DNS, subdomínios por ambiente, e-mail com SPF, DKIM e DMARC, certificados, renovação e troca de DNS sem queda. Use quando pedirem "registrar domínio", "configurar DNS" ou "e-mail caindo no spam".'
 ---
 
 # domains

@@ -1,6 +1,6 @@
 ---
 name: coding
-description: Guia de boas práticas para escrever código bem organizado, simples e fácil de ler por qualquer senioridade, principalmente júnior (nomes, funções pequenas, módulos, simplicidade, erros, validação, sem comentários no código, testes, lint e formatação, refatoração, commits, PRs e revisão). Use sempre que for escrever código novo, mexer em código legado, quando uma função ou arquivo ficar grande, quando houver código repetido, ao revisar um PR, ou quando o usuário pedir para "deixar o código limpo", "simplificar", "refatorar", "organizar o código", "melhorar a legibilidade" ou "boas práticas".
+description: 'Boas práticas para código simples e legível por qualquer senioridade: nomes, funções pequenas, módulos, erros, validação, sem comentários, testes, lint, refatoração, commits e revisão. Use ao escrever ou alterar código, revisar PR ou quando pedirem "refatorar" ou "deixar limpo".'
 ---
 
 # coding

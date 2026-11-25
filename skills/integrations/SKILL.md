@@ -1,6 +1,6 @@
 ---
 name: integrations
-description: Integra o sistema com serviços externos e trabalho em segundo plano sem quebrar em produção — pagamentos (Stripe, Mercado Pago, Asaas, AbacatePay, Pix), e-mail transacional, WhatsApp e SMS, webhooks recebidos e enviados, filas e jobs, rotinas agendadas, armazenamento de arquivos, tempo real e notificações, importar e exportar planilhas. Use sempre que o sistema precisar cobrar, mandar e-mail ou mensagem, receber webhook, rodar algo em segundo plano ou todo dia, guardar arquivos, notificar o usuário ou importar planilha, ou quando o usuário pedir "integrar pagamento", "mandar e-mail", "WhatsApp", "webhook", "fila", "job", "rodar todo dia", "upload para S3", "notificação" ou "importar CSV". Não decide hospedagem do worker e segredos do ambiente (skill infra), formato das rotas (skill api) nem segurança de upload (skill security).
+description: 'Integra o sistema com serviços externos e trabalho em segundo plano: pagamentos e Pix, e-mail, WhatsApp e SMS, webhooks, filas e jobs, rotinas agendadas, arquivos, tempo real e planilhas. Use quando pedirem "integrar pagamento", "mandar e-mail", "webhook" ou "fila".'
 ---
 
 # integrations

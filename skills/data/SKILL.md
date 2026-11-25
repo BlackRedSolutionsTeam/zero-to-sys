@@ -1,6 +1,6 @@
 ---
 name: data
-description: Modela os dados e o banco da aplicação para não precisar refazer depois — entidades e relações, nomes e tipos certos (dinheiro, data com fuso), chaves e ids (identity, UUID v7), migrations sem travar tabela, seeds e dados de teste, multiempresa (cada cliente vê só os seus dados, com Row Level Security), auditoria, histórico e soft delete, índices e paginação, transações e concorrência, e dados pessoais com LGPD. Use sempre que for criar ou mudar tabelas, ou quando o usuário pedir "modela o banco", "cria as tabelas", "faz a migration", "cada empresa vê só os seus dados", "precisa de auditoria", "soft delete", "a consulta está lenta", "paginação", "dois usuários pegaram o mesmo horário" ou "LGPD no banco". Não escolhe o banco gerenciado nem o backup (skill infra), o ORM (skill stacks), o contrato da API (skill api) nem login e permissões (skill security).
+description: 'Modela os dados e o banco: entidades e relações, nomes e tipos, chaves e ids, migrations seguras, seeds, multiempresa com RLS, auditoria e soft delete, índices, paginação, transações e LGPD no banco. Use quando pedirem "modelar o banco", "criar tabelas" ou "migration".'
 ---
 
 # data

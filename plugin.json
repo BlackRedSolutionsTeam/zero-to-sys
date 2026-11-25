@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "zero-to-sys",
-  "version": "1.12.0",
-  "description": "Skills e um agente orquestrador para criar um sistema do zero até produção: produto, stack, dados, arquitetura, API, segurança, integrações, qualidade, auditoria, domínio, Cloudflare, VPS, nginx, IA, índice de código, código, UX, layouts, UI kit e infra, IA no produto, nota fiscal, busca, mensageria, desempenho, operação, manutenção, ambiente local, jurídico e destinos de publicação, publicação mobile e desktop e painel administrativo.",
+  "version": "1.13.0",
+  "description": "Skills e agentes em português para criar um sistema do zero até produção, com orquestrador paralelo e especialistas por área.",
   "author": {
     "name": "BlackRed Solutions",
     "url": "https://github.com/BlackRedSolutionsTeam"
@@ -13,35 +13,14 @@
   "keywords": [
     "skills",
     "agents",
+    "pt-br",
     "architecture",
     "stack",
-    "design-system",
-    "infra",
-    "product",
-    "data",
-    "api",
     "security",
-    "integrations",
-    "quality",
-    "audit",
-    "domains",
-    "cloudflare",
-    "vps",
-    "nginx",
-    "pt-br",
-    "ai-features",
-    "invoicing",
-    "search",
-    "messaging",
-    "performance",
-    "operations",
-    "maintenance",
-    "local-dev",
-    "legal",
-    "store-targets",
+    "infra",
+    "design-system",
     "mobile-release",
-    "desktop-release",
-    "admin-panel"
+    "desktop-release"
   ],
   "extensions": {
     "com.openai": {

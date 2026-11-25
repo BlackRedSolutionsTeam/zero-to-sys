@@ -1,6 +1,6 @@
 ---
 name: mobile-release
-description: Leva um app Expo, Flutter ou nativo até a App Store e a Play Store sem tropeçar nas regras de revisão — contas Apple Developer e Google Play (custo, D-U-N-S, teste de 12 testadores por 14 dias na conta pessoal), identificadores e assinatura (EAS Build, Fastlane), envio com EAS Submit, TestFlight e trilhas da Play, ficha da loja (capturas, classificação etária, privacidade), regras que mais reprovam (login social, compra no app, exclusão de conta), pagamento (IAP, link externo no Brasil, RevenueCat), EAS Update e versionamento, push (FCM e APNs) e pós-lançamento (crash, avaliações, versão mínima forçada). Use sempre que o usuário pedir "publicar na App Store", "publicar na Play Store", "subir o app nas lojas", "o app foi reprovado", "conta de desenvolvedor Apple", "TestFlight", "EAS Submit", "eas build", "atualização OTA", "push notification no app", "IAP", "RevenueCat" ou "versão mínima do app". Não escolhe a stack mobile (skill stacks), não define pastas do app (architecture) nem escreve a política de privacidade (legal).
+description: 'Leva um app Expo, Flutter ou nativo à App Store e à Play Store: contas, assinatura, EAS e TestFlight, ficha da loja, regras de revisão, pagamento e IAP, atualização OTA, push e pós-lançamento. Use quando pedirem "publicar na App Store", "Play Store", "o app foi reprovado" ou "TestFlight".'
 ---
 
 # mobile-release

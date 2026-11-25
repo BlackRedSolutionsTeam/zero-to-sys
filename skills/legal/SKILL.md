@@ -1,6 +1,6 @@
 ---
 name: legal
-description: Guia o lado jurídico de um produto digital no Brasil sem substituir advogado — que documentos um site ou SaaS precisa (política de privacidade, termos de uso, contrato de SaaS, política de cookies), política de privacidade ligada ao mapa de dados real, cláusulas que o sistema precisa suportar (cancelamento, arrependimento, reembolso, SLA), cookies e banner de consentimento conforme o guia da ANPD, aceite versionado (quem aceitou qual versão e quando), direitos do titular e canal do encarregado, contrato de operador com clientes B2B e lista de suboperadores, e quando procurar advogado. Use sempre que o usuário perguntar "preciso de política de privacidade", "termos de uso", "contrato do SaaS", "banner de cookies", "LGPD no meu site", "como registrar o aceite", "quem é o encarregado", "contrato de operador" ou "DPA". Não cobre o lado do banco e do código da LGPD (skills data e security), regras de cobrança (product) nem telas (design-systems).
+description: 'Guia o lado jurídico de um produto digital no Brasil sem substituir advogado: política de privacidade, termos de uso, contrato de SaaS, cookies, aceite versionado, direitos do titular e contrato de operador. Use quando pedirem "política de privacidade", "termos de uso" ou "banner de cookies".'
 ---
 
 # legal

@@ -1,6 +1,6 @@
 ---
 name: design-systems
-description: Catálogo de layouts e exemplos prontos por tipo de sistema (dashboard, painel admin/CRUD, login e configurações, landing page, e-commerce, CRM em kanban, caixa de entrada/chat, financeiro, agendamento, documentação, app mobile), cada um com anatomia do layout, tokens e um HTML de referência. Use sempre que for desenhar ou montar uma tela nova e precisar decidir a estrutura dela — "como deve ser o layout", "monta um dashboard bonito", "me dá um exemplo de tela de X", "qual o melhor layout para um sistema de Y", "deixa essa tela com cara de produto" — antes de escolher componentes.
+description: 'Catálogo de layouts por tipo de sistema (dashboard, admin/CRUD, login, landing, e-commerce, kanban, chat, financeiro, agendamento, docs, mobile) com anatomia, tokens e HTML de referência. Use antes de montar uma tela nova ou quando pedirem "como deve ser o layout".'
 ---
 
 # design-systems

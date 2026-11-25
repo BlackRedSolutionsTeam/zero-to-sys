@@ -1,6 +1,6 @@
 ---
 name: search
-description: Escolhe e monta a busca textual do sistema, do mais simples ao mais pesado — ILIKE, trigram e full-text do PostgreSQL (tsvector), Meilisearch e Typesense, Elasticsearch e OpenSearch — com sincronização do índice com o banco, relevância e português (acentos, sinônimos, plural), filtros, facetas e paginação, isolamento de resultados por empresa e operação (custo, backup, atualização). Use sempre que o usuário pedir "criar uma busca", "busca com autocomplete", "a busca está lenta", "buscar sem acento", "tolerar erro de digitação", "qual motor de busca usar", "Meilisearch ou Typesense", "preciso de Elasticsearch?", "filtros e facetas", "cada empresa busca só nos seus dados" ou "o índice ficou diferente do banco". Não modela tabelas e índices comuns (skill data), não cria a fila que indexa (skill integrations), não hospeda o serviço (skill infra) nem decide login e permissões (skill security).
+description: 'Escolhe e monta a busca textual, do Postgres (ILIKE, trigram, full-text) ao Meilisearch, Typesense e OpenSearch, com sincronização, relevância em português e isolamento por empresa. Use quando o produto precisa de busca com filtros ou quando pedirem "busca" ou "Meilisearch".'
 ---
 
 # search

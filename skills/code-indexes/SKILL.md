@@ -1,6 +1,6 @@
 ---
 name: code-indexes
-description: Escolhe a ferramenta de indexação de código ou de economia de tokens para o Claude Code entender uma base com menos leituras (CodeGraph, LSP nativo, Serena, Claude Context, codebase-memory-mcp, GitNexus, Repomix, ast-grep, Context7, RTK, ripgrep). Use quando o agente gasta muitas chamadas de grep e leitura, quando a base é grande ou desconhecida, antes de uma refatoração com impacto, para responder perguntas de arquitetura, ao pedir "indexar o código", "economizar tokens", "reduzir contexto", "qual MCP de código usar", "mapa do repositório" ou "entender esse projeto".
+description: 'Escolhe a ferramenta de indexação de código ou economia de tokens para o agente entender a base com menos leituras (CodeGraph, LSP, Serena, Repomix, ast-grep, Context7, ripgrep). Use em base grande ou desconhecida, ou quando pedirem "indexar o código" ou "economizar tokens".'
 ---
 
 # code-indexes
