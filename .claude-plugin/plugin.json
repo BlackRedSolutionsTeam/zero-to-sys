@@ -17,5 +17,6 @@
     "pt-br"
   ],
   "repository": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",
-  "homepage": "https://github.com/BlackRedSolutionsTeam/zero-to-sys"
+  "homepage": "https://github.com/BlackRedSolutionsTeam/zero-to-sys",
+  "icon": ".claude-plugin/icon.png"
 }
