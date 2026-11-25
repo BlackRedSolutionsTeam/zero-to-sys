@@ -2,9 +2,80 @@
 
 Conjunto de skills para o Claude Code que guiam a criação de um sistema do zero até a produção. Cada pasta é uma skill independente: um guia de decisão (`SKILL.md`) e um documento por ferramenta ou prática (`docs/`), explicando quando usar, para que tipo de projeto, quando é bom, quando é ruim e por quê.
 
+## Instalação
+
+O repositório é um plugin do Claude Code: as 10 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code instalado (CLI, extensão do VS Code ou JetBrains, ou app desktop).
+
+### 1. Instalar
+
+Dentro do Claude Code:
+
+```text
+/plugin marketplace add BlackRedSolutionsTeam/zero-to-sys
+/plugin install zero-to-sys@zero-to-sys
+```
+
+Ou pelo terminal:
+
+```bash
+claude plugin marketplace add BlackRedSolutionsTeam/zero-to-sys
+claude plugin install zero-to-sys@zero-to-sys
+```
+
+Depois, reinicie o Claude Code (na extensão do VS Code, recarregue a janela).
+
+Por padrão o plugin vale para todos os seus projetos. Para ligar só no projeto atual, e deixar a configuração no repositório para o time inteiro, use `claude plugin install zero-to-sys@zero-to-sys --scope project`.
+
+### 2. Conferir
+
+```bash
+claude plugin list
+```
+
+O `zero-to-sys@zero-to-sys` deve aparecer como `enabled`. Numa sessão nova, digite `/zero-to-sys:` e as skills aparecem na lista.
+
+### 3. Atualizar e remover
+
+```bash
+claude plugin marketplace update zero-to-sys
+claude plugin update zero-to-sys@zero-to-sys
+
+claude plugin uninstall zero-to-sys@zero-to-sys
+```
+
+### Nomes depois de instalar
+
+Instaladas como plugin, as skills e o agente ganham o prefixo `zero-to-sys:`:
+
+| Peça | Como chamar |
+|---|---|
+| Skill principal | `/zero-to-sys:zero-to-sys` |
+| Skills de área | `/zero-to-sys:stacks`, `/zero-to-sys:architecture`, `/zero-to-sys:coding`, `/zero-to-sys:infra`… |
+| Agente orquestrador | `@zero-to-sys:zero-to-sys`, ou "usa o agente zero-to-sys para…" |
+
+Não precisa chamar pelo nome: o Claude carrega cada skill sozinho quando o pedido bate com o tema dela.
+
+### Sem o sistema de plugins
+
+Quem prefere copiar só algumas peças pode linkar as pastas direto (aí os nomes ficam sem prefixo: `/stacks`, `@zero-to-sys`):
+
+```bash
+git clone https://github.com/BlackRedSolutionsTeam/zero-to-sys ~/zero-to-sys
+
+# Skills (todas ou só as que quiser)
+mkdir -p ~/.claude/skills
+for s in ~/zero-to-sys/skills/*/; do ln -s "$s" ~/.claude/skills/; done
+
+# Agente orquestrador
+mkdir -p ~/.claude/agents
+ln -s ~/zero-to-sys/agents/zero-to-sys.md ~/.claude/agents/
+```
+
+Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele.
+
 ## Skill principal
 
-A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal `zero-to-sys`. Ela descobre o contexto do projeto (tipo, interface, o que o time sabe, porte, restrições, novo ou existente) e dispara as outras skills na ordem certa, pulando as que não se aplicam. Chame com `/zero-to-sys` ou peça "cria um sistema do zero".
+A skill [zero-to-sys](skills/zero-to-sys/SKILL.md) é a principal. Ela descobre o contexto do projeto (tipo, interface, o que o time sabe, porte, restrições, novo ou existente) e dispara as outras skills na ordem certa, pulando as que não se aplicam. Chame com `/zero-to-sys:zero-to-sys` ou peça "cria um sistema do zero".
 
 ## Skills
 
@@ -31,41 +102,13 @@ A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa or
 5. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
 6. **[infra/](skills/infra/SKILL.md):** leve para produção.
 
-## Instalação
-
-O repositório é um plugin do Claude Code: as skills e o agente entram juntos, com um comando, e se atualizam pelo próprio Claude Code.
-
-```text
-/plugin marketplace add BlackRedSolutionsTeam/zero-to-sys
-/plugin install zero-to-sys@zero-to-sys
-```
-
-Depois de instalar, reinicie o Claude Code. As skills aparecem com o prefixo do plugin (`/zero-to-sys:stacks`, `/zero-to-sys:infra`…), e o agente aparece como `zero-to-sys`.
-
-### Sem o sistema de plugins
-
-Quem prefere copiar só algumas peças pode linkar as pastas direto:
-
-```bash
-git clone https://github.com/BlackRedSolutionsTeam/zero-to-sys ~/zero-to-sys
-
-# Skills (todas ou só as que quiser)
-for s in ~/zero-to-sys/skills/*/; do ln -s "$s" ~/.claude/skills/; done
-
-# Agente orquestrador
-mkdir -p ~/.claude/agents
-ln -s ~/zero-to-sys/agents/zero-to-sys.md ~/.claude/agents/
-```
-
-Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele.
-
 ## Agente orquestrador
 
-O [agents/zero-to-sys.md](agents/zero-to-sys.md) é um subagente que recebe qualquer tarefa delegada, decide quais skills ela precisa, em que ordem, e dispara cada uma passando o contexto adiante. Chame com "usa o agente zero-to-sys para…" ou `@zero-to-sys`. O Claude também delega a ele sozinho quando a tarefa toca mais de uma área.
+O [agents/zero-to-sys.md](agents/zero-to-sys.md) é um subagente que recebe qualquer tarefa delegada, decide quais skills ela precisa, em que ordem, e dispara cada uma passando o contexto adiante. Chame com "usa o agente zero-to-sys para…" ou `@zero-to-sys:zero-to-sys`. O Claude também delega a ele sozinho quando a tarefa toca mais de uma área.
 
 ## Como usar
 
-O Claude carrega cada skill sozinho quando o pedido bate com o tema dela. Também dá para chamar direto, por exemplo `/zero-to-sys`, `/stacks`, `/infra` ou `/architecture`. Exemplos:
+O Claude carrega cada skill sozinho quando o pedido bate com o tema dela. Também dá para chamar direto, por exemplo `/zero-to-sys:stacks`, `/zero-to-sys:infra` ou `/zero-to-sys:architecture`. Exemplos:
 
 - "Qual stack eu uso para um SaaS pequeno com painel admin?"
 - "Organiza as pastas deste projeto Next.js."
