@@ -63,6 +63,24 @@ Estas skills não têm fase fixa: chame cada uma quando a condição valer.
 | `desktop-release` | Quando há app desktop para publicar (loja ou download) |
 | `admin-panel` | Quando o sistema tem clientes, cobrança ou operação que a equipe precisa gerir sem mexer no banco; entra no backlog como item próprio |
 
+## Paralelismo e especialistas
+
+Quando a ferramenta de agentes estiver disponível (Claude Code como sessão principal, ou Codex), não rode as fases em série se as partes não dependem entre si:
+
+1. **Meça a máquina:** `sysctl -n hw.ncpu` (macOS) ou `nproc` (Linux). Até metade dos núcleos de agentes ao mesmo tempo, entre 2 e 10; no máximo 3 com menos de 8 GB livres. Quem roda build, testes ou containers conta como dois.
+2. **Monte as ondas:** liste as partes e as dependências; tudo o que já pode rodar sai junto, numa única mensagem com várias chamadas de agente.
+3. **Um especialista por área:** cada parte vai para o agente do grupo de skills dela (`agents/zero-to-sys-<area>.md`: arquiteto, seguranca, backend, frontend, qualidade, infra, publicacao), no modo planejar, julgar ou executar. No Codex, onde esses agentes não são instalados, crie um subagente e cole no pedido as instruções do arquivo do especialista.
+4. **Sem conflito:** dois agentes só executam juntos em arquivos diferentes; se não der, use worktree ou ponha em série.
+5. **Modelo e esforço por parte:**
+
+| Parte | Claude Code | Codex | Esforço |
+|---|---|---|---|
+| Decisão difícil (stack, banco, auth, LGPD, julgamento) | `opus` | `gpt-6.2-astra` | `high` |
+| Implementar | `sonnet` | `gpt-6.2-sol` | `medium` |
+| Mecânica | `haiku` | `gpt-6-luna` | `low` |
+
+Nomes do Codex mudam: confira com `codex debug models`. `max` (e `ultra` no Codex) só quando o usuário pedir. Detalhes no agente `agents/zero-to-sys.md`.
+
 ## Passo 0 — Descobrir o contexto
 
 Antes de disparar qualquer skill, levante estes pontos. Leia primeiro o que já existe na pasta (`package.json`, `*.csproj`, `pyproject.toml`, `go.mod`, `CLAUDE.md`, `AGENTS.md`, `.claude/`, `README`); pergunte ao usuário só o que não der para descobrir, tudo de uma vez.

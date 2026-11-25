@@ -4,7 +4,7 @@ Conjunto de skills para o Claude Code que guiam a criação de um sistema do zer
 
 ## Instalação
 
-O repositório é um plugin do Claude Code e do Codex: as 34 skills e o agente orquestrador entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code (CLI, extensão do VS Code ou JetBrains, ou app desktop) ou do Codex instalado. Instruções do Codex em [No Codex](#no-codex).
+O repositório é um plugin do Claude Code e do Codex: as 34 skills, o agente orquestrador e os 7 especialistas entram juntos e se atualizam pelo próprio Claude Code. Precisa do Claude Code (CLI, extensão do VS Code ou JetBrains, ou app desktop) ou do Codex instalado. Instruções do Codex em [No Codex](#no-codex).
 
 ### 1. Instalar
 
@@ -51,7 +51,8 @@ Instaladas como plugin, as skills e o agente ganham o prefixo `zero-to-sys:`:
 |---|---|
 | Skill principal | `/zero-to-sys:zero-to-sys` |
 | Skills de área | `/zero-to-sys:stacks`, `/zero-to-sys:architecture`, `/zero-to-sys:coding`, `/zero-to-sys:infra`… |
-| Agente orquestrador | `@zero-to-sys:zero-to-sys`, ou "usa o agente zero-to-sys para…" |
+| Agente orquestrador | `claude --agent zero-to-sys:zero-to-sys` (paralelo) ou `@zero-to-sys:zero-to-sys` |
+| Especialistas | `@zero-to-sys:zero-to-sys-arquiteto`, `@zero-to-sys:zero-to-sys-backend`… |
 
 Não precisa chamar pelo nome: o Claude carrega cada skill sozinho quando o pedido bate com o tema dela.
 
@@ -83,9 +84,9 @@ git clone https://github.com/BlackRedSolutionsTeam/zero-to-sys ~/zero-to-sys
 mkdir -p ~/.claude/skills
 for s in ~/zero-to-sys/skills/*/; do ln -s "$s" ~/.claude/skills/; done
 
-# Agente orquestrador
+# Agentes (orquestrador e especialistas)
 mkdir -p ~/.claude/agents
-ln -s ~/zero-to-sys/agents/zero-to-sys.md ~/.claude/agents/
+for a in ~/zero-to-sys/agents/*.md; do ln -s "$a" ~/.claude/agents/; done
 ```
 
 Para usar só em um projeto, crie os links em `.claude/skills/` e `.claude/agents/` dentro dele. No Codex sem plugin, linke as skills em `~/.agents/skills/` (ou `.agents/skills/` no projeto).
@@ -146,9 +147,29 @@ A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa or
 7. **[infra/](skills/infra/SKILL.md):** leve para produção.
 8. **Construção:** a skill principal pega o primeiro item do `BACKLOG.md` e leva até staging, depois o próximo; cada item fecha com testes de **[quality/](skills/quality/SKILL.md)** e a definição de pronto.
 
-## Agente orquestrador
+## Agentes
 
-O [agents/zero-to-sys.md](agents/zero-to-sys.md) é um subagente que recebe qualquer tarefa delegada, decide quais skills ela precisa, em que ordem, e dispara cada uma passando o contexto adiante. Chame com "usa o agente zero-to-sys para…" ou `@zero-to-sys:zero-to-sys`. O Claude também delega a ele sozinho quando a tarefa toca mais de uma área.
+O [agents/zero-to-sys.md](agents/zero-to-sys.md) é o orquestrador. Ele divide a tarefa, dispara em paralelo os especialistas (quantos a máquina aguentar), escolhe o modelo e o esforço de cada chamada, junta os resultados e verifica.
+
+| Agente | Especialista em | Skills |
+|---|---|---|
+| [zero-to-sys-arquiteto](agents/zero-to-sys-arquiteto.md) | Produto e sistema | product, stacks, architecture, data, api |
+| [zero-to-sys-seguranca](agents/zero-to-sys-seguranca.md) | Segurança e conformidade | security, legal, audit |
+| [zero-to-sys-backend](agents/zero-to-sys-backend.md) | Back-end e integrações | integrations, messaging, search, invoicing, ai-features, admin-panel, performance |
+| [zero-to-sys-frontend](agents/zero-to-sys-frontend.md) | Interface e experiência | user-experience, design-systems, design |
+| [zero-to-sys-qualidade](agents/zero-to-sys-qualidade.md) | Código, testes e ambiente | coding, quality, code-indexes, ia, local-dev, maintenance |
+| [zero-to-sys-infra](agents/zero-to-sys-infra.md) | Infraestrutura e operação | infra, vps, nginx, cloudflare, domains, operations |
+| [zero-to-sys-publicacao](agents/zero-to-sys-publicacao.md) | Publicação nas lojas | store-targets, mobile-release, desktop-release |
+
+Cada especialista planeja, julga (aprova, ajusta ou reprova um plano ou diff de outra área) ou executa. O orquestrador diz o modo em cada pedido.
+
+No Claude Code, um subagente não dispara outros agentes. Para o orquestrador rodar os especialistas em paralelo, abra a sessão com ele como agente principal:
+
+```bash
+claude --agent zero-to-sys:zero-to-sys
+```
+
+Chamado como subagente (`@zero-to-sys:zero-to-sys`), ele devolve o plano de ondas pronto para a sessão principal disparar. Os especialistas também podem ser chamados direto, por exemplo `@zero-to-sys:zero-to-sys-seguranca revisa o login`.
 
 ## Como usar
 
