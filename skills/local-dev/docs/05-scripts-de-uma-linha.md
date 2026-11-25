@@ -9,6 +9,7 @@
 | **Tipo** | Atalhos de tarefas do projeto |
 | **Vale para** | Qualquer projeto; escolha a ferramenta pela stack |
 | **Verificado em** | 2026-11-25 |
+| **Testado com** | `just` 1.59.0 (macOS arm64, binário oficial do GitHub), em pasta temporária: receita padrão, `set dotenv-load`, dependência entre receitas, `just up` dentro de receita, `[private]` e `set default-list` |
 
 ## O que é
 
@@ -78,6 +79,7 @@ npm scripts:
 ```just
 set dotenv-load
 
+[private]
 default:
     @just --list
 
@@ -125,7 +127,9 @@ clean:
 	docker compose down -v --remove-orphans
 ```
 
-No Makefile, a indentação precisa ser com tabulação. Instale o `just` pelo gerenciador de pacotes da sua máquina, seguindo a página de instalação do manual oficial. O `down -v` apaga os volumes, ou seja, o banco local inteiro; o `reset` serve para recomeçar do zero.
+No Makefile, a indentação precisa ser com tabulação. O `justfile` roda a primeira receita quando se digita só `just`; por isso `default` vem primeiro, e `[private]` a esconde da própria lista. Com `set dotenv-load`, o `just` lê o `.env` da pasta e deixa as variáveis disponíveis nas receitas (`$DB_URL`); o padrão é `false`. Uma alternativa é `set default-list`, que lista as receitas sem precisar de uma receita `default`.
+
+Instale o `just` pelo gerenciador de pacotes da página de pacotes do manual (just.systems/man/en/packages.html): `brew install just` no macOS, `winget install --id Casey.Just --exact` no Windows, `apt install just` no Debian 13 e Ubuntu 24.04, `dnf install just` no Fedora, `cargo install just` onde há Rust. O `down -v` apaga os volumes, ou seja, o banco local inteiro; o `reset` serve para recomeçar do zero.
 
 ## Combina com / alternativas
 

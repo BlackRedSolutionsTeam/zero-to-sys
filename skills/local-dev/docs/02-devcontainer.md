@@ -72,7 +72,7 @@ Um `devcontainer.json` descreve o contêiner em que você desenvolve: imagem, fe
   "service": "workspace",
   "workspaceFolder": "/workspaces/meu-app",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "24" }
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "forwardPorts": [3000, 8025],
   "postCreateCommand": "npm ci",
@@ -91,7 +91,9 @@ services:
     command: sleep infinity
 ```
 
-Para um projeto sem Compose, troque `dockerComposeFile` e `service` por `"image": "mcr.microsoft.com/devcontainers/javascript-node:24"`. Confira os nomes e tags das imagens e Features no catálogo oficial (containers.dev/features) antes de usar; eles mudam.
+Para um projeto sem Compose, troque `dockerComposeFile` e `service` por `"image": "mcr.microsoft.com/devcontainers/javascript-node:24"`. A imagem `javascript-node` já traz o Node e o usuário `node` (com `sudo`), por isso o exemplo usa a Feature `github-cli`, que instala o `gh` por cima. A Feature `ghcr.io/devcontainers/features/node` serve para quem parte de uma imagem sem Node (use `:2`: a tag `:1` ficou na série 1.7 e a atual é a 2.1.2); a opção `version` dela aceita `lts`, `latest`, `none` ou um número como `"24"` (o padrão é `lts`).
+
+Conferido em 2026-11-25 nas fontes oficiais, sem subir o contêiner (o daemon do Docker estava parado na máquina de teste): a tag `mcr.microsoft.com/devcontainers/javascript-node:24` existe no registro da MCR e a página da imagem lista as tags `24`, `24-trixie`, `24-bookworm`, `22` e `26`; a Feature `node` está na versão 2.1.2, com as tags de major `:1` e `:2` no registro `ghcr.io`, e a `github-cli` na 1.1.3, com `:1`. As tags mudam; confira o catálogo antes de usar.
 
 Dentro do contêiner, o banco é acessado pelo nome do serviço (`db:5432`), não por `localhost`. Ajuste a `DATABASE_URL` do contêiner.
 

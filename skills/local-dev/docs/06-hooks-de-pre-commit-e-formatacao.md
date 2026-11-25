@@ -15,7 +15,7 @@
 Git hook é um script que o Git executa em eventos como o `pre-commit`. As ferramentas abaixo instalam e compartilham os hooks do time (a pasta `.git/hooks` não é versionada):
 
 - **Husky:** hooks para projetos Node, instalados pelo script `prepare` do `package.json`. `npx husky init` cria a pasta `.husky/` e o `prepare`.
-- **Lefthook:** binário único, com configuração em `lefthook.yml`, sem depender de Node. A página oficial mostrava a versão 2.2.3 em 2026-11-25. Instala com `npm install lefthook --save-dev` e ativa com `lefthook install`.
+- **Lefthook:** binário único, com configuração em `lefthook.yml`, sem depender de Node. A última versão no GitHub em 2026-11-25 era a 2.2.3 (o pacote do npm estava na 2.2.2). Instala com `npm install lefthook --save-dev` e ativa com `npx lefthook install` (ou `lefthook install`, se o binário estiver no PATH).
 - **pre-commit:** framework em Python com `.pre-commit-config.yaml`; instala com `pip install pre-commit` e ativa com `pre-commit install`.
 
 Quais ferramentas de formatação e lint usar (Biome, ESLint, Prettier, Ruff, `dotnet format`) é assunto da skill `coding`, doc 09; aqui só ligamos isso ao commit.
@@ -108,7 +108,7 @@ repos:
         args: [--fix]
       - id: ruff-format
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.2
+    rev: v8.30.1
     hooks:
       - id: gitleaks
 ```
@@ -120,7 +120,20 @@ pre-commit autoupdate
 pre-commit run --all-files
 ```
 
-Os `rev` vêm dos exemplos dos repositórios oficiais em 2026-11-25 (`ruff-pre-commit` v0.17.6; `gitleaks` v8.24.2, que a página dele só dá como exemplo); rode `pre-commit autoupdate` para pegar as versões atuais. O Gitleaks é um detector de segredos; a documentação dele avisa que o projeto só recebe correções de segurança, então avalie a alternativa que o time preferir. No Lefthook, confira na documentação o parâmetro `{staged_files}` e a opção `stage_fixed` (que re-adiciona ao commit os arquivos corrigidos) antes de usá-los.
+Os `rev` eram as últimas versões publicadas em 2026-11-25 (`ruff-pre-commit` v0.17.6; `gitleaks` v8.30.1; o README do Gitleaks ainda exemplifica com v8.24.2); rode `pre-commit autoupdate` para pegar as versões atuais. O Gitleaks é um detector de segredos; o README dele diz que o projeto está completo e que as próximas versões serão só correções de segurança, então avalie a alternativa que o time preferir.
+
+No Lefthook, `{staged_files}` é substituído pelos arquivos staged (documentado na página `run` da configuração) e `stage_fixed: true` roda `git add` nesses arquivos depois do comando; se o `git add` falhar, o hook falha. Para barrar segredos sem o pre-commit, o Lefthook pode chamar o Gitleaks direto:
+
+```yaml
+pre-commit:
+  jobs:
+    - name: gitleaks
+      run: gitleaks git --pre-commit --staged --redact
+```
+
+O comando sai com código 1 quando acha um segredo, e o commit é barrado.
+
+Testado em 2026-11-25, em repositório temporário, no macOS arm64 com os binários oficiais do GitHub: Lefthook 2.2.3 (o hook `biome` trocado por um `sed` rodou só no arquivo staged e, com `stage_fixed: true`, o commit já saiu com o arquivo corrigido; `npx lefthook install` pelo pacote npm 2.2.2 também funcionou) e Gitleaks 8.30.1 (`gitleaks git --pre-commit --staged` achou um token de teste e saiu com código 1). Husky, `lint-staged`, pre-commit e Ruff não foram executados; os trechos deles seguem as páginas oficiais.
 
 Repita o mesmo comando na CI (skill `infra`, doc 07); o hook é conforto, a CI é a regra.
 
