@@ -17,7 +17,7 @@ A lista de skills de cada um está no próprio arquivo em `agents/`:
 | `zero-to-sys-arquiteto` | Produto, stack, pastas, banco, API, painel admin | Decisão difícil |
 | `zero-to-sys-seguranca` | Login, permissões, LGPD, documentos legais, auditoria | Decisão difícil |
 | `zero-to-sys-integracoes` | Integrações, filas, busca, nota fiscal, IA no produto | Implementar |
-| `zero-to-sys-frontend` | Telas, layout, responsivo, visual | Implementar |
+| `zero-to-sys-frontend` | Protótipo no Framia, telas, layout, responsivo, visual | Implementar |
 | `zero-to-sys-qualidade` | Código, testes, revisão, agente, ambiente local, dependências | Implementar |
 | `zero-to-sys-infra` | Deploy, servidor, DNS, operação, desempenho | Implementar |
 | `zero-to-sys-publicacao` | Destinos e regras das lojas | Implementar |

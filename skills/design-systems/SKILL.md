@@ -9,7 +9,7 @@ Catálogo de layouts por tipo de sistema. Cada tipo tem um documento em `docs/` 
 
 ## Como usar esta skill
 
-1. **Descubra o tipo de tela** que o pedido envolve e o que o projeto já tem: marca (cores, fonte, logotipo), telas prontas, UI kit instalado. O que já existe no projeto tem prioridade sobre o exemplo.
+1. **Descubra o tipo de tela** que o pedido envolve e o que o projeto já tem: marca (cores, fonte, logotipo), telas prontas, UI kit instalado. O que já existe no projeto tem prioridade sobre o exemplo; se o sistema foi prototipado no Framia (skill `framia`), as telas, os tokens e os componentes aprovados lá são a referência.
 2. **Escolha o layout pela tabela abaixo.** Um sistema costuma juntar vários: um SaaS tem landing (05), login e configurações (04), dashboard (02) e listas (03).
 3. **Leia o documento do tipo** em `docs/` e **abra o exemplo** em `examples/`. Confira "Anatomia do layout", "Componentes e padrões essenciais" e "Quando é ruim".
 4. **Leia [docs/01-fundamentos.md](docs/01-fundamentos.md)** se ainda não leu nesta tarefa: as regras de espaçamento, tipografia, cor e estados valem para todos os tipos.

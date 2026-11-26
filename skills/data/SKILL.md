@@ -9,7 +9,7 @@ Guia para transformar as regras de negócio em tabelas que aguentam o sistema cr
 
 ## Como usar esta skill
 
-1. **Parta do produto.** Leia as histórias, as regras de negócio e a máquina de estados da skill `product` (`BACKLOG.md`, `docs/regras-de-negocio.md`). Os substantivos viram entidades; os estados viram coluna de status.
+1. **Parta do produto.** Leia as histórias, as regras de negócio e a máquina de estados da skill `product` (`BACKLOG.md`, `docs/regras-de-negocio.md`). Os substantivos viram entidades; os estados viram coluna de status. Se o projeto foi prototipado no Framia (skill `framia`), o diagrama do banco aprovado lá é o ponto de partida.
 2. **Responda antes de desenhar:** o sistema é multiempresa? Guarda dado pessoal ou sensível? Precisa de histórico de quem mudou o quê? Essas três respostas mudam todas as tabelas.
 3. **Desenhe o modelo** com o [doc 01](docs/01-modelagem-de-entidades.md) e um diagrama em Mermaid, e mostre ao usuário antes de gerar migration.
 4. **Aplique nomes, tipos e chaves** pelos docs [02](docs/02-nomes-e-tipos.md) e [03](docs/03-chaves-e-ids.md).

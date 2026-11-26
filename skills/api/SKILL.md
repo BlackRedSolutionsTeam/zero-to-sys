@@ -10,7 +10,7 @@ Guia para que front e back conversem por um contrato único, previsível e verif
 ## Como usar esta skill
 
 1. **Descubra quem consome a API:** só o front do próprio sistema, um app mobile em loja, parceiros ou outros serviços. Isso decide o estilo e o quanto versionar ([doc 01](docs/01-rest-rpc-ou-graphql.md)).
-2. **Defina as rotas a partir das histórias** do `BACKLOG.md` (skill `product`): recursos no plural, ações fora do CRUD como `POST /appointments/{id}/cancel` ([doc 02](docs/02-rotas-verbos-e-status.md)).
+2. **Defina as rotas a partir das histórias** do `BACKLOG.md` (skill `product`): recursos no plural, ações fora do CRUD como `POST /appointments/{id}/cancel` ([doc 02](docs/02-rotas-verbos-e-status.md)). Se o projeto foi prototipado no Framia (skill `framia`), parta do OpenAPI alvo exportado de lá.
 3. **Fixe o formato de erro e o de lista** antes da primeira rota ([doc 03](docs/03-formato-de-erro.md) e [doc 04](docs/04-paginacao-e-filtros.md)). É o que mais custa mudar depois.
 4. **Proteja o que não pode repetir:** pagamento, agendamento e webhook ([doc 06](docs/06-idempotencia-e-retries.md)).
 5. **Gere o OpenAPI do código** e publique a documentação ([doc 07](docs/07-openapi-e-documentacao.md)).

@@ -104,14 +104,15 @@ Cada skill é uma pasta em [skills/](skills/) e tem um agente especialista dono 
 A ordem abaixo segue a vida de um projeto novo. A skill principal aplica essa ordem sozinha e ajusta por tipo de projeto:
 
 0. **[product/](skills/product/SKILL.md):** defina o que construir: MVP, regras de negócio e backlog.
-1. **[store-targets/](skills/store-targets/SKILL.md)** e **[stacks/](skills/stacks/SKILL.md):** diga onde o projeto vai ser publicado e escolha a stack que chega a esses destinos.
-2. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
-3. **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
-4. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
-5. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
-6. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
-7. **[infra/](skills/infra/SKILL.md):** leve para produção.
-8. **Construção:** a skill principal pega o primeiro item do `BACKLOG.md` e leva até staging, depois o próximo; cada item fecha com testes de **[quality/](skills/quality/SKILL.md)** e a definição de pronto.
+1. **[framia/](skills/framia/SKILL.md):** antes de qualquer código, prototipe o sistema no Framia pelo MCP (design system, telas clicáveis, fluxos, banco, API e requisitos) e aprove com o cliente.
+2. **[store-targets/](skills/store-targets/SKILL.md)** e **[stacks/](skills/stacks/SKILL.md):** diga onde o projeto vai ser publicado e escolha a stack que chega a esses destinos.
+3. **[architecture/](skills/architecture/SKILL.md):** monte a estrutura de pastas da stack escolhida.
+4. **[data/](skills/data/SKILL.md):** modele as tabelas a partir das regras de negócio.
+5. **[ia/](skills/ia/SKILL.md)** e **[code-indexes/](skills/code-indexes/SKILL.md):** prepare o agente (instruções do projeto, skills, índice de código).
+6. **[coding/](skills/coding/SKILL.md):** escreva o código seguindo as práticas.
+7. **[user-experience/](skills/user-experience/SKILL.md)**, **[design-systems/](skills/design-systems/SKILL.md)** e **[design/](skills/design/SKILL.md):** decida os dispositivos, escolha o layout de cada tela e monte a interface.
+8. **[infra/](skills/infra/SKILL.md):** leve para produção.
+9. **Construção:** a skill principal pega o primeiro item do `BACKLOG.md` e leva até staging, depois o próximo; cada item fecha com testes de **[quality/](skills/quality/SKILL.md)** e a definição de pronto.
 
 ## Agentes
 

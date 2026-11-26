@@ -33,7 +33,7 @@ Um item está pronto quando cumpre os critérios de aceite dele e a DoD.
 
 ## Quando usar
 
-- Em todo item do backlog, a cada ciclo da fase 9 da skill principal.
+- Em todo item do backlog, a cada ciclo da fase 10 da skill principal.
 - Ao revisar PR: o revisor percorre a lista.
 
 ## Para que tipo de projeto
@@ -53,7 +53,7 @@ Um item está pronto quando cumpre os critérios de aceite dele e a DoD.
 - **Verificável:** cada linha se responde com sim ou não, rodando algo.
 - **Curta:** cabe numa tela; o que a máquina checa (teste, lint) o CI barra (veja `07-quality-gates-no-ci.md`).
 - **Evolui:** quando um bug escapa, pergunte qual linha faltou na DoD e adicione.
-- **Igual à do plugin:** a DoD abaixo é a da fase 9 da skill principal, em versão detalhada.
+- **Igual à do plugin:** a DoD abaixo é a da fase 10 da skill principal, em versão detalhada.
 
 ## Quando é ruim
 

@@ -18,6 +18,7 @@ Guia para decidir **o que** construir antes de decidir **como**. A saída desta 
 7. **Ordene o backlog** em fatias verticais, com o primeiro item andando de ponta a ponta ([doc 06](docs/06-backlog-e-ordem-de-construcao.md)).
 8. **Registre no projeto** (`README`, `BACKLOG.md`, `docs/regras-de-negocio.md`) e aponte para eles no `CLAUDE.md` ([doc 07](docs/07-onde-registrar.md)).
 9. **Mostre o resultado ao usuário** em poucas linhas: o que entra no MVP, quantos itens tem o backlog e qual é o primeiro.
+10. **Passe para a skill `framia`:** com o escopo aprovado, o sistema é prototipado no Framia (telas, fluxos, banco, API e requisitos) antes da stack e de qualquer código.
 
 ## Quanto aprofundar
 

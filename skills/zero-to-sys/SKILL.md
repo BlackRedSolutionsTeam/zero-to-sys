@@ -24,7 +24,7 @@ Estas skills não têm fase fixa: chame cada uma quando a condição valer.
 | `maintenance` | Depois do lançamento, em rotina trimestral |
 | `local-dev` | Ao montar o repositório e quando alguém novo entra no time |
 | `legal` | Antes de abrir o produto ao público |
-| `store-targets` | Logo depois da `product` e antes da `stacks`, sempre que o projeto pode virar app; gera o `docs/STORES.md` |
+| `store-targets` | Depois da `product` e da `framia`, antes da `stacks`, sempre que o projeto pode virar app; gera o `docs/STORES.md` |
 | `mobile-release` | Quando há app mobile para publicar |
 | `desktop-release` | Quando há app desktop para publicar (loja ou download) |
 | `admin-panel` | Quando o sistema tem clientes, cobrança ou operação que a equipe precisa gerir sem mexer no banco; entra no backlog como item próprio |
@@ -84,35 +84,36 @@ Como perguntar:
 
 ## Ordem de disparo — projeto novo
 
-Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos. Pule a fase quando a condição de "Pule se" valer, e diga ao usuário que pulou e por quê. As fases 0 a 8 montam a base; a fase 9 constrói as funcionalidades, uma por vez.
+Siga as fases em ordem. Cada fase só começa com a saída da anterior em mãos. Pule a fase quando a condição de "Pule se" valer, e diga ao usuário que pulou e por quê. A fase 1 prototipa o sistema inteiro no Framia e nenhum código é escrito antes dela ser aprovada. As fases 2 a 9 montam a base; a fase 10 constrói as funcionalidades, uma por vez.
 
 | # | Skill | Entra com | Entrega | Pule se |
 |---|---|---|---|---|
 | 0 | `product` | Resumo aprovado do passo 0 | Escopo do MVP (dentro, fora, depois), fluxo principal, regras de negócio, histórias com critérios de aceite e `BACKLOG.md` em ordem de construção | Site de conteúdo simples: basta a lista de páginas |
-| 1 | `stacks` | Contexto, resumo aprovado, escopo da fase 0 e destinos do `docs/STORES.md` (`store-targets`) | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
-| 2 | `architecture` | Stack escolhida, porte | Árvore de pastas, padrão (feature-first, monólito modular, monorepo…), `ARCHITECTURE.md` | Nunca em projeto novo |
-| 3 | `data` | Regras de negócio e histórias da fase 0, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
-| 4 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto apontando para `BACKLOG.md` e regras, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
-| 5 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
-| 6 | `coding`, depois `security` e `quality` | Stack, árvore, `CLAUDE.md`, papéis do produto | Lint e format, padrão de erros, validação na borda, Conventional Commits (`coding`); login, sessão, papéis e permissões base, rate limit e auditoria de dependências (`security`, pule em site sem login); CI com os gates de testes (`quality`) | Nunca em `coding` e `quality` |
-| 7 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, fluxos da fase 0, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca (`design-systems`); UI kit e set de ícones para montá-las (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
-| 8 | `infra`, com `domains` e `cloudflare`; em servidor próprio, `vps` e `nginx` | Stack, porte, restrições, domínio | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base (`infra`); domínio, DNS e e-mail do domínio (`domains`); borda com SSL, cache e WAF (`cloudflare`); VPS preparada e nginx com HTTPS, quando não for PaaS (`vps`, `nginx`) | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 8 parcial) |
-| 9 | Construção (ciclo abaixo) | `BACKLOG.md` e tudo o que as fases 0 a 8 montaram | Cada item do backlog pronto, testado e em staging | Nunca: é aqui que o sistema existe |
+| 1 | `framia` | Escopo, fluxo principal, regras de negócio e `BACKLOG.md` da fase 0; marca do cliente | Projeto no Framia aprovado pelo cliente: design system (tokens, temas, componentes), telas com estados e protótipo clicável, fluxos, banco e enums, rotas da API com perfis, requisitos ligados às telas; link do projeto no `README` e OpenAPI alvo no repositório | CLI ou biblioteca, sem tela, banco nem API. Em API ou worker, faça só banco, rotas, fluxos e requisitos |
+| 2 | `stacks` | Contexto, resumo aprovado, escopo da fase 0, tamanho real do sistema no protótipo da fase 1 e destinos do `docs/STORES.md` (`store-targets`) | Stack completa: front, back, banco, ORM, auth, testes | A stack já foi decidida e está completa |
+| 3 | `architecture` | Stack escolhida, porte | Árvore de pastas, padrão (feature-first, monólito modular, monorepo…), `ARCHITECTURE.md` | Nunca em projeto novo |
+| 4 | `data` | Regras de negócio e histórias da fase 0, diagrama do banco da fase 1, stack e ORM | Modelo de dados com diagrama, decisão de multiempresa, primeira migration e seed, banco recriável com um comando | Projeto sem banco (site estático, CLI sem estado) |
+| 5 | `ia` | Stack, árvore, comandos | `CLAUDE.md`/`AGENTS.md` enxuto apontando para `BACKLOG.md` e regras, permissões, hooks básicos (format, typecheck no `Stop`) | Nunca: é o que faz as fases seguintes saírem certas |
+| 6 | `code-indexes` | Linguagem, tamanho esperado da base | Decisão de índice (ou "ripgrep basta") e a ligação no Claude Code | Base pequena e nova: anote para rever quando crescer |
+| 7 | `coding`, depois `security` e `quality` | Stack, árvore, `CLAUDE.md`, papéis do produto | Lint e format, padrão de erros, validação na borda, Conventional Commits (`coding`); login, sessão, papéis e permissões base, rate limit e auditoria de dependências (`security`, pule em site sem login); CI com os gates de testes (`quality`) | Nunca em `coding` e `quality` |
+| 8 | `user-experience`, `design-systems`, depois `design` | Tipo de projeto, fluxos da fase 0, telas, tokens e componentes aprovados na fase 1, stack de front, marca do cliente | Dispositivo principal e o que muda em cada tamanho (`user-experience`); layout de cada tela e tokens da marca, os mesmos do protótipo (`design-systems`); UI kit e set de ícones para montá-las, com os componentes do protótipo reescritos nele (`design`) | Projeto sem interface (API, CLI, worker, biblioteca) |
+| 9 | `infra`, com `domains` e `cloudflare`; em servidor próprio, `vps` e `nginx` | Stack, porte, restrições, domínio | Hospedagem, banco gerenciado, CI/CD, staging, segredos, observabilidade, backup, segurança base (`infra`); domínio, DNS e e-mail do domínio (`domains`); borda com SSL, cache e WAF (`cloudflare`); VPS preparada e nginx com HTTPS, quando não for PaaS (`vps`, `nginx`) | Só se o usuário disse que é local ou protótipo descartável; mesmo assim, entregue o CI (fase 9 parcial) |
+| 10 | Construção (ciclo abaixo) | `BACKLOG.md` e tudo o que as fases 0 a 9 montaram | Cada item do backlog pronto, testado e em staging | Nunca: é aqui que o sistema existe |
 
-Depois da fase 8, volte à `ia` uma vez: com o projeto rodando, veja os sinais de "Quando criar cada recurso" (skills, subagentes, hooks, MCP) e proponha o que fizer sentido.
+Depois da fase 9, volte à `ia` uma vez: com o projeto rodando, veja os sinais de "Quando criar cada recurso" (skills, subagentes, hooks, MCP) e proponha o que fizer sentido.
 
-### Fase 9 — ciclo por funcionalidade
+### Fase 10 — ciclo por funcionalidade
 
 Para cada item do `BACKLOG.md`, na ordem do backlog, rode os passos abaixo. Um item por vez: o próximo só começa quando o anterior fecha.
 
 | Passo | Skill | O que fazer | Pule se |
 |---|---|---|---|
-| 1. Critério | `product` | Releia a história e os critérios de aceite do item; se estiverem vagos, reescreva antes de codar | Nunca |
+| 1. Critério | `product` (e `framia`) | Releia a história e os critérios de aceite do item; se estiverem vagos, reescreva antes de codar. Leia o requisito do item no Framia (`get_requirement`): telas, estados e rotas desenhados | Nunca |
 | 2. Dados | `data` | Tabelas, colunas e constraints que o item pede; migration e seed; checklist de tabela nova | O item não muda o banco |
 | 3. Back | `api` (e `coding`; `security` para login e permissões; `integrations` se houver serviço externo) | Rota ou ação no padrão de rotas, erro e lista da API, validação na borda, regras de negócio; OpenAPI e cliente do front regenerados | O item é só de tela |
 | 4. Tela | `user-experience` → `design-systems` → `design` | Tela no layout escolhido, com os estados vazio, carregando, erro e sem permissão | O item não tem interface |
 | 5. Testes | `quality` (estilo do teste em `coding`) | Um teste por critério de aceite, na camada mais barata; o fluxo principal coberto de ponta a ponta quando o item fecha o fluxo | Nunca |
-| 6. Pronto | `quality` | Definição de pronto abaixo (detalhada em `quality`, doc 08); PR pequeno com o item | Nunca |
+| 6. Pronto | `quality` | Definição de pronto abaixo (detalhada em `quality`, doc 08); PR pequeno com o item; critérios testados marcados no Framia (`check_criteria`) | Nunca |
 | 7. Staging | `infra` | Deploy em staging e verificação do critério no ambiente | Projeto sem staging ainda: verifique local e anote |
 
 **Definição de pronto de um item** (detalhes em [quality/docs/08](../quality/docs/08-definition-of-done.md)):
@@ -129,13 +130,14 @@ Mostre o progresso a cada passo: "Item 3 de 9 (cadastro de pacientes). Passo: da
 ### Por que essa ordem
 
 - **Produto antes da stack:** o tamanho do escopo, as integrações e as regras decidem a stack, não o contrário.
+- **Protótipo antes da stack e do código:** no Framia, mudar uma tela, uma tabela ou uma rota custa minutos; depois do código, custa retrabalho. O cliente aprova o que vai receber, o design system fica decidido, e o tamanho real do sistema (telas, tabelas, rotas) ajuda a escolher a stack e a infra.
 - **Stack antes da estrutura:** pasta, lint, UI kit e hospedagem dependem dela.
 - **Dados logo depois da arquitetura:** o modelo sai das regras de negócio e é a parte mais cara de mudar depois; multiempresa, por exemplo, se decide no primeiro dia.
 - **Arquitetura antes da IA:** o `CLAUDE.md` cita comandos e convenções que só existem depois da árvore.
 - **IA e índice antes do código:** o agente escreve o resto do projeto; configurado cedo, erra menos e gasta menos.
 - **Coding antes do design:** lint, testes e padrão de erros valem também para os componentes de tela.
-- **Dispositivo antes de layout, layout antes de componente:** dentro da fase 7, `user-experience` define para quais dispositivos projetar; `design-systems`, a estrutura de cada tela; só depois `design` escolhe com o que montar.
-- **Infra antes de construir:** staging e CI prontos fazem cada item da fase 9 ser verificado no ambiente real, e não só no fim.
+- **Dispositivo antes de layout, layout antes de componente:** dentro da fase 8, `user-experience` define para quais dispositivos projetar; `design-systems`, a estrutura de cada tela; só depois `design` escolhe com o que montar.
+- **Infra antes de construir:** staging e CI prontos fazem cada item da fase 10 ser verificado no ambiente real, e não só no fim.
 - **No ciclo, dados antes do back e back antes da tela:** a tela consome a API, e a API depende das tabelas. Fazer na ordem evita tela com dado inventado que depois não encaixa.
 - **Fatia vertical, um item por vez:** cada item fecha de ponta a ponta antes do próximo; o sistema está sempre funcionando, só que menor.
 
@@ -143,11 +145,11 @@ Mostre o progresso a cada passo: "Item 3 de 9 (cadastro de pacientes). Passo: da
 
 | Projeto | Fases | Observação |
 |---|---|---|
-| Site de conteúdo, blog, landing | 0 → 1 → 2 → 4 → 6 → 7 → 8 → 9 | Fase 0 curta (lista de páginas); sem `data` e `code-indexes` |
-| MVP de SaaS | 0 → 1 → 2 → 3 → 4 → 6 → 7 → 8 → 9 → 5 | Índice só quando a base crescer |
-| SaaS em crescimento, sistema corporativo | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 | Todas; dados, arquitetura e infra com mais peso |
-| API, worker, CLI | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 8 → 9 | Sem a fase 7; no ciclo, sem o passo de tela |
-| Mobile, desktop | 0 → 1 → 2 → 3 → 4 → 6 → 7 → 8 → 9 | Infra cobre o backend e o CI de build |
+| Site de conteúdo, blog, landing | 0 → 1 → 2 → 3 → 5 → 7 → 8 → 9 → 10 | Fase 0 curta (lista de páginas); na fase 1, só design system e páginas; sem `data` e `code-indexes` |
+| MVP de SaaS | 0 → 1 → 2 → 3 → 4 → 5 → 7 → 8 → 9 → 10 → 6 | Índice só quando a base crescer |
+| SaaS em crescimento, sistema corporativo | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 | Todas; dados, arquitetura e infra com mais peso |
+| API, worker, CLI | 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 9 → 10 | Sem a fase 8; na fase 1, só banco, rotas, fluxos e requisitos (CLI pula a fase 1); no ciclo, sem o passo de tela |
+| Mobile, desktop | 0 → 1 → 2 → 3 → 4 → 5 → 7 → 8 → 9 → 10 | Infra cobre o backend e o CI de build |
 
 ## Projeto existente
 
@@ -160,18 +162,18 @@ Quando a pasta já tem código, a ordem inverte: primeiro entender, depois mudar
 5. `coding` e `quality`: lint, format e testes antes de refatorar.
 6. `security`, `integrations`, `user-experience`, `design-systems`, `design` e `infra`: só se o pedido cobre essas áreas ou se a `audit` apontou falha grave de segurança ou de backup.
 7. `stacks`: só se o usuário quer trocar ou acrescentar uma tecnologia. Não proponha trocar a stack por conta própria.
-8. Funcionalidade nova: siga o ciclo da fase 9 para ela.
+8. Funcionalidade nova: se ela traz tela, tabela ou rota nova, prototipe antes no `framia` (numa branch, quando o projeto já existe lá) e espere o ok; depois siga o ciclo da fase 10 para ela.
 
 ## Regras de uso
 
 - **Uma skill por vez, na ordem.** Leia o `SKILL.md` da skill da fase e siga o "Como usar" dela; não decida a área por conta própria nesta skill.
 - **Passe o contexto adiante.** Ao abrir cada fase, resuma em poucas linhas o que as anteriores decidiram (escopo, stack, árvore, modelo de dados, comandos). A skill seguinte depende disso.
-- **Confirme as decisões grandes.** Mostre e espere o ok antes de: fechar o escopo do MVP (fase 0), fixar a stack (fase 1), criar a árvore de pastas (fase 2), aplicar o modelo de dados (fase 3) e qualquer coisa que gere custo ou conta externa (fase 8). O resto segue direto.
+- **Confirme as decisões grandes.** Mostre e espere o ok antes de: fechar o escopo do MVP (fase 0), criar o projeto no Framia e dar o protótipo por aprovado (fase 1), fixar a stack (fase 2), criar a árvore de pastas (fase 3), aplicar o modelo de dados (fase 4) e qualquer coisa que gere custo ou conta externa (fase 9). O resto segue direto.
 - **O que o usuário fixou não se rediscute.** Se uma escolha fixa conflita com a recomendação de uma skill, diga o risco em uma frase e siga a escolha do usuário.
 - **Requisitos do cliente guiam cada fase.** Ao escolher entre duas opções numa fase, a que atende melhor ao escopo aprovado na fase 0 ganha da que é só mais popular.
 - **Registre as decisões no projeto.** O que o sistema faz e para quem vai no `README`; backlog e critérios no `BACKLOG.md`; regras em `docs/regras-de-negocio.md`; stack, padrão de arquitetura, modelo de dados e hospedagem no `ARCHITECTURE.md` (ou `README`); comandos e armadilhas no `CLAUDE.md`/`AGENTS.md`. Não crie documento de planejamento separado.
 - **Não pule a verificação.** Ao fim de cada fase e de cada item, rode o que der para rodar (instalar, build, lint, teste, abrir a página) antes de passar adiante.
-- **Mostre o progresso.** Diga em uma linha a fase em que está e as que faltam, por exemplo: "Fase 4 de 9 (ia). Faltam: coding, design, infra, construção". Na fase 9, diga o item e o passo.
+- **Mostre o progresso.** Diga em uma linha a fase em que está e as que faltam, por exemplo: "Fase 5 de 10 (ia). Faltam: coding, design, infra, construção". Na fase 10, diga o item e o passo.
 
 ## Quando a lista não cobre
 
@@ -179,4 +181,4 @@ Se o projeto pede uma área sem skill aqui (analytics, pagamentos, compliance es
 
 ## Validade dos dados
 
-Esta skill não traz preços, versões nem comandos: eles ficam nas skills de cada área, verificados em 2026-11-24. Confira a linha "Verificado em" de cada documento antes de afirmar algo decisivo.
+Esta skill não traz preços, versões nem comandos: eles ficam nas skills de cada área, verificados entre 2026-11-24 e 2026-11-26. Confira a linha "Verificado em" de cada documento antes de afirmar algo decisivo.
