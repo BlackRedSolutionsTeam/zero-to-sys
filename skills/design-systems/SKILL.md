@@ -54,6 +54,7 @@ As regras comuns a todos estão em [docs/01-fundamentos.md](docs/01-fundamentos.
 - [ ] Cores, tipografia, espaçamento e raio estão em tokens, sem valor solto no CSS (`grep -rnE '#[0-9a-fA-F]{3,6}' src`).
 - [ ] A tela usa os tokens da marca do projeto, não os do exemplo (`diff` entre os tokens do projeto e os do exemplo).
 - [ ] A tela tem os estados vazio, carregando e erro (`grep -rniE 'empty|loading|error' src`).
+- [ ] A passagem entre os estados e entre as telas tem transição, com duração e curva em tokens (`grep -rnE 'var\(--(dur|ease)' src`; clicar pelo fluxo).
 - [ ] Abaixo de 600 px a barra lateral, a tabela e as colunas viram o que o documento diz (abrir a 360 px).
 - [ ] O contraste atinge AA e o foco é visível (Lighthouse de acessibilidade ou `axe`).
 - [ ] Alvos de toque têm pelo menos 44 pt e a informação não depende só de cor (inspecionar a tela).
@@ -68,6 +69,7 @@ As regras comuns a todos estão em [docs/01-fundamentos.md](docs/01-fundamentos.
 - **Tokens antes de telas.** Defina cores, tipografia, espaçamento e raio em variáveis uma vez, e use só elas. Valor solto no meio do CSS é o que quebra a consistência.
 - **Um sistema, uma direção visual.** Os exemplos têm direções diferentes de propósito. Dentro de um mesmo produto, todas as telas usam os mesmos tokens, mesmo vindo de layouts diferentes.
 - **Toda tela tem estados.** Vazio, carregando e erro fazem parte do layout. Tela que só funciona com dados perfeitos não está pronta.
+- **Toda mudança é suave.** Movimento é token, como cor e espaço: duração e curva definidas uma vez e usadas em toda troca de tela e de estado. Os exemplos são HTML parado; a tela do projeto não pode ser ([user-experience, documento 16](../user-experience/docs/16-movimento-e-transicoes.md)).
 - **Celular não é opcional.** Cada documento diz o que a barra lateral, a tabela e as colunas viram em tela estreita. Confira abaixo de 600 px (breakpoint compact do Material 3, m3.material.io/foundations/layout/breakpoints/overview, 2026-11-24), por exemplo em 360 px.
 - **Acessibilidade é parte do visual.** Contraste AA (WCAG 1.4.3), foco visível (MDN `:focus-visible`), alvo de toque de 44 pt no iOS (Apple HIG, Accessibility, 2026-11-24; o piso do WCAG 2.5.8 é 24 px) e informação que não depende só de cor (Apple HIG, Accessibility).
 - **Não copie produto existente.** As referências reais dos documentos servem para estudar princípios. Não reproduza o visual, o nome nem o logotipo de nenhuma delas.

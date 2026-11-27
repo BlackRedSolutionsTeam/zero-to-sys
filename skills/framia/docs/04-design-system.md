@@ -25,7 +25,7 @@
 
 1. `get_design_system`: veja o que o projeto já tem (o design system inicial ou o do modelo).
 2. Levante a marca do cliente: cores, fonte, logotipo, raio, densidade. Sem marca, proponha uma e espere o ok.
-3. `set_design_tokens`: grave cores, espaçamento, raio e tipografia. Nomes pelo papel (`--color-primary`, `--color-danger`), não pela cor (`--azul`).
+3. `set_design_tokens`: grave cores, espaçamento, raio, tipografia e movimento (`--dur-fast`, `--dur`, `--dur-slow`, `--ease`, `--ease-exit`). Nomes pelo papel (`--color-primary`, `--color-danger`), não pela cor (`--azul`).
 4. `edit_theme` com `create` para o tema escuro ou de marca, e `set_design_tokens` com `theme` para os tokens que mudam nele.
 5. Fontes: `upload_file` sem `data` devolve um link para enviar o arquivo do disco; depois declare o `@font-face` na folha global. Fonte só carrega por `<link>` ou `@font-face` no HTML.
 6. `set_design_system`: escreva a folha global (`globalCss`) e as regras de uso (`notes`).

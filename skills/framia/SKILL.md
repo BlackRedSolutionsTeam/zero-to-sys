@@ -17,7 +17,7 @@ Esta skill é a **primeira execução depois do planejamento**. Com o escopo e o
 4. **Feche o design system antes da primeira tela:** tokens da marca, temas, fontes, componentes e as regras que os agentes seguem ([doc 04](docs/04-design-system.md)). Layout de cada tipo de tela vem da skill `design-systems`; dispositivos, da `user-experience`.
 5. **Desenhe o banco e os enums** a partir das regras de negócio ([doc 07](docs/07-banco-e-enums.md)), com os critérios da skill `data`.
 6. **Gere e ajuste as rotas da API** a partir das tabelas e crie os perfis de acesso ([doc 08](docs/08-api-e-perfis.md)), com os critérios da skill `api`.
-7. **Monte as telas do fluxo principal**, uma por vez, por seções, com os estados vazio, carregando, erro e sem permissão, e confira cada uma renderizada ([doc 05](docs/05-telas-e-prototipo.md)).
+7. **Monte as telas do fluxo principal**, uma por vez, por seções, com os estados vazio, carregando, erro e sem permissão e com transição suave ao abrir e ao trocar de estado, e confira cada uma renderizada ([doc 05](docs/05-telas-e-prototipo.md)).
 8. **Ligue as telas num protótipo clicável** e desenhe o fluxo de cada jornada ([doc 05](docs/05-telas-e-prototipo.md) e [doc 06](docs/06-fluxos.md)).
 9. **Registre os requisitos** do backlog como REQ-n, ligados às telas, rotas e fluxos, e vincule os campos das telas às colunas ([doc 09](docs/09-requisitos-e-vinculos.md)). Feche com `get_coverage`: nenhuma tela ou rota do MVP sem requisito.
 10. **Mostre ao cliente e colha o ok** (apresentação, link de 30 minutos ou vídeo do protótipo) e ajuste numa branch ([doc 10](docs/10-aprovacao-e-passagem-para-o-codigo.md)).
@@ -56,6 +56,7 @@ Esta skill é a **primeira execução depois do planejamento**. Com o escopo e o
 - [ ] Toda tela do fluxo principal existe em cada formato do projeto, sem casa vazia (`get_project`, campo `layout`).
 - [ ] Cada tela foi conferida renderizada, sem conteúdo saindo do frame (`render_layer`).
 - [ ] As telas têm os estados vazio, carregando, erro e sem permissão onde isso se aplica.
+- [ ] Os tokens de movimento existem e as telas os usam: nada abre, fecha ou troca de uma vez ao clicar pelo protótipo.
 - [ ] O protótipo abre na primeira tela e o fluxo principal se clica até o fim (`get_prototype`).
 - [ ] Cada jornada tem um fluxo com os caminhos de erro (`get_flow_page`).
 - [ ] Tabelas, relações e enums cobrem as regras de negócio; multiempresa decidida.

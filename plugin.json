@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "zero-to-sys",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Skills e agentes em português para criar um sistema do zero até produção, com orquestrador paralelo e especialistas por área.",
   "author": {
     "name": "BlackRed Solutions",

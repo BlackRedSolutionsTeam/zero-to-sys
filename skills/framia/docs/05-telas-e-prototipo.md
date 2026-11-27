@@ -31,6 +31,7 @@ No HTML:
 - Cor, espaço, raio e fonte por `var(--token)`; blocos repetidos pelos componentes da biblioteca ([doc 04](04-design-system.md)).
 - `data-name` ou `aria-label` nos elementos que serão ligados, vinculados ou editados depois.
 - Texto real do negócio, nas palavras do cliente, e dados plausíveis. Nada de "Lorem ipsum".
+- Movimento no CSS de toda tela, pelos tokens de duração e curva: entrada curta do conteúdo ao abrir o frame, transição em hover e pressionar, e abertura e fechamento animados do que o JS mostra e esconde (menu, diálogo, aba). Valores em [movimento e transições](../../user-experience/docs/16-movimento-e-transicoes.md). `copyStyleFrom` leva essas regras para as telas seguintes.
 - Imagem: `upload_file` sem `data` devolve o link para enviar do disco e o `path` para usar no HTML.
 
 ## Mudar uma tela
@@ -83,6 +84,7 @@ No HTML escrito pelo agente, `data-framia-link="<id do frame>"` é o mesmo link,
 - **Protótipo sem links:** o cliente vê telas soltas e não percebe o passo que falta.
 - **Pixel perfeito antes do fluxo:** primeiro o fluxo clicável inteiro, depois o acabamento.
 - **Não conferir renderizado:** conteúdo cortado só aparece para quem abre o editor.
+- **Protótipo seco:** telas que trocam e camadas que abrem sem transição. O cliente aprova o comportamento, e o código herda o que o protótipo mostra. Clique pelo fluxo (`render_layer` com `actions`, `record_prototype`) antes de mostrar.
 
 ## Combina com
 

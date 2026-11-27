@@ -14,7 +14,7 @@ Guia de decisão para estruturar pastas e arquivos de um projeto. Cada padrão e
 3. **Leia o documento escolhido** em `docs/` antes de criar pastas. Veja "Quando é ruim" e "Como começar".
 4. **Crie a árvore do documento** adaptando os nomes ao domínio do projeto. Comece pequeno: não crie pasta vazia "para o futuro".
 5. **Aplique as regras de uso** abaixo.
-6. **Registre a estrutura** em um ARCHITECTURE.md (ou AGENTS.md) na raiz, com a árvore e a regra de onde pôr cada coisa.
+6. **Registre a estrutura** em um ARCHITECTURE.md (ou AGENTS.md) na raiz, com a árvore e a regra de onde pôr cada coisa. Em projeto com tela, crie no mesmo passo o `docs/MOTION.md` (padrão de movimento e transições) e aponte para ele no ARCHITECTURE.md, pelo modelo da skill `user-experience` ([documento 16](../user-experience/docs/16-movimento-e-transicoes.md)).
 7. **Explique a escolha em uma ou duas frases.**
 
 ## Qual estrutura usar
@@ -55,6 +55,7 @@ Guia de decisão para estruturar pastas e arquivos de um projeto. Cada padrão e
 ## Checklist de toda estrutura de projeto
 
 - [ ] Existe ARCHITECTURE.md ou AGENTS.md na raiz com a árvore e a regra de onde pôr cada coisa (`ls ARCHITECTURE.md AGENTS.md`).
+- [ ] Em projeto com tela, existe o `docs/MOTION.md` e o ARCHITECTURE.md aponta para ele (`ls docs/MOTION.md; grep -n 'MOTION.md' ARCHITECTURE.md README.md`).
 - [ ] A estrutura segue a convenção do framework onde ele define pasta ou arquivo (conferir com o documento da stack em `docs/`).
 - [ ] Pastas de primeiro nível têm nome de domínio (`orders/`, `billing/`), não de tipo (`ls src`; nada de `services/` ou `helpers/` com tudo dentro).
 - [ ] Nenhuma pasta vazia criada para o futuro (`find . -type d -empty -not -path './node_modules/*' -not -path './.git/*'`).

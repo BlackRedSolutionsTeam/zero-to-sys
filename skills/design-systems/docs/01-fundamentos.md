@@ -98,6 +98,12 @@ No iOS, o tamanho padrão de um controle é 44x44 pt e o mínimo, 28x28 pt (Appl
 - **Foco**: nos exemplos 02 e 03, anel de 2 px na cor de marca com 2 px de afastamento (o 04 usa 3 px), aplicado com `:focus-visible`, que só aparece quando o navegador julga que o foco deve ficar evidente (MDN :focus-visible). O WCAG 2.4.13 (AAA) pede um indicador com área de pelo menos um perímetro de 2 px e contraste de 3:1 entre foco e sem foco (w3.org/WAI/WCAG22/Understanding/focus-appearance, 2026-11-24).
 - Os exemplos tratam também: desativado, selecionado e sucesso (confirmação curta).
 
+### Movimento
+
+- Toda troca de tela e de estado (abrir, fechar, carregar, selecionar, entrar e sair de lista) tem transição curta. Vale para todos os tipos de layout deste catálogo, do dashboard ao app mobile.
+- Duração e curva são tokens (`--dur-fast`, `--dur`, `--dur-slow`, `--ease`, `--ease-exit`), usados por todas as telas.
+- O que animar, durações, curvas, código e movimento reduzido: [user-experience, documento 16](../../user-experience/docs/16-movimento-e-transicoes.md).
+
 ### Responsividade
 
 Breakpoints do Material 3 (m3.material.io/foundations/layout/breakpoints/overview, 2026-11-24):
@@ -148,7 +154,8 @@ Os exemplos usam seus próprios pontos de quebra: 02 em 1100, 860 e 520 px; 03 e
   --shadow:0 1px 2px rgba(21,27,38,.06);
   --shadow-pop:0 8px 24px rgba(21,27,38,.14);
   /* Movimento */
-  --dur:150ms; --ease:cubic-bezier(.2,0,0,1);
+  --dur-fast:120ms; --dur:200ms; --dur-slow:280ms;
+  --ease:cubic-bezier(.2,0,0,1); --ease-exit:cubic-bezier(.4,0,1,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ /* mesmos nomes, valores escuros */ }}
 [data-theme="dark"]{ /* repita os valores escuros aqui */ }
@@ -161,6 +168,7 @@ Os exemplos usam seus próprios pontos de quebra: 02 em 1100, 860 e 520 px; 03 e
 - Cor de marca em tudo: botões, títulos, ícones e fundos ao mesmo tempo.
 - Tela vazia sem orientação; erro genérico; carregamento sem indicação.
 - Sem foco visível (`outline:none` sem substituto) e sem hover.
+- Tela, modal e menu que aparecem e somem de uma vez, sem transição.
 - Números sem alinhamento à direita nem `tabular-nums`.
 - Status só com cor (Apple HIG, Accessibility).
 - Tabela que estoura a tela no celular.

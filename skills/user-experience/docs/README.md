@@ -28,6 +28,7 @@ Um documento por tema, cada um com a tabela comparativa de celular, tablet e des
 | [10-modais-folhas-e-paineis.md](10-modais-folhas-e-paineis.md) | Modal, folha inferior, drawer, popover, tooltip, toast |
 | [11-tipografia-e-densidade.md](11-tipografia-e-densidade.md) | Fonte base, comprimento de linha, densidade confortável e compacta |
 | [12-desempenho-e-rede.md](12-desempenho-e-rede.md) | Core Web Vitals, imagens, offline, movimento reduzido |
+| [16-movimento-e-transicoes.md](16-movimento-e-transicoes.md) | Troca de tela, camadas, entrada de conteúdo e resposta ao toque com transição suave; durações, curvas, tokens e código por stack |
 
 ## Por plataforma
 
@@ -45,6 +46,7 @@ Um documento por tema, cada um com a tabela comparativa de celular, tablet e des
 - **A tela tem formulário:** [formulários](08-formularios.md).
 - **Algo abre por cima da tela:** [modais, folhas e painéis](10-modais-folhas-e-paineis.md).
 - **"No celular está ruim de clicar":** [toque, mouse e teclado](07-toque-mouse-teclado.md).
+- **"A tela está seca", "troca de tela sem animação", ou qualquer tela nova:** [movimento e transições](16-movimento-e-transicoes.md).
 - **"No celular está lento":** [desempenho e rede](12-desempenho-e-rede.md).
 - **"Acessível para todos?":** [Acessibilidade](14-acessibilidade.md).
 - **"Vai ter outro idioma?":** [Internacionalização](15-internacionalizacao.md).

@@ -64,7 +64,7 @@ No celular três fatores pesam mais: processador (parsing de JavaScript custa), 
 - Offline: service worker com cache do shell do app; fila local para envios (IndexedDB) e reenvio ao voltar a conexão. Background Sync é só Chromium: o caniuse mostra Chrome sim, Firefox e Safari (inclusive iOS) não (caniuse.com/background-sync, 2026-11-24); tenha reenvio manual.
 - `prefers-reduced-data`: o MDN o marca como experimental e há contradição na própria página (rótulo "disponibilidade limitada" e frase "não é suportado por nenhum navegador"). O dado de compatibilidade do MDN (BCD) mostra Chrome 85 só com flag experimental, sem Firefox nem Safari. Trate como não suportado; use `navigator.connection.saveData` (só Chromium: o MDN/BCD lista Chrome 65+, sem Firefox nem Safari) ou o cabeçalho `Save-Data` como complemento.
 - `prefers-reduced-motion: reduce`: remova movimento grande, parallax e autoplay (WCAG 2.3.3, AAA; a 2.2.2 exige pausar movimento automático por mais de 5 s).
-- Animações em `transform` e `opacity`; durações curtas para transições de interface (mantenha curtas e respeite `prefers-reduced-motion`; WCAG 2.3.3).
+- Animações em `transform` e `opacity`; durações curtas para transições de interface (mantenha curtas e respeite `prefers-reduced-motion`; WCAG 2.3.3). O que animar, com que duração e curva: [doc 16](16-movimento-e-transicoes.md).
 - Teste: DevTools do Chrome, aba Performance com limitação de CPU (4x ou 6x) e aba Network com "Slow 4G"; Lighthouse em modo móvel; e um aparelho real barato. Lab não substitui dados de campo (CrUX, `web-vitals`).
 
 ## Erros comuns

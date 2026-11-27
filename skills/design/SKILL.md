@@ -42,7 +42,8 @@ Guia de decisão para montar interfaces web com visual profissional, usando só 
 - [ ] Ícones são importados pelo nome, não o pacote inteiro (`grep -rn 'import \* as' src`).
 - [ ] A stack tem React e Tailwind quando o kit pede; sem React, o kit é o HyperUI (`grep -E 'react|tailwind' package.json`).
 - [ ] shadcn/ui é a base em React e Magic UI ou Aceternity UI só entram por cima (`ls components.json`).
-- [ ] Animação do Magic UI e do Aceternity UI só está em páginas de marketing ou portfólio, não em dashboard nem painel admin (`grep -rln 'magicui\|aceternity' src`).
+- [ ] Efeito decorativo do Magic UI e do Aceternity UI só está em páginas de marketing ou portfólio, não em dashboard nem painel admin (`grep -rln 'magicui\|aceternity' src`).
+- [ ] As transições de entrada e saída que os componentes do kit trazem (diálogo, menu, folha, acordeão, toast) continuam ligadas, e o que o projeto monta por fora também transiciona (abrir e fechar cada um).
 - [ ] No máximo dois efeitos do Aceternity UI por página (`grep -rc 'aceternity' src`).
 - [ ] `prefers-reduced-motion` é respeitado nos componentes animados (`grep -rn 'prefers-reduced-motion' src`).
 - [ ] Cores, fontes, raios e espaçamentos dos componentes copiados foram trocados pelos tokens da marca (`grep -rnE '#[0-9a-fA-F]{3,6}' components`).
@@ -53,7 +54,8 @@ Guia de decisão para montar interfaces web com visual profissional, usando só 
 - **Um set de ícones por projeto.** Misturar Lucide, Phosphor e Tabler deixa traços e proporções inconsistentes. Se o projeto usa shadcn/ui, o padrão é Lucide; só troque o set inteiro, nunca ícone a ícone.
 - **Sempre importe ícones pelo nome** (`import { Camera } from "lucide-react"`), nunca o pacote inteiro, para não inflar o bundle.
 - **shadcn/ui é a base em React.** Magic UI e Aceternity UI entram por cima dela, pela mesma CLI. Não use os dois como substituto de formulários, tabelas, diálogos e navegação.
-- **Animação só onde vende.** Magic UI e Aceternity UI são para páginas de marketing e portfólio. Não use em dashboard, painel admin ou sistema interno: atrapalham a leitura e pesam.
+- **Efeito decorativo só onde vende.** Magic UI e Aceternity UI são para páginas de marketing e portfólio. Não use em dashboard, painel admin ou sistema interno: atrapalham a leitura e pesam.
+- **Exceção: movimento funcional vale em toda tela.** A regra acima corta enfeite (fundo animado, spotlight, texto que revela), não transição. Troca de tela, diálogo, menu, folha, aba, toast, hover e conteúdo que carrega entram e saem suaves em qualquer sistema, inclusive dashboard e painel admin. Mantenha as animações que o shadcn/ui já traz e siga [user-experience, documento 16](../user-experience/docs/16-movimento-e-transicoes.md).
 - **Efeito de destaque com moderação.** No máximo um ou dois efeitos do Aceternity UI por página, de preferência no hero. Mais que isso deixa o site com cara de template e piora a performance.
 - **Respeite `prefers-reduced-motion`** e teste o desempenho em celular sempre que adicionar componentes animados.
 - **Adapte, não só cole.** Troque cores, fontes, raios e espaçamentos para os tokens da marca do projeto. Componente colado sem ajuste é o que faz o site parecer genérico.

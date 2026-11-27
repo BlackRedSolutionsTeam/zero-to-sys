@@ -70,6 +70,7 @@ DoD do plugin (MVP e corporativo usam as mesmas linhas base; o porte muda o que 
 - [ ] Testes, lint, typecheck e build verdes.
 - [ ] Migration revisada e banco recriado do zero sem erro, se o item mexe no banco.
 - [ ] Tela conferida no dispositivo principal e no secundário, com estados vazio, carregando e erro.
+- [ ] Fluxo clicado de ponta a ponta: troca de tela, camadas e estados com transição suave, e `prefers-reduced-motion` respeitado, conforme o `docs/MOTION.md` do projeto (skill `user-experience`, doc 16).
 - [ ] Acessibilidade básica: foco visível, navegação por teclado, rótulo nos campos, contraste.
 - [ ] Nenhum segredo no código ou no histórico do Git.
 - [ ] `BACKLOG.md` atualizado no mesmo PR.

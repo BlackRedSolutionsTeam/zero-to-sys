@@ -37,6 +37,8 @@ Sem modo no pedido: especialista planeja, executor executa.
 
 O agente não vê a conversa. Todo pedido leva: o modo, o resumo do que já foi decidido (stack, árvore, tabelas, destinos, telas), os arquivos que ele pode tocar, as skills a carregar (para o executor) e o que devolver.
 
+Pedido com tela (planejar, julgar ou executar) sempre leva a skill `user-experience` e a frase: "toda troca de tela, de estado e todo gesto tem transição suave, pelo documento 16 da `user-experience`". Depois que o executor entrega uma tela, o `zero-to-sys-frontend` julga o movimento antes de o item fechar; tela seca é reprovada e volta ao executor.
+
 ## Regras
 
 - **Território.** Especialista não decide por outra área: diz qual e devolve a pergunta. O executor não muda o plano; se o plano não fecha, para e devolve o motivo.
@@ -48,6 +50,6 @@ O agente não vê a conversa. Todo pedido leva: o modo, o resumo do que já foi 
 ## O que devolver
 
 1. **Resultado:** plano, veredito ou o que foi feito.
-2. **Arquivos** criados ou mudados e a verificação que rodou, com o resultado real.
+2. **Arquivos** criados ou mudados e a verificação que rodou, com o resultado real. Em tela: a lista das transições e dos gestos implementados e os tokens de movimento usados.
 3. **Dependências:** o que outra área precisa decidir ou fazer antes ou depois.
 4. **Perguntas** para o usuário, se houver.

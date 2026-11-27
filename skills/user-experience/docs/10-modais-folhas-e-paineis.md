@@ -66,7 +66,7 @@ O mesmo conteúdo precisa de forma diferente em cada aparelho. Um modal de 480 p
 - Confirmação destrutiva: o botão diz o verbo ("Excluir pedido"), não "OK"; use `autofocus` no botão seguro (Cancelar); o MDN recomenda `autofocus` no botão de fechar do `<dialog>`. Ofereça "Desfazer" quando possível (Material 3, snackbar: "Undo" para o usuário corrigir a escolha).
 - Toast: avisos de status devem ser anunciados por leitor de tela sem mover o foco (`role="status"`, WCAG 4.1.3). Tempo de exibição: o Material 3 (m3.material.io/components/snackbar/guidelines, conferido em 2026-11-24) diz que snackbar sem ação pode sumir sozinho após 4 a 10 segundos, conforme a plataforma, e que snackbar com ação fica até o usuário agir ou fechar. Na web, o Material pede também aviso inline junto da ação, ou uma ação no snackbar, para quem precisa de mais tempo. Só um snackbar por vez. O WCAG 4.1.3 e o `role="status"` não definem tempo. A HIG da Apple (Accessibility) pede minimizar elementos que somem por tempo e preferir dispensar por ação explícita. Não esconda erros que exigem ação.
 - Tooltip no toque: coloque o texto no rótulo, num ícone de ajuda que abre popover ao toque, ou use `aria-label` além do visual. Conteúdo em hover deve ser dispensável, persistente e alcançável por foco (WCAG 1.4.13).
-- Respeite `prefers-reduced-motion` na animação de entrada (veja o doc 12).
+- Toda camada entra e sai com transição, na direção de onde veio; com `prefers-reduced-motion`, só opacidade ([doc 16](16-movimento-e-transicoes.md)).
 
 ## Erros comuns
 

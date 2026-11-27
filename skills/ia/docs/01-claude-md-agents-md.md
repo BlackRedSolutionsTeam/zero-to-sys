@@ -86,6 +86,7 @@ Exemplo enxuto, no formato que a documentação oficial recomenda:
 # Convenções
 - Erros: use os helpers de src/lib/errors.ts, nunca lance string
 - src/legacy/ está em uso, mas não copie o padrão dele
+- Interface: toda troca de tela, de estado e todo gesto tem transição curta; nada aparece ou some de uma vez. Siga docs/MOTION.md
 
 # Armadilhas
 - Teste de integração precisa de DATABASE_URL (veja .env.example)
